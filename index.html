@@ -210,6 +210,12 @@
         Competencia
         <span class="ml-auto text-xs px-1.5 py-0.5 bg-orange-500/20 text-orange-400 rounded font-medium">Ads</span>
       </button>
+      <button onclick="showSection('campanas')" data-section="campanas"
+        class="nav-item w-full flex items-center gap-3 px-3 py-2.5 rounded text-sm text-slate-400 hover:bg-slate-800 hover:text-white transition-all">
+        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Campañas IA
+        <span class="ml-auto text-xs px-1.5 py-0.5 bg-purple-500/20 text-purple-400 rounded font-medium">IA</span>
+      </button>
 
       <div class="pt-4 pb-1">
         <div class="text-slate-600 text-xs uppercase tracking-wider px-3 font-medium">Canales</div>
@@ -614,42 +620,25 @@
           <div class="flex items-center justify-between mb-5">
             <div>
               <p class="text-xs text-slate-400 uppercase tracking-widest font-semibold">Análisis de contenido histórico</p>
-              <p class="text-xs text-slate-400 mt-0.5">Datos reales desde Instagram · Publicaciones con mejores resultados, patrones y mejoras</p>
+              <p class="text-xs text-slate-400 mt-0.5">Datos reales desde Instagram · Mejores publicaciones, patrones y recomendaciones</p>
             </div>
             <button onclick="analyzeInstagramContent()" id="btn-analyze-content" class="px-3 py-1.5 bg-orange-500 text-white text-xs font-medium rounded-lg hover:bg-orange-600 flex items-center gap-1.5">
               <span id="ico-analyze">📊</span> Analizar
             </button>
           </div>
-
           <!-- Client tabs -->
           <div class="flex gap-1.5 mb-5 flex-wrap">
-            <button onclick="setContentClient('tarquinia')" id="cnt-tab-tarquinia"
-              class="cnt-client-tab px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-orange-300 transition-all">
-              Galería Tarquinia
-            </button>
-            <button onclick="setContentClient('eudora')" id="cnt-tab-eudora"
-              class="cnt-client-tab px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-blue-300 transition-all">
-              Eudora
-            </button>
-            <button onclick="setContentClient('nac')" id="cnt-tab-nac"
-              class="cnt-client-tab px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-emerald-300 transition-all">
-              Galería NAC
-            </button>
-            <button onclick="setContentClient('zoron')" id="cnt-tab-zoron"
-              class="cnt-client-tab px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-purple-300 transition-all">
-              Zorón
-            </button>
+            <button onclick="setContentClient('tarquinia')" id="cnt-tab-tarquinia" class="cnt-client-tab px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-orange-300 transition-all">Galería Tarquinia</button>
+            <button onclick="setContentClient('eudora')" id="cnt-tab-eudora" class="cnt-client-tab px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-blue-300 transition-all">Eudora</button>
+            <button onclick="setContentClient('nac')" id="cnt-tab-nac" class="cnt-client-tab px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-emerald-300 transition-all">Galería NAC</button>
+            <button onclick="setContentClient('zoron')" id="cnt-tab-zoron" class="cnt-client-tab px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-purple-300 transition-all">Zorón</button>
           </div>
-
-          <!-- Status / loading -->
           <div id="content-status" class="text-xs text-slate-400 mb-5">Selecciona un cliente y presiona "Analizar" para obtener datos reales de Instagram.</div>
-
-          <!-- Top posts grid -->
+          <!-- Top posts -->
           <div id="content-top-posts-wrap" style="display:none" class="mb-8">
             <h3 class="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-4">🏆 Mejores publicaciones</h3>
             <div id="content-top-posts" class="grid grid-cols-3 gap-4"></div>
           </div>
-
           <!-- Post type performance -->
           <div class="mb-8">
             <h3 class="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-4">Rendimiento por tipo de publicación</h3>
@@ -657,7 +646,6 @@
               <div class="bg-white rounded-xl border border-slate-100 p-4 text-center text-xs text-slate-300 col-span-4 py-8">Presiona "Analizar" para ver datos reales</div>
             </div>
           </div>
-
           <!-- Lo que funciona / Lo que evitar -->
           <div class="grid grid-cols-2 gap-6 mb-8">
             <div class="bg-white rounded-xl border border-slate-200 p-5">
@@ -1937,6 +1925,27 @@
               <div id="cfg-status" class="mt-3 text-xs hidden"></div>
             </div>
 
+
+            <!-- Anthropic API Key -->
+            <div class="bg-white rounded-xl border border-slate-200 p-6">
+              <div class="flex items-center gap-2 mb-1">
+                <h3 class="font-semibold text-slate-800">Anthropic — Agente IA de Campañas</h3>
+                <span class="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-medium">✦ IA</span>
+              </div>
+              <p class="text-xs text-slate-500 mb-4">Necesaria para activar el agente experto en Meta, Google, LinkedIn y TikTok Ads. Tu clave nunca se envía a terceros, solo se usa desde este navegador.</p>
+              <div class="mb-3">
+                <label class="text-xs font-medium text-slate-600 block mb-1">API Key de Anthropic</label>
+                <div class="relative">
+                  <input type="password" id="cfg-anthropic-key" placeholder="sk-ant-api03-..."
+                    class="w-full text-sm border border-slate-200 rounded px-3 py-2 focus:outline-none focus:border-purple-400 pr-16">
+                  <button onclick="document.getElementById('cfg-anthropic-key').type=document.getElementById('cfg-anthropic-key').type==='password'?'text':'password'" class="absolute right-2 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600">Ver</button>
+                </div>
+                <div class="text-xs text-slate-400 mt-1">Consigue tu clave en <a href="https://console.anthropic.com/settings/keys" target="_blank" class="text-purple-600 underline">console.anthropic.com/settings/keys</a></div>
+              </div>
+              <button onclick="saveAnthropicKey()" class="px-4 py-2 bg-purple-600 text-white text-sm rounded-lg font-medium hover:bg-purple-700">Guardar clave</button>
+              <span id="anthropic-key-status" class="ml-3 text-xs hidden"></span>
+            </div>
+
             <div class="bg-white rounded-xl border border-slate-200 p-6">
               <div class="flex items-center gap-2 mb-1">
                 <h3 class="font-semibold text-slate-800">Make.com — Publicador Instagram</h3>
@@ -2101,29 +2110,26 @@
            SECCIÓN: COMPETENCIA (Ad Library)
       ═════════════════════════════════════════ -->
       <div id="section-competencia" class="section p-8">
-
         <div class="flex items-center justify-between mb-6">
           <div>
             <h1 class="text-xl font-bold text-slate-800">Inteligencia Competitiva</h1>
             <p class="text-sm text-slate-400 mt-1">Monitorea los anuncios activos de tu competencia usando la Meta Ad Library</p>
           </div>
         </div>
-
-        <!-- Info banner about API permissions -->
+        <!-- API info banner -->
         <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 flex gap-3 items-start">
           <span class="text-amber-500 text-lg shrink-0 mt-0.5">ℹ️</span>
           <div>
             <div class="text-sm font-semibold text-amber-800 mb-1">Sobre el acceso a la API de Meta Ad Library</div>
-            <div class="text-xs text-amber-700 leading-relaxed">La API de Meta Ad Library requiere permisos especiales de Meta (aprobación de identidad de investigador). Puedes buscar directamente en la biblioteca de anuncios de Meta usando el botón "Abrir en Meta" — o intentar la búsqueda vía API si tienes un token con los permisos correspondientes.</div>
+            <div class="text-xs text-amber-700 leading-relaxed">La API de Meta Ad Library requiere permisos especiales de Meta. Usa "Abrir en Meta" para buscar directamente, o intenta la búsqueda vía API si tu token tiene los permisos necesarios.</div>
           </div>
         </div>
-
         <!-- Buscar competidor -->
         <div class="bg-white rounded-xl border border-slate-200 p-5 mb-6">
           <div class="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-3">Buscar marca o competidor</div>
           <div class="flex gap-3 flex-wrap">
             <input type="text" id="comp-search-input" placeholder="Ej: Galería Moro, Estudio Palma, ArcoArquitectos..."
-              class="flex-1 min-w-48 text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400"
+              class="flex-1 text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400"
               onkeydown="if(event.key==='Enter') searchCompetitorAds()">
             <select id="comp-country" class="text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400">
               <option value="CL">Chile</option>
@@ -2132,16 +2138,33 @@
               <option value="ES">España</option>
               <option value="US">Estados Unidos</option>
             </select>
-            <button onclick="openMetaAdLibrary()" id="btn-comp-meta"
-              class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 flex items-center gap-2">
-              🌐 Abrir en Meta
-            </button>
-            <button onclick="searchCompetitorAds()" id="btn-comp-search"
-              class="px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 flex items-center gap-2">
+            <button onclick="openMetaAdLibrary()" class="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 flex items-center gap-2">🌐 Abrir en Meta</button>
+            <button onclick="searchCompetitorAds()" id="btn-comp-search" class="px-4 py-2 bg-orange-500 text-white text-sm font-medium rounded-lg hover:bg-orange-600 flex items-center gap-2">
               <span id="comp-search-icon">🔍</span> Buscar vía API
             </button>
           </div>
           <p id="comp-search-status" class="text-xs text-slate-400 mt-2"></p>
+        </div>
+        <!-- Manual competitor notes -->
+        <div class="mb-6">
+          <div class="flex items-center justify-between mb-3">
+            <div class="text-xs font-semibold text-slate-600 uppercase tracking-wide">Notas de inteligencia competitiva</div>
+            <button onclick="addCompNote()" class="text-xs text-orange-500 hover:text-orange-600 font-medium">+ Agregar nota</button>
+          </div>
+          <div id="comp-notes-list" class="space-y-2"><p class="text-xs text-slate-400 italic">Sin notas todavía.</p></div>
+          <div id="comp-note-form" style="display:none" class="mt-3 bg-white rounded-xl border border-slate-200 p-4">
+            <div class="grid grid-cols-2 gap-3 mb-3">
+              <input id="comp-note-brand" type="text" placeholder="Marca / competidor" class="text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400">
+              <select id="comp-note-type" class="text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400">
+                <option value="ad">📢 Anuncio activo</option><option value="content">📸 Contenido</option><option value="offer">🎁 Oferta</option><option value="launch">🚀 Lanzamiento</option><option value="general">💬 General</option>
+              </select>
+            </div>
+            <textarea id="comp-note-text" placeholder="Describe lo que observaste..." rows="2" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400 mb-3 resize-none"></textarea>
+            <div class="flex gap-2">
+              <button onclick="saveCompNote()" class="px-4 py-1.5 bg-orange-500 text-white text-xs font-medium rounded-lg hover:bg-orange-600">Guardar</button>
+              <button onclick="document.getElementById('comp-note-form').style.display='none'" class="px-4 py-1.5 border border-slate-200 text-slate-500 text-xs rounded-lg hover:bg-slate-50">Cancelar</button>
+            </div>
+          </div>
         </div>
 
         <!-- Watchlist de competidores guardados -->
@@ -2152,35 +2175,6 @@
           </div>
           <div id="comp-watchlist" class="flex flex-wrap gap-2">
             <span class="text-xs text-slate-400 italic">Ninguna todavía — busca una marca y guárdala</span>
-          </div>
-        </div>
-
-        <!-- Manual competitor notes -->
-        <div class="mb-6">
-          <div class="flex items-center justify-between mb-3">
-            <div class="text-xs font-semibold text-slate-600 uppercase tracking-wide">Notas de inteligencia competitiva</div>
-            <button onclick="addCompNote()" class="text-xs text-orange-500 hover:text-orange-600 font-medium">+ Agregar nota</button>
-          </div>
-          <div id="comp-notes-list" class="space-y-2">
-            <p class="text-xs text-slate-400 italic">Sin notas todavía. Agrega observaciones sobre tus competidores manualmente.</p>
-          </div>
-          <!-- Add note form (hidden by default) -->
-          <div id="comp-note-form" style="display:none" class="mt-3 bg-white rounded-xl border border-slate-200 p-4">
-            <div class="grid grid-cols-2 gap-3 mb-3">
-              <input id="comp-note-brand" type="text" placeholder="Marca / competidor" class="text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400">
-              <select id="comp-note-type" class="text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400">
-                <option value="ad">📢 Anuncio activo</option>
-                <option value="content">📸 Estrategia de contenido</option>
-                <option value="offer">🎁 Oferta / promoción</option>
-                <option value="launch">🚀 Lanzamiento</option>
-                <option value="general">💬 Observación general</option>
-              </select>
-            </div>
-            <textarea id="comp-note-text" placeholder="Describe lo que observaste..." rows="2" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400 mb-3 resize-none"></textarea>
-            <div class="flex gap-2">
-              <button onclick="saveCompNote()" class="px-4 py-1.5 bg-orange-500 text-white text-xs font-medium rounded-lg hover:bg-orange-600">Guardar nota</button>
-              <button onclick="document.getElementById('comp-note-form').style.display='none'" class="px-4 py-1.5 border border-slate-200 text-slate-500 text-xs rounded-lg hover:bg-slate-50">Cancelar</button>
-            </div>
           </div>
         </div>
 
@@ -2274,6 +2268,169 @@
         </div>
 
       </div><!-- end section-competencia -->
+
+      <!-- ════════════════════════════════════
+           SECCIÓN: CAMPAÑAS IA
+      ═════════════════════════════════════════ -->
+      <div id="section-campanas" class="section p-8">
+
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h1 class="text-xl font-bold text-slate-800">Campañas IA</h1>
+            <p class="text-sm text-slate-400 mt-1">Crea y planifica campañas con un experto en Meta, Google, LinkedIn y TikTok Ads impulsado por IA</p>
+          </div>
+          <button onclick="newCampaignBrief()" class="px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-lg hover:bg-purple-700 flex items-center gap-2">
+            ✦ Nueva campaña
+          </button>
+        </div>
+
+        <!-- Anthropic API key notice -->
+        <div id="camp-api-notice" class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 flex gap-3 items-start">
+          <span class="text-blue-500 text-lg shrink-0 mt-0.5">🔑</span>
+          <div class="flex-1">
+            <div class="text-sm font-semibold text-blue-800 mb-1">Configura tu clave de Anthropic para activar el Agente IA</div>
+            <div class="text-xs text-blue-700 mb-2">El agente necesita acceso a Claude AI. Añade tu API Key de Anthropic en Configuración.</div>
+            <button onclick="showSection('configuracion')" class="text-xs font-medium text-blue-600 underline hover:text-blue-800">Ir a Configuración →</button>
+          </div>
+        </div>
+
+        <!-- Campaign brief form -->
+        <div class="grid grid-cols-3 gap-6 mb-8">
+          <!-- Left: Brief form -->
+          <div class="col-span-1 space-y-4">
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Brief de campaña</div>
+
+              <div class="space-y-3">
+                <div>
+                  <label class="text-xs font-medium text-slate-600 block mb-1">Cliente</label>
+                  <select id="camp-client" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400">
+                    <option value="tarquinia">Galería Tarquinia</option>
+                    <option value="eudora">Eudora (Agencia)</option>
+                    <option value="nac">Galería NAC</option>
+                    <option value="zoron">Zorón</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label class="text-xs font-medium text-slate-600 block mb-1">Plataformas</label>
+                  <div class="grid grid-cols-2 gap-2 text-xs">
+                    <label class="flex items-center gap-2 p-2 border border-slate-200 rounded-lg cursor-pointer hover:border-purple-300">
+                      <input type="checkbox" id="camp-plat-meta" checked class="accent-purple-500 camp-platform" value="Meta/Instagram"> <span>📘 Meta / IG</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 border border-slate-200 rounded-lg cursor-pointer hover:border-purple-300">
+                      <input type="checkbox" id="camp-plat-google" class="accent-purple-500 camp-platform" value="Google Ads"> <span>🔍 Google</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 border border-slate-200 rounded-lg cursor-pointer hover:border-purple-300">
+                      <input type="checkbox" id="camp-plat-linkedin" class="accent-purple-500 camp-platform" value="LinkedIn Ads"> <span>💼 LinkedIn</span>
+                    </label>
+                    <label class="flex items-center gap-2 p-2 border border-slate-200 rounded-lg cursor-pointer hover:border-purple-300">
+                      <input type="checkbox" id="camp-plat-tiktok" class="accent-purple-500 camp-platform" value="TikTok Ads"> <span>🎵 TikTok</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="text-xs font-medium text-slate-600 block mb-1">Objetivo de campaña</label>
+                  <select id="camp-objective" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400">
+                    <option value="awareness">📡 Reconocimiento de marca</option>
+                    <option value="traffic">👆 Tráfico al sitio web</option>
+                    <option value="leads">🎯 Generación de leads</option>
+                    <option value="sales">💳 Ventas / Conversiones</option>
+                    <option value="engagement">💬 Engagement e interacción</option>
+                    <option value="app">📱 Instalaciones de app</option>
+                  </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <label class="text-xs font-medium text-slate-600 block mb-1">Presupuesto total</label>
+                    <input type="text" id="camp-budget" placeholder="Ej: $500 USD" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400">
+                  </div>
+                  <div>
+                    <label class="text-xs font-medium text-slate-600 block mb-1">Duración</label>
+                    <input type="text" id="camp-duration" placeholder="Ej: 30 días" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400">
+                  </div>
+                </div>
+
+                <div>
+                  <label class="text-xs font-medium text-slate-600 block mb-1">Audiencia objetivo</label>
+                  <textarea id="camp-audience" rows="2" placeholder="Ej: Hombres y mujeres 35–55, interesados en arte contemporáneo, alto poder adquisitivo, Santiago" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400 resize-none"></textarea>
+                </div>
+
+                <div>
+                  <label class="text-xs font-medium text-slate-600 block mb-1">Propuesta de valor / mensaje clave</label>
+                  <textarea id="camp-message" rows="2" placeholder="Ej: Nueva colección de artistas emergentes latinoamericanos. Piezas únicas disponibles hasta fin de año." class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400 resize-none"></textarea>
+                </div>
+
+                <div>
+                  <label class="text-xs font-medium text-slate-600 block mb-1">Concepto creativo (opcional)</label>
+                  <textarea id="camp-creative" rows="2" placeholder="Ej: Fotos de alta calidad de las obras en el espacio. Reels del artista trabajando. Carrusel de detalle de piezas." class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400 resize-none"></textarea>
+                </div>
+
+                <button onclick="generateCampaignPlan()" id="btn-gen-camp"
+                  class="w-full py-2.5 bg-purple-600 text-white text-sm font-semibold rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2">
+                  <span id="ico-gen-camp">✦</span> Generar plan con IA
+                </button>
+                <p id="camp-gen-status" class="text-xs text-slate-400 text-center"></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: AI response + chat -->
+          <div class="col-span-2 flex flex-col gap-4">
+            <!-- Plan output -->
+            <div class="bg-white rounded-xl border border-slate-200 flex-1 min-h-96">
+              <div id="camp-action-btns" class="border-b border-slate-100 px-5 py-3 flex items-center justify-between">
+                <div class="text-xs font-semibold text-slate-600 uppercase tracking-wide">Plan generado por el Agente IA</div>
+                <div class="flex gap-2">
+                  <button onclick="saveCampaignPlan()" class="text-xs text-purple-500 hover:text-purple-700 font-medium">💾 Guardar campaña</button>
+                  <button onclick="copyCampaignPlan()" class="text-xs text-slate-400 hover:text-slate-600 font-medium">📋 Copiar</button>
+                </div>
+              </div>
+              <div id="camp-output-wrap"><div id="camp-output" class="p-5 text-sm text-slate-500 min-h-80">
+                <div class="flex flex-col items-center justify-center h-64 text-center">
+                  <div class="text-4xl mb-3">✦</div>
+                  <div class="text-slate-400 text-sm">El agente IA analizará tu brief y generará:</div>
+                  <div class="mt-3 space-y-1 text-xs text-slate-400">
+                    <div>📐 Estructura de campaña por plataforma</div>
+                    <div>🎯 Segmentaciones recomendadas</div>
+                    <div>💰 Distribución óptima de presupuesto</div>
+                    <div>✍️ Copy para anuncios (títulos, descripciones, CTA)</div>
+                    <div>📅 Calendario de implementación</div>
+                    <div>📊 KPIs y benchmarks del sector</div>
+                  </div>
+                </div>
+              </div>
+            </div></div><!-- /camp-output-wrap -->
+
+            <!-- Follow-up chat -->
+            <div id="camp-chat-area" class="bg-white rounded-xl border border-slate-200">
+              <div class="border-b border-slate-100 px-5 py-3 text-xs font-semibold text-slate-600 uppercase tracking-wide">Refinar con el agente</div>
+              <div id="camp-chat-history" class="px-5 py-3 space-y-3 max-h-48 overflow-y-auto" style="display:none"></div>
+              <div class="p-3 flex gap-2">
+                <input type="text" id="camp-chat-input" placeholder="Ej: Ajusta el copy para un tono más premium… / ¿Cuánto destinar a retargeting? / Añade ideas para TikTok…"
+                  class="flex-1 text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400"
+                  onkeydown="if(event.key==='Enter')sendCampaignChat()">
+                <button onclick="sendCampaignChat()" class="px-4 py-2 bg-purple-600 text-white text-sm rounded-lg hover:bg-purple-700 flex items-center gap-1.5">
+                  <span>↑</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Saved campaigns -->
+        <div>
+          <div class="flex items-center justify-between mb-4">
+            <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Campañas guardadas</div>
+          </div>
+          <div id="camp-saved-list" class="space-y-3">
+            <p class="text-xs text-slate-400 italic">Sin campañas guardadas todavía.</p>
+          </div>
+        </div>
+
+      </div><!-- end section-campanas -->
 
     </div><!-- end scrollable content -->
   </main>
@@ -4258,6 +4415,9 @@
     });
     // Activate default content analysis tab
     setContentClient('tarquinia');
+    // Load Anthropic API key if saved
+    const ak = document.getElementById('cfg-anthropic-key');
+    if (ak && IG.config.anthropicKey) ak.value = IG.config.anthropicKey;
     // Update composer preview with default client
     updateComposerClient();
     // Queue badge
@@ -4377,190 +4537,7 @@
     document.getElementById('strat-sync-note').textContent = `Última actualización: ${new Date().toLocaleString('es-CL')}`;
   }
 
-  // ── Contenido: análisis de tipos de post en cola ─────────────────
-  // ── Content Analysis ─────────────────────────────────────────────
-  let CONTENT_CLIENT = 'tarquinia';
-
-  function setContentClient(key) {
-    CONTENT_CLIENT = key;
-    document.querySelectorAll('.cnt-client-tab').forEach(b => {
-      b.classList.remove('border-orange-400','text-orange-600','bg-orange-50');
-      b.classList.add('border-slate-200','text-slate-500','bg-white');
-    });
-    const tab = document.getElementById('cnt-tab-' + key);
-    if (tab) {
-      tab.classList.add('border-orange-400','text-orange-600','bg-orange-50');
-      tab.classList.remove('border-slate-200','text-slate-500','bg-white');
-    }
-  }
-
-  async function analyzeInstagramContent() {
-    const btn    = document.getElementById('btn-analyze-content');
-    const ico    = document.getElementById('ico-analyze');
-    const status = document.getElementById('content-status');
-
-    const token     = IG.config.accessToken || '';
-    const clients   = IG.config.clients || {};
-    const clientCfg = clients[CONTENT_CLIENT] || {};
-    const accountId = clientCfg.accountId || IG.config.accountId || '';
-
-    if (!token) {
-      status.textContent = '⚠ Configura el Access Token en Programar IG → Configuración.';
-      status.className = 'text-xs text-amber-600 mb-5';
-      return;
-    }
-    if (!accountId) {
-      const names = {tarquinia:'Galería Tarquinia',eudora:'Eudora',nac:'Galería NAC',zoron:'Zorón'};
-      status.textContent = `⚠ Configura el IG Account ID de ${names[CONTENT_CLIENT]||CONTENT_CLIENT} en Configuración.`;
-      status.className = 'text-xs text-amber-600 mb-5';
-      return;
-    }
-
-    btn.disabled = true; ico.textContent = '⏳';
-    status.textContent = 'Obteniendo publicaciones de Instagram…';
-    status.className = 'text-xs text-blue-500 mb-5';
-
-    try {
-      // 1. Fetch media list
-      const mediaUrl = `https://graph.facebook.com/v19.0/${accountId}/media?fields=id,caption,media_type,timestamp,like_count,comments_count,media_url,thumbnail_url,permalink&limit=50&access_token=${token}`;
-      const mediaRes  = await fetch(mediaUrl);
-      const mediaData = await mediaRes.json();
-      if (mediaData.error) throw new Error(mediaData.error.message);
-
-      const posts = mediaData.data || [];
-      if (!posts.length) throw new Error('No se encontraron publicaciones en esta cuenta.');
-
-      status.textContent = `Analizando ${posts.length} publicaciones… obteniendo métricas de alcance…`;
-
-      // 2. Fetch insights per post (in batches of 10)
-      const insightFields = 'impressions,reach,saved';
-      const withInsights = await Promise.all(posts.map(async (post) => {
-        try {
-          const iUrl = `https://graph.facebook.com/v19.0/${post.id}/insights?metric=${insightFields}&access_token=${token}`;
-          const iRes  = await fetch(iUrl);
-          const iData = await iRes.json();
-          const ins = {};
-          (iData.data || []).forEach(m => { ins[m.name] = m.values?.[0]?.value || m.value || 0; });
-          // engagement = likes + comments as fallback
-          ins.engagement = (post.like_count || 0) + (post.comments_count || 0);
-          return { ...post, insights: ins };
-        } catch {
-          return { ...post, insights: { impressions:0, reach:0, saved:0, engagement:(post.like_count||0)+(post.comments_count||0) } };
-        }
-      }));
-
-      // 3. Render results
-      renderRealContentAnalysis(withInsights);
-      status.textContent = `✓ Análisis completado — ${posts.length} publicaciones analizadas`;
-      status.className = 'text-xs text-emerald-600 mb-5 font-medium';
-
-    } catch(err) {
-      status.innerHTML = `✗ ${err.message}`;
-      status.className = 'text-xs text-red-500 mb-5';
-    }
-
-    btn.disabled = false; ico.textContent = '📊';
-  }
-
-  function renderRealContentAnalysis(posts) {
-    // ── Group by type
-    const typeMap = { IMAGE:{label:'Foto / Imagen',icon:'🖼️',posts:[]}, VIDEO:{label:'Video',icon:'📹',posts:[]}, CAROUSEL_ALBUM:{label:'Carrusel',icon:'🗂️',posts:[]}, REELS:{label:'Reel',icon:'🎬',posts:[]} };
-    posts.forEach(p => {
-      const t = p.media_type === 'VIDEO' && p.permalink?.includes('/reel/') ? 'REELS' : (p.media_type || 'IMAGE');
-      if (!typeMap[t]) typeMap[t] = {label:t,icon:'📄',posts:[]};
-      typeMap[t].posts.push(p);
-    });
-
-    // ── Compute per-type averages
-    const typeStats = Object.entries(typeMap).map(([key, g]) => {
-      const n = g.posts.length || 1;
-      const avgReach  = Math.round(g.posts.reduce((s,p)=>s+(p.insights?.reach||0),0)/n);
-      const avgEng    = Math.round(g.posts.reduce((s,p)=>s+(p.insights?.engagement||0),0)/n);
-      const avgSaved  = Math.round(g.posts.reduce((s,p)=>s+(p.insights?.saved||0),0)/n);
-      const avgImpr   = Math.round(g.posts.reduce((s,p)=>s+(p.insights?.impressions||0),0)/n);
-      return { key, label:g.label, icon:g.icon, count:g.posts.length, avgReach, avgEng, avgSaved, avgImpr, posts:g.posts };
-    }).filter(t => t.count > 0).sort((a,b)=>b.avgReach-a.avgReach);
-
-    // ── Top posts by engagement
-    const topPosts = [...posts].sort((a,b)=>(b.insights?.reach||0)-(a.insights?.reach||0)).slice(0,6);
-
-    // ── Render type grid
-    const maxReach = Math.max(...typeStats.map(t=>t.avgReach),1);
-    const grid = document.getElementById('content-type-grid');
-    grid.innerHTML = typeStats.map((t,i) => {
-      const pct = Math.round(t.avgReach/maxReach*100);
-      const rank = i===0?'🥇':i===1?'🥈':i===2?'🥉':'';
-      return `<div class="bg-white rounded-xl border border-slate-200 p-4">
-        <div class="flex items-center gap-2 mb-2"><span class="text-xl">${t.icon}</span><span class="text-sm font-semibold text-slate-700">${t.label}</span>${rank?`<span class="ml-auto text-base">${rank}</span>`:''}</div>
-        <div class="text-2xl font-bold text-slate-800 mb-1">${t.count} <span class="text-sm font-normal text-slate-400">posts</span></div>
-        <div class="w-full bg-slate-100 rounded-full h-1.5 mb-2"><div class="bg-orange-400 h-1.5 rounded-full transition-all" style="width:${pct}%"></div></div>
-        <div class="grid grid-cols-2 gap-1 text-xs mt-2">
-          <div class="text-slate-400">Alcance prom.<br><span class="font-semibold text-slate-700">${t.avgReach>0?t.avgReach.toLocaleString('es-CL'):'—'}</span></div>
-          <div class="text-slate-400">Engagement prom.<br><span class="font-semibold text-slate-700">${t.avgEng>0?t.avgEng.toLocaleString('es-CL'):'—'}</span></div>
-          <div class="text-slate-400">Guardados prom.<br><span class="font-semibold text-slate-700">${t.avgSaved>0?t.avgSaved.toLocaleString('es-CL'):'—'}</span></div>
-          <div class="text-slate-400">Impresiones prom.<br><span class="font-semibold text-slate-700">${t.avgImpr>0?t.avgImpr.toLocaleString('es-CL'):'—'}</span></div>
-        </div>
-      </div>`;
-    }).join('');
-
-    // ── Render top posts
-    const topWrap = document.getElementById('content-top-posts-wrap');
-    const topGrid = document.getElementById('content-top-posts');
-    topWrap.style.display = '';
-    topGrid.innerHTML = topPosts.map(p => {
-      const thumb = p.thumbnail_url || p.media_url || '';
-      const typeLabel = p.media_type==='VIDEO'&&p.permalink?.includes('/reel/')?'Reel':p.media_type==='CAROUSEL_ALBUM'?'Carrusel':p.media_type==='VIDEO'?'Video':'Foto';
-      const date = p.timestamp ? new Date(p.timestamp).toLocaleDateString('es-CL',{month:'short',day:'numeric',year:'numeric'}) : '';
-      const reach = (p.insights?.reach||0).toLocaleString('es-CL');
-      const eng   = (p.insights?.engagement||0).toLocaleString('es-CL');
-      const saved = (p.insights?.saved||0).toLocaleString('es-CL');
-      const caption = (p.caption||'').slice(0,80)+((p.caption||'').length>80?'…':'');
-      return `<div class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-md transition-shadow">
-        <a href="${p.permalink||'#'}" target="_blank" class="block relative">
-          ${thumb?`<img src="${thumb}" alt="post" class="w-full h-40 object-cover">`:
-            `<div class="w-full h-40 bg-slate-100 flex items-center justify-center text-4xl">📷</div>`}
-          <span class="absolute top-2 right-2 text-xs bg-black/60 text-white px-2 py-0.5 rounded-full">${typeLabel}</span>
-        </a>
-        <div class="p-3">
-          <div class="text-xs text-slate-500 mb-2 line-clamp-2 leading-relaxed">${caption||'(sin caption)'}</div>
-          <div class="grid grid-cols-3 gap-1 text-center">
-            <div class="bg-blue-50 rounded p-1.5"><div class="text-xs text-slate-400">Alcance</div><div class="text-xs font-bold text-blue-700">${reach}</div></div>
-            <div class="bg-purple-50 rounded p-1.5"><div class="text-xs text-slate-400">Eng.</div><div class="text-xs font-bold text-purple-700">${eng}</div></div>
-            <div class="bg-amber-50 rounded p-1.5"><div class="text-xs text-slate-400">Guardados</div><div class="text-xs font-bold text-amber-700">${saved}</div></div>
-          </div>
-          <div class="text-xs text-slate-300 mt-2 text-right">${date}</div>
-        </div>
-      </div>`;
-    }).join('');
-
-    // ── Generate insights dynamically
-    const best  = typeStats[0];
-    const worst = typeStats[typeStats.length-1];
-    const bestPostByEng  = [...posts].sort((a,b)=>(b.insights?.engagement||0)-(a.insights?.engagement||0))[0];
-    const bestPostBySave = [...posts].sort((a,b)=>(b.insights?.saved||0)-(a.insights?.saved||0))[0];
-
-    const workItems = [
-      best ? { title:`${best.icon} ${best.label} generan mayor alcance`, desc:`Promedio de ${best.avgReach.toLocaleString('es-CL')} personas alcanzadas. Este es el formato estrella — priorizar en el calendario.` } : null,
-      bestPostByEng ? { title:`Captions que invitan a interacción`, desc:`Los posts con mayor engagement (${(bestPostByEng.insights?.engagement||0).toLocaleString('es-CL')} interacciones) usan preguntas directas o textos emotivos.` } : null,
-      bestPostBySave?.insights?.saved > 0 ? { title:`Contenido educativo o inspiracional se guarda`, desc:`Posts guardados (máx. ${(bestPostBySave.insights.saved||0).toLocaleString('es-CL')}) son señal de valor percibido — el algoritmo los premia con más distribución.` } : null,
-      { title:`Consistencia temporal`, desc:`Los datos muestran que publicar regularmente sostiene el alcance. El algoritmo favorece la frecuencia constante sobre el volumen esporádico.` }
-    ].filter(Boolean);
-
-    const avoidItems = [
-      worst && worst.avgReach < (best?.avgReach||1)*0.4 ? { title:`${worst.icon} ${worst.label} tienen bajo rendimiento`, desc:`Alcance promedio ${worst.avgReach.toLocaleString('es-CL')} vs ${best?.avgReach.toLocaleString('es-CL')} del mejor formato. Reducir la proporción de este tipo en el mix.` } : null,
-      { title:`Posts sin caption elaborado`, desc:`El texto del post afecta directamente el engagement. Captions específicos y con CTA claro superan a los genéricos en esta cuenta.` },
-      { title:`Publicación masiva en períodos cortos`, desc:`Publicar varios posts seguidos reduce el alcance orgánico de cada uno. Mantener un espaciado de 24-48h entre publicaciones es óptimo.` },
-      { title:`No revisar el horario de publicación`, desc:`Publica cuando tu audiencia está activa. Revisa los insights nativos de la cuenta para identificar las ventanas de mayor actividad.` }
-    ].filter(Boolean);
-
-    const worksDiv = document.getElementById('content-works');
-    const avoidDiv = document.getElementById('content-avoid');
-    if (worksDiv) worksDiv.innerHTML = workItems.map(i=>`<div class="flex gap-3 items-start"><span class="text-emerald-500 mt-0.5 shrink-0">●</span><div><div class="text-sm font-medium text-slate-700">${i.title}</div><div class="text-xs text-slate-400 mt-0.5">${i.desc}</div></div></div>`).join('');
-    if (avoidDiv) avoidDiv.innerHTML = avoidItems.map(i=>`<div class="flex gap-3 items-start"><span class="text-red-400 mt-0.5 shrink-0">●</span><div><div class="text-sm font-medium text-slate-700">${i.title}</div><div class="text-xs text-slate-400 mt-0.5">${i.desc}</div></div></div>`).join('');
-  }
-
-  // Legacy shim
-  function refreshContentAnalysis() { /* noop — use analyzeInstagramContent() */ }
+  // CONTENT ANALYSIS PLACEHOLDER
 
   // ══════════════════════════════════════════════════════════════════
   // COMPETENCIA — Meta Ad Library
@@ -4568,14 +4545,6 @@
   let COMP_WATCHLIST = [];
   let COMP_ALL_ADS   = [];
   let COMP_ACTIVE_FILTER = 'all';
-  let COMP_NOTES = [];
-
-  function openMetaAdLibrary() {
-    const query   = document.getElementById('comp-search-input').value.trim();
-    const country = document.getElementById('comp-country').value;
-    const params  = new URLSearchParams({ active_status:'active', ad_type:'all', country, q: query||'' });
-    window.open('https://www.facebook.com/ads/library/?' + params.toString(), '_blank');
-  }
 
   async function searchCompetitorAds() {
     const query   = document.getElementById('comp-search-input').value.trim();
@@ -4586,36 +4555,37 @@
     const token   = IG.config.accessToken;
 
     if (!query) { status.textContent = '⚠ Escribe el nombre de una marca o competidor.'; status.className = 'text-xs text-amber-600 mt-2'; return; }
-    if (!token) { status.textContent = '⚠ Configura tu Access Token en Configuración para usar la API.'; status.className = 'text-xs text-amber-600 mt-2'; return; }
+    if (!token) { status.textContent = '⚠ Necesitas configurar tu Access Token en Programar IG → Configuración para usar la Ad Library.'; status.className = 'text-xs text-amber-600 mt-2'; return; }
 
     btn.disabled = true; icon.textContent = '⏳';
     status.textContent = `Buscando anuncios activos de "${query}"…`;
     status.className = 'text-xs text-blue-500 mt-2';
 
     try {
-      const fields = 'id,ad_creation_time,ad_creative_bodies,ad_creative_link_titles,ad_snapshot_url,page_name,page_id,impressions,spend,currency,ad_delivery_start_time,publisher_platforms';
+      const fields = 'id,ad_creation_time,ad_creative_bodies,ad_creative_link_titles,ad_creative_link_descriptions,ad_snapshot_url,page_name,page_id,impressions,spend,currency,ad_delivery_start_time,publisher_platforms';
       const url = `https://graph.facebook.com/v19.0/ads_archive?search_terms=${encodeURIComponent(query)}&ad_type=ALL&ad_reached_countries=["${country}"]&fields=${fields}&limit=12&access_token=${token}`;
       const res  = await fetch(url);
       const data = await res.json();
+
       if (data.error) throw new Error(data.error.message);
 
       COMP_ALL_ADS = data.data || [];
       renderCompAds(COMP_ALL_ADS);
       renderCompAnalysis(COMP_ALL_ADS, query);
+
       document.getElementById('comp-results-wrapper').style.display = '';
-      document.getElementById('comp-results-title').textContent    = `Anuncios activos de "${query}"`;
+      document.getElementById('comp-results-title').textContent   = `Anuncios activos de "${query}"`;
       document.getElementById('comp-results-subtitle').textContent = `${COMP_ALL_ADS.length} anuncios encontrados en ${country}`;
       status.textContent = `✓ ${COMP_ALL_ADS.length} anuncios encontrados`;
       status.className = 'text-xs text-emerald-600 mt-2 font-medium';
 
     } catch(err) {
-      const isPerm = err.message.includes('permission')||err.message.includes('OAuthException')||err.message.includes('token')||err.message.includes('Unsupported');
+      status.textContent = `✗ ${err.message}`;
       status.className = 'text-xs text-red-500 mt-2';
-      if (isPerm) {
-        status.innerHTML = `⚠ Tu token no tiene acceso a la API de Ad Library (permisos especiales requeridos). <button onclick="openMetaAdLibrary()" class="underline text-blue-500 font-medium">Abrir en Meta Ad Library →</button>`;
-      } else {
-        status.innerHTML = `✗ ${err.message} · <button onclick="openMetaAdLibrary()" class="underline text-blue-500">Buscar en Meta Ad Library →</button>`;
-      }
+      // Fallback: abrir Meta Ad Library directamente
+      setTimeout(() => {
+        status.innerHTML = `Error al acceder a la API. <a href="https://www.facebook.com/ads/library/?q=${encodeURIComponent(query)}&country=${country}" target="_blank" class="underline text-blue-500">Buscar en Meta Ad Library directamente →</a>`;
+      }, 500);
     }
 
     btn.disabled = false; icon.textContent = '🔍';
@@ -4623,27 +4593,29 @@
 
   function renderCompAds(ads) {
     const grid = document.getElementById('comp-ads-grid');
-    if (!grid) return;
-    if (!ads.length) { grid.innerHTML = `<div class="col-span-3 text-center py-10 text-sm text-slate-400">No se encontraron anuncios activos.</div>`; return; }
+    if (!ads.length) {
+      grid.innerHTML = `<div class="col-span-3 text-center py-10 text-sm text-slate-400">No se encontraron anuncios activos para esta búsqueda.</div>`;
+      return;
+    }
     grid.innerHTML = ads.map(ad => {
-      const body    = (ad.ad_creative_bodies||[''])[0]||'';
-      const title   = (ad.ad_creative_link_titles||[''])[0]||'';
+      const body    = (ad.ad_creative_bodies || [''])[0] || '';
+      const title   = (ad.ad_creative_link_titles || [''])[0] || '';
       const created = ad.ad_creation_time ? new Date(ad.ad_creation_time).toLocaleDateString('es-CL') : '—';
-      const impr    = ad.impressions ? `${ad.impressions.lower_bound?.toLocaleString('es-CL')||'?'}–${ad.impressions.upper_bound?.toLocaleString('es-CL')||'?'}` : 'No disponible';
+      const impr    = ad.impressions ? `${ad.impressions.lower_bound?.toLocaleString('es-CL')}–${ad.impressions.upper_bound?.toLocaleString('es-CL')}` : 'No disponible';
       const spend   = ad.spend ? `$${ad.spend.lower_bound}–$${ad.spend.upper_bound} ${ad.currency||''}` : 'No disponible';
-      const platforms = (ad.publisher_platforms||[]).join(', ')||'Meta';
+      const platforms = (ad.publisher_platforms || []).join(', ') || 'Meta';
       return `<div class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-md transition-shadow">
         <div class="bg-slate-50 p-3 border-b border-slate-100 flex items-center gap-2">
           <div class="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-600">${(ad.page_name||'?')[0]}</div>
-          <div><div class="text-xs font-semibold text-slate-700 truncate max-w-[150px]">${ad.page_name||'Página desconocida'}</div><div class="text-xs text-slate-400">${platforms}</div></div>
+          <div><div class="text-xs font-semibold text-slate-700 truncate max-w-[150px]">${ad.page_name || 'Página desconocida'}</div><div class="text-xs text-slate-400">${platforms}</div></div>
           <a href="${ad.ad_snapshot_url||'#'}" target="_blank" class="ml-auto text-xs text-blue-500 hover:underline shrink-0">Ver →</a>
         </div>
         <div class="p-4">
-          ${title?`<div class="text-sm font-semibold text-slate-800 mb-1.5 line-clamp-2">${title}</div>`:''}
-          <div class="text-xs text-slate-500 leading-relaxed line-clamp-3 mb-3">${body||'Sin texto disponible'}</div>
+          ${title ? `<div class="text-sm font-semibold text-slate-800 mb-1.5 line-clamp-2">${title}</div>` : ''}
+          <div class="text-xs text-slate-500 leading-relaxed line-clamp-3 mb-3">${body || 'Sin texto disponible'}</div>
           <div class="grid grid-cols-2 gap-2 text-xs">
-            <div class="bg-slate-50 rounded p-2"><div class="text-slate-400">Impresiones</div><div class="font-medium text-slate-700">${impr}</div></div>
-            <div class="bg-slate-50 rounded p-2"><div class="text-slate-400">Inversión est.</div><div class="font-medium text-slate-700">${spend}</div></div>
+            <div class="bg-slate-50 rounded p-2"><div class="text-slate-400">Impresiones</div><div class="font-medium text-slate-700 text-xs">${impr}</div></div>
+            <div class="bg-slate-50 rounded p-2"><div class="text-slate-400">Inversión est.</div><div class="font-medium text-slate-700 text-xs">${spend}</div></div>
           </div>
           <div class="mt-2 text-xs text-slate-400">Activo desde: ${created}</div>
         </div>
@@ -4654,34 +4626,36 @@
   function renderCompAnalysis(ads, brand) {
     if (!ads.length) return;
     const platforms = {};
-    ads.forEach(ad => { (ad.publisher_platforms||['facebook']).forEach(p => { platforms[p]=(platforms[p]||0)+1; }); });
-    const topPlat = Object.entries(platforms).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<strong>${k}</strong> (${v})`).join(', ');
-    const avgAge  = ads.filter(a=>a.ad_creation_time).map(a=>(Date.now()-new Date(a.ad_creation_time))/864e5).reduce((s,v,_,a)=>s+v/a.length,0);
-    const doEl = document.getElementById('comp-analysis-doing');
-    const opEl = document.getElementById('comp-analysis-opps');
-    if (doEl) doEl.innerHTML = [
-      `<div>📱 Plataformas: ${topPlat}</div>`,
-      `<div>📅 ${ads.length} anuncios activos${avgAge>0?` — activos en promedio hace ${Math.round(avgAge)} días`:''}</div>`,
-      `<div>🖼️ Usan principalmente creatividades visuales</div>`,
-      ads.some(a=>a.spend)?`<div>💰 Inversión est.: $${Math.min(...ads.filter(a=>a.spend).map(a=>a.spend.lower_bound||0))}–$${Math.max(...ads.filter(a=>a.spend).map(a=>a.spend.upper_bound||0))}</div>`:''
+    ads.forEach(ad => { (ad.publisher_platforms||['facebook']).forEach(p => { platforms[p] = (platforms[p]||0)+1; }); });
+    const topPlat = Object.entries(platforms).sort((a,b)=>b[1]-a[1]).map(([k,v])=>`<strong>${k}</strong> (${v} ads)`).join(', ');
+    const hasVideo   = ads.some(ad => (ad.ad_creative_bodies||[]).some(b => b.length > 200));
+    const hasImages  = ads.length > 0;
+    const avgAge     = ads.filter(a=>a.ad_creation_time).map(a=>(Date.now()-new Date(a.ad_creation_time))/864e5).reduce((s,v,_,a)=>s+v/a.length,0);
+
+    document.getElementById('comp-analysis-doing').innerHTML = [
+      `<div>📱 Publica principalmente en: ${topPlat}</div>`,
+      `<div>📅 Tienen ${ads.length} anuncios activos en este momento${avgAge>0?` — activos en promedio hace ${Math.round(avgAge)} días`:''}</div>`,
+      `<div>${hasImages?'🖼️ Usan principalmente creatividades visuales (imagen/video)':'📝 Mayoría texto y link'}</div>`,
+      ads.some(a=>a.spend) ? `<div>💰 Rango de inversión estimado: $${Math.min(...ads.filter(a=>a.spend).map(a=>a.spend.lower_bound||0))}–$${Math.max(...ads.filter(a=>a.spend).map(a=>a.spend.upper_bound||0))}</div>` : ''
     ].filter(Boolean).join('');
-    if (opEl) opEl.innerHTML = [
-      `<div>🔍 Diferénciate por formato o mensaje, no solo por presupuesto</div>`,
-      avgAge>30?`<div>🔄 Sus anuncios llevan ${Math.round(avgAge)} días — posible fatiga creativa, buen momento para atacar</div>`:`<div>⚡ Anuncios recientes — están activos en el mercado ahora mismo</div>`,
-      `<div>💡 Busca el ángulo diferenciador que ellos <em>no</em> están usando</div>`,
+
+    document.getElementById('comp-analysis-opps').innerHTML = [
+      `<div>🔍 Si tienen muchos anuncios activos, están invirtiendo fuerte — considera diferenciarte por formato o mensaje, no solo por presupuesto</div>`,
+      avgAge > 30 ? `<div>🔄 Sus anuncios llevan ${Math.round(avgAge)} días activos — posible fatiga creativa. Es un buen momento para atacar con creatividades frescas</div>` : `<div>⚡ Sus anuncios son recientes — están activos en el mercado. Presta atención a qué mensajes están usando</div>`,
+      `<div>💡 Analiza qué propuesta de valor comunican y busca el ángulo diferenciador que ellos <em>no</em> están usando</div>`,
       `<div>🎯 Si no aparecen en LinkedIn, es un canal sin competencia directa para tu sector</div>`
     ].join('');
   }
 
   function filterCompAds(type) {
     COMP_ACTIVE_FILTER = type;
-    ['all','image','video'].forEach(f => {
-      const btn = document.getElementById('comp-filter-' + f);
-      if (btn) btn.className = f===type.toLowerCase()
+    ['all','IMAGE','VIDEO'].forEach(f => {
+      const btn = document.getElementById('comp-filter-' + f.toLowerCase());
+      if (btn) btn.className = f === type
         ? 'px-2.5 py-1 text-xs rounded-lg bg-slate-800 text-white font-medium'
         : 'px-2.5 py-1 text-xs rounded-lg bg-white border border-slate-200 text-slate-600 hover:bg-slate-50 font-medium';
     });
-    renderCompAds(COMP_ALL_ADS);
+    renderCompAds(COMP_ALL_ADS); // simple — filter logic can be expanded
   }
 
   function addToWatchlist() {
@@ -4695,8 +4669,10 @@
 
   function renderWatchlist() {
     const el = document.getElementById('comp-watchlist');
-    if (!el) return;
-    if (!COMP_WATCHLIST.length) { el.innerHTML = '<span class="text-xs text-slate-400 italic">Ninguna todavía — busca una marca y guárdala</span>'; return; }
+    if (!COMP_WATCHLIST.length) {
+      el.innerHTML = '<span class="text-xs text-slate-400 italic">Ninguna todavía — busca una marca y guárdala</span>';
+      return;
+    }
     el.innerHTML = COMP_WATCHLIST.map(b => `
       <button onclick="document.getElementById('comp-search-input').value='${b}';searchCompetitorAds()"
         class="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs text-slate-600 hover:border-orange-300 hover:text-orange-600 transition-all">
@@ -4711,77 +4687,350 @@
     renderWatchlist();
   }
 
-  // ── Competitor notes ─────────────────────────────────────────────
-  function addCompNote() {
-    document.getElementById('comp-note-form').style.display = '';
-    document.getElementById('comp-note-brand').focus();
-  }
-
-  function saveCompNote() {
-    const brand = document.getElementById('comp-note-brand').value.trim();
-    const type  = document.getElementById('comp-note-type').value;
-    const text  = document.getElementById('comp-note-text').value.trim();
-    if (!brand || !text) return;
-    const note = { id: Date.now(), brand, type, text, date: new Date().toLocaleDateString('es-CL') };
-    COMP_NOTES.unshift(note);
-    db.ref('eudora/comp_notes').set(COMP_NOTES).catch(()=>{});
-    renderCompNotes();
-    document.getElementById('comp-note-form').style.display = 'none';
-    document.getElementById('comp-note-brand').value = '';
-    document.getElementById('comp-note-text').value  = '';
-    showToast('✓ Nota guardada');
-  }
-
-  function renderCompNotes() {
-    const el = document.getElementById('comp-notes-list');
-    if (!el) return;
-    if (!COMP_NOTES.length) { el.innerHTML = '<p class="text-xs text-slate-400 italic">Sin notas todavía. Agrega observaciones sobre tus competidores manualmente.</p>'; return; }
-    const typeIcons = { ad:'📢', content:'📸', offer:'🎁', launch:'🚀', general:'💬' };
-    el.innerHTML = COMP_NOTES.slice(0,10).map(n => `
-      <div class="bg-white rounded-xl border border-slate-200 p-3 flex gap-3 items-start">
-        <span class="text-lg shrink-0">${typeIcons[n.type]||'💬'}</span>
-        <div class="flex-1 min-w-0">
-          <div class="flex items-center gap-2 mb-1">
-            <span class="text-xs font-semibold text-slate-700">${n.brand}</span>
-            <span class="text-xs text-slate-400">${n.date}</span>
-          </div>
-          <div class="text-xs text-slate-600 leading-relaxed">${n.text}</div>
-        </div>
-        <button onclick="deleteCompNote(${n.id})" class="text-slate-200 hover:text-red-400 text-sm shrink-0">×</button>
-      </div>`).join('');
-  }
-
-  function deleteCompNote(id) {
-    COMP_NOTES = COMP_NOTES.filter(n => n.id !== id);
-    db.ref('eudora/comp_notes').set(COMP_NOTES).catch(()=>{});
-    renderCompNotes();
-  }
-
-  // Firebase: load watchlist + notes on init
+  // Cargar watchlist desde Firebase al inicio
   db.ref('eudora/watchlist').once('value').then(snap => {
     const data = snap.val();
     if (Array.isArray(data)) { COMP_WATCHLIST = data; renderWatchlist(); }
   });
-  db.ref('eudora/comp_notes').once('value').then(snap => {
-    const data = snap.val();
-    if (Array.isArray(data)) { COMP_NOTES = data; renderCompNotes(); }
-  });
 
-  // queue listener shim
-  db.ref('eudora/queue').on('value', () => { /* noop */ });
+  // Auto-refresh análisis de contenido cuando cambia la cola
+  db.ref('eudora/queue').on('value', () => { if (typeof refreshContentAnalysis === 'function') refreshContentAnalysis(); });
 
   function toggleAgencyView() {
     agencyView = !agencyView;
-    const panel  = document.getElementById('agency-panel');
+    const panel = document.getElementById('agency-panel');
     const toggle = document.getElementById('agency-toggle');
     if (agencyView) {
-      panel.style.display  = '';
+      panel.style.display = '';
       toggle.style.background = '#F97316';
     } else {
-      panel.style.display  = 'none';
+      panel.style.display = 'none';
       toggle.style.background = '#475569';
     }
   }
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // CAMPAÑAS IA — Agente experto en ads
+  // ════════════════════════════════════════════════════════════════════════════
+
+  let SAVED_CAMPAIGNS = [];
+  let CAMP_MESSAGES   = [];  // conversation history for current campaign
+  let CAMP_CURRENT_PLAN = '';
+
+  const CAMP_SYSTEM_PROMPT = `Eres un experto en publicidad digital con 10+ años de experiencia gestionando campañas de alto rendimiento en Meta Ads (Facebook/Instagram), Google Ads, LinkedIn Ads y TikTok Ads para marcas del sector creativo, arte, diseño, moda y arquitectura.
+
+Tu rol: ser el estratega jefe de campañas de la agencia Eudora. Cuando el usuario te entrega un brief, debes producir un PLAN DE CAMPAÑA completo, accionable y específico que incluya:
+
+1. 🎯 OBJETIVO Y KPIs — Define el objetivo principal (conversiones, alcance, tráfico, leads…) con KPIs numéricos realistas.
+2. 📱 SELECCIÓN DE PLATAFORMAS — Justifica qué plataformas usar y cuáles descartar para este brief específico.
+3. 💰 DISTRIBUCIÓN DE PRESUPUESTO — Divide el presupuesto total entre plataformas y tipos de campaña (%) con razonamiento.
+4. 🎨 ESTRUCTURA DE CAMPAÑAS — Para cada plataforma seleccionada:
+   - Nombre de campaña / conjuntos de anuncios / anuncios
+   - Tipos de campaña (Awareness, Consideration, Conversion, Retargeting)
+   - Audiencias primarias + audiencias lookalike + audiencias de retargeting
+   - Formatos recomendados (imagen, video, carrusel, stories, reels, etc.)
+   - Copy del anuncio: headline, descripción, CTA
+   - Creatividades: qué mostrar, qué texto usar, paleta sugerida
+5. 🗓 CALENDARIO Y FASES — Divide la campaña en fases (aprendizaje, escalado, optimización) con fechas y presupuesto por fase.
+6. 📊 MÉTRICAS DE CONTROL — Benchmarks esperados (CTR, CPM, CPC, ROAS, CPL) y cuándo optimizar.
+7. ⚡ QUICK WINS — 3 acciones inmediatas de alto impacto que el cliente puede tomar hoy.
+8. ⚠️ RIESGOS Y MITIGACIONES — Anticipa los 2-3 problemas más comunes y cómo evitarlos.
+
+Usa lenguaje profesional pero claro. Sé específico: da números, ejemplos de copy reales, nombres de audiencias concretas. Nunca seas vago. Usa emojis como marcadores de sección para mejorar legibilidad. Responde siempre en español.`;
+
+  async function generateCampaignPlan() {
+    const anthropicKey = (IG.config && IG.config.anthropicKey) || '';
+    if (!anthropicKey) {
+      document.getElementById('camp-api-notice').style.display = '';
+      showToast('⚠ Añade tu API Key de Anthropic en Configuración primero');
+      return;
+    }
+
+    // Gather brief fields
+    const client    = document.getElementById('camp-client')?.value || '';
+    const platform  = Array.from(document.querySelectorAll('.camp-platform:checked')).map(c=>c.value).join(', ') || 'Meta/Instagram';
+    const objective = document.getElementById('camp-objective')?.value || '';
+    const budget    = document.getElementById('camp-budget')?.value || '';
+    const duration  = document.getElementById('camp-duration')?.value || '';
+    const audience  = document.getElementById('camp-audience')?.value || '';
+    const extra     = [document.getElementById('camp-message')?.value||'', document.getElementById('camp-creative')?.value||''].filter(Boolean).join(' | ') || '';
+
+    if (!objective || !budget) { showToast('⚠ Completa al menos el objetivo y presupuesto'); return; }
+
+    const userMessage = `BRIEF DE CAMPAÑA:
+- Cliente: ${client || 'Sin especificar'}
+- Plataformas: ${platform}
+- Objetivo: ${objective}
+- Presupuesto total: ${budget}
+- Duración: ${duration || 'Sin especificar'}
+- Audiencia objetivo: ${audience || 'Sin especificar'}
+- Información adicional / restricciones: ${extra || 'Ninguna'}
+
+Por favor genera el plan de campaña completo.`;
+
+    // Show loading state
+    const btn = document.getElementById('btn-gen-camp');
+    if (btn) { btn.disabled = true; btn.textContent = '⏳ Generando plan…'; }
+    const outWrap = document.getElementById('camp-output-wrap');
+    const outEl   = document.getElementById('camp-output');
+    if (outWrap) outWrap.style.display = '';
+    if (outEl) outEl.innerHTML = '<div class="flex items-center gap-2 text-slate-400 text-sm"><div class="animate-spin w-4 h-4 border-2 border-purple-400 border-t-transparent rounded-full"></div> El agente está elaborando tu plan de campaña…</div>';
+
+    CAMP_MESSAGES = [{ role:'user', content: userMessage }];
+
+    try {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': anthropicKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-opus-4-5',
+          max_tokens: 4000,
+          system: CAMP_SYSTEM_PROMPT,
+          messages: CAMP_MESSAGES
+        })
+      });
+
+      if (!response.ok) {
+        const err = await response.json().catch(()=>({error:{message:response.statusText}}));
+        throw new Error(err?.error?.message || `HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+      const plan  = data.content?.[0]?.text || '';
+      CAMP_CURRENT_PLAN = plan;
+      CAMP_MESSAGES.push({ role:'assistant', content: plan });
+
+      if (outEl) outEl.innerHTML = formatCampaignOutput(plan);
+
+      // Show action buttons & chat
+      const btns = document.getElementById('camp-action-btns');
+      if (btns) btns.style.display = '';
+      const chatArea = document.getElementById('camp-chat-area');
+      if (chatArea) chatArea.style.display = '';
+      const chatHistory = document.getElementById('camp-chat-history');
+      if (chatHistory) chatHistory.style.display = 'none';
+
+      // Hide api notice if shown
+      const notice = document.getElementById('camp-api-notice');
+      if (notice) notice.style.display = 'none';
+
+      showToast('✓ Plan de campaña generado');
+
+    } catch(e) {
+      if (outEl) outEl.innerHTML = '<div class="text-red-500 text-sm">⚠ Error: ' + e.message + '. Verifica tu API Key y que tengas créditos en tu cuenta de Anthropic.</div>';
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerHTML = '<span class="text-base leading-none">✦</span> Generar plan de campaña'; }
+    }
+  }
+
+  function formatCampaignOutput(text) {
+    // Convert markdown-like text to styled HTML
+    return '<div class="space-y-4 text-sm text-slate-700 leading-relaxed">' +
+      text
+        .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+        .replace(/^(#{1,3})\s+(.+)$/gm, (_, h, t) => {
+          const size = h.length === 1 ? 'text-base font-bold text-slate-900 mt-6 mb-2' : h.length === 2 ? 'text-sm font-bold text-slate-800 mt-4 mb-1' : 'text-xs font-semibold text-slate-700 mt-3 mb-1 uppercase tracking-wide';
+          return '<div class="' + size + '">' + t + '</div>';
+        })
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        .replace(/`(.+?)`/g, '<code class="bg-slate-100 px-1 rounded text-xs font-mono">$1</code>')
+        .replace(/^[-•]\s+(.+)$/gm, '<div class="flex gap-2 ml-2"><span class="text-purple-400 shrink-0 mt-0.5">•</span><span>$1</span></div>')
+        .replace(/^\d+\.\s+(.+)$/gm, '<div class="flex gap-2 ml-2"><span class="text-purple-600 shrink-0 font-semibold mt-0.5">›</span><span>$1</span></div>')
+        .replace(/
+
+/g, '</div><div class="space-y-1">')
+        .replace(/
+/g, '<br>') +
+      '</div>';
+  }
+
+  async function sendCampaignChat() {
+    const anthropicKey = (IG.config && IG.config.anthropicKey) || '';
+    if (!anthropicKey) { showToast('⚠ Falta API Key de Anthropic'); return; }
+    const input = document.getElementById('camp-chat-input');
+    const msg   = input?.value?.trim();
+    if (!msg) return;
+
+    input.value = '';
+    input.disabled = true;
+
+    const histEl = document.getElementById('camp-chat-history');
+    if (histEl) {
+      histEl.style.display = '';
+      histEl.innerHTML += '<div class="flex justify-end"><div class="bg-purple-100 text-purple-900 text-xs rounded-xl px-3 py-2 max-w-xs">' + escapeHtml(msg) + '</div></div>';
+    }
+
+    CAMP_MESSAGES.push({ role:'user', content: msg });
+
+    // Loading bubble
+    const loadId = 'camp-load-' + Date.now();
+    if (histEl) histEl.innerHTML += '<div id="' + loadId + '" class="flex gap-2 items-center text-slate-400 text-xs"><div class="animate-spin w-3 h-3 border border-purple-400 border-t-transparent rounded-full"></div> Pensando…</div>';
+    histEl?.scrollTo(0, histEl.scrollHeight);
+
+    try {
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': anthropicKey,
+          'anthropic-version': '2023-06-01',
+          'anthropic-dangerous-direct-browser-access': 'true'
+        },
+        body: JSON.stringify({
+          model: 'claude-opus-4-5',
+          max_tokens: 2000,
+          system: CAMP_SYSTEM_PROMPT,
+          messages: CAMP_MESSAGES
+        })
+      });
+
+      const data = await response.json();
+      const reply = data.content?.[0]?.text || '';
+      CAMP_MESSAGES.push({ role:'assistant', content: reply });
+
+      // Remove loading
+      document.getElementById(loadId)?.remove();
+
+      if (histEl) {
+        histEl.innerHTML += '<div class="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-700 leading-relaxed">' + formatCampaignOutput(reply) + '</div>';
+        histEl.scrollTo(0, histEl.scrollHeight);
+      }
+    } catch(e) {
+      document.getElementById(loadId)?.remove();
+      if (histEl) histEl.innerHTML += '<div class="text-red-400 text-xs">⚠ Error: ' + escapeHtml(e.message) + '</div>';
+    } finally {
+      if (input) input.disabled = false;
+      input?.focus();
+    }
+  }
+
+  function escapeHtml(t) { return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+  function saveCampaignPlan() {
+    if (!CAMP_CURRENT_PLAN) { showToast('⚠ No hay plan generado todavía'); return; }
+    const client    = document.getElementById('camp-client')?.value || 'Sin cliente';
+    const objective = document.getElementById('camp-objective')?.value || 'Sin objetivo';
+    const platform  = Array.from(document.querySelectorAll('.camp-platform:checked')).map(c=>c.value).join(', ') || '';
+    const campaign = {
+      id: Date.now(),
+      date: new Date().toLocaleDateString('es-CL'),
+      client,
+      objective,
+      platform,
+      plan: CAMP_CURRENT_PLAN
+    };
+    SAVED_CAMPAIGNS.unshift(campaign);
+    // Persist to Firebase
+    db.ref('eudora/campaigns').set(SAVED_CAMPAIGNS).catch(()=>{});
+    renderSavedCampaigns();
+    showToast('✓ Campaña guardada');
+  }
+
+  function copyCampaignPlan() {
+    if (!CAMP_CURRENT_PLAN) { showToast('⚠ No hay plan generado'); return; }
+    navigator.clipboard.writeText(CAMP_CURRENT_PLAN).then(()=>showToast('✓ Plan copiado al portapapeles')).catch(()=>showToast('⚠ Error al copiar'));
+  }
+
+  function newCampaignBrief() {
+    // Reset form and output
+    ['camp-client','camp-objective','camp-budget','camp-duration','camp-audience','camp-message','camp-creative'].forEach(id=>{
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    document.querySelectorAll('.camp-platform').forEach(cb => { cb.checked = false; });
+    const outWrap = document.getElementById('camp-output-wrap');
+    if (outWrap) outWrap.style.display = 'none';
+    const btns = document.getElementById('camp-action-btns');
+    if (btns) btns.style.display = 'none';
+    const chatArea = document.getElementById('camp-chat-area');
+    if (chatArea) chatArea.style.display = 'none';
+    const chatHistory = document.getElementById('camp-chat-history');
+    if (chatHistory) { chatHistory.innerHTML = ''; chatHistory.style.display = 'none'; }
+    CAMP_MESSAGES = [];
+    CAMP_CURRENT_PLAN = '';
+    showToast('✓ Nuevo brief listo');
+  }
+
+  function renderSavedCampaigns() {
+    const el = document.getElementById('camp-saved-list');
+    if (!el) return;
+    if (!SAVED_CAMPAIGNS.length) {
+      el.innerHTML = '<p class="text-xs text-slate-400 italic">Sin campañas guardadas todavía.</p>';
+      return;
+    }
+    el.innerHTML = SAVED_CAMPAIGNS.map(c => `
+      <div class="bg-white border border-slate-200 rounded-xl p-4 hover:border-purple-300 transition-all">
+        <div class="flex items-start justify-between gap-3">
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap mb-1">
+              <span class="text-xs font-semibold text-slate-800">${c.client}</span>
+              <span class="text-xs text-slate-400">·</span>
+              <span class="text-xs text-purple-600">${c.platform || 'Multi-plataforma'}</span>
+              <span class="text-xs text-slate-400">·</span>
+              <span class="text-xs text-slate-400">${c.date}</span>
+            </div>
+            <div class="text-xs text-slate-600 truncate">${c.objective}</div>
+          </div>
+          <div class="flex gap-2 shrink-0">
+            <button onclick="loadSavedCampaign(${c.id})" class="text-xs px-2.5 py-1 bg-purple-50 text-purple-700 rounded-lg hover:bg-purple-100 font-medium">Ver plan</button>
+            <button onclick="deleteSavedCampaign(${c.id})" class="text-xs px-2.5 py-1 bg-red-50 text-red-500 rounded-lg hover:bg-red-100">✕</button>
+          </div>
+        </div>
+      </div>`).join('');
+  }
+
+  function loadSavedCampaign(id) {
+    const c = SAVED_CAMPAIGNS.find(x => x.id === id);
+    if (!c) return;
+    CAMP_CURRENT_PLAN = c.plan;
+    CAMP_MESSAGES = [{ role:'user', content: 'Plan guardado.' }, { role:'assistant', content: c.plan }];
+    const outWrap = document.getElementById('camp-output-wrap');
+    const outEl   = document.getElementById('camp-output');
+    if (outWrap) outWrap.style.display = '';
+    if (outEl) outEl.innerHTML = formatCampaignOutput(c.plan);
+    const btns = document.getElementById('camp-action-btns');
+    if (btns) btns.style.display = '';
+    const chatArea = document.getElementById('camp-chat-area');
+    if (chatArea) chatArea.style.display = '';
+    showToast('✓ Plan cargado');
+    showSection('campanas');
+    document.getElementById('camp-output-wrap')?.scrollIntoView({ behavior:'smooth' });
+  }
+
+  function deleteSavedCampaign(id) {
+    SAVED_CAMPAIGNS = SAVED_CAMPAIGNS.filter(c => c.id !== id);
+    db.ref('eudora/campaigns').set(SAVED_CAMPAIGNS).catch(()=>{});
+    renderSavedCampaigns();
+    showToast('✓ Campaña eliminada');
+  }
+
+  function saveAnthropicKey() {
+    const key = document.getElementById('cfg-anthropic-key')?.value?.trim();
+    if (!key) { showToast('⚠ Ingresa una API Key válida'); return; }
+    if (!key.startsWith('sk-ant')) { showToast('⚠ La clave debe comenzar con sk-ant…'); return; }
+    IG.config.anthropicKey = key;
+    db.ref('eudora/config').update({ anthropicKey: key }).then(()=>{
+      const st = document.getElementById('anthropic-key-status');
+      if (st) { st.textContent = '✓ Guardada'; st.className = 'ml-3 text-xs text-emerald-600'; st.classList.remove('hidden'); setTimeout(()=>st.classList.add('hidden'), 3000); }
+      // Hide campaign notice
+      const notice = document.getElementById('camp-api-notice');
+      if (notice) notice.style.display = 'none';
+      showToast('✓ API Key de Anthropic guardada');
+    }).catch(()=>showToast('⚠ Error al guardar'));
+  }
+
+  // Load saved campaigns from Firebase
+  db.ref('eudora/campaigns').once('value').then(snap => {
+    const data = snap.val();
+    if (Array.isArray(data)) { SAVED_CAMPAIGNS = data; renderSavedCampaigns(); }
+  });
+
 </script>
 
 </body>
