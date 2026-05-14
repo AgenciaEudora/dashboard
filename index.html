@@ -26,7 +26,7 @@
   <style>
     * { font-family: 'DM Sans', system-ui, sans-serif; }
     .section { display: none; }
-    .section.active { display: block; }
+    .section.active { display: block; height: 100%; overflow-y: auto; box-sizing: border-box; }
     .nav-item { transition: all 0.15s ease; }
     .nav-item.active { background: rgba(249,115,22,0.12); color: #F97316 !important; }
     .nav-item.active svg { stroke: #F97316; }
@@ -290,7 +290,7 @@
     </div>
 
     <!-- Scrollable content area -->
-    <div id="main-scroll" style="flex:1;overflow-y:auto;min-height:0;">
+    <div id="main-scroll" style="flex:1;overflow:hidden;min-height:0;position:relative;">
 
       <!-- ════════════════════════════════════
            SECCIÓN: ESTRATEGIA
