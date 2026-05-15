@@ -2465,6 +2465,84 @@
                 <p id="camp-gen-status" class="text-xs text-slate-400 text-center"></p>
               </div>
             </div>
+
+            <!-- ── CREATIVIDADES ── -->
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Creatividades</div>
+
+              <!-- Type selector -->
+              <div class="flex gap-1.5 mb-4">
+                <button onclick="setCampCreativeType('imagen')" id="creat-btn-imagen"
+                  class="creat-type-btn flex-1 py-1.5 text-xs font-semibold rounded-lg border border-purple-400 bg-purple-50 text-purple-700 transition-all">📸 Imagen</button>
+                <button onclick="setCampCreativeType('carrusel')" id="creat-btn-carrusel"
+                  class="creat-type-btn flex-1 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 hover:border-purple-300 transition-all">🎠 Carrusel</button>
+                <button onclick="setCampCreativeType('video')" id="creat-btn-video"
+                  class="creat-type-btn flex-1 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 hover:border-purple-300 transition-all">🎬 Video</button>
+              </div>
+
+              <!-- ─ Imagen única ─ -->
+              <div id="creat-panel-imagen">
+                <div class="mb-2">
+                  <label class="text-xs text-slate-500 block mb-1">URL o link de Drive/Dropbox</label>
+                  <div class="flex gap-2">
+                    <input id="creat-img-url" type="url" placeholder="https://..."
+                      class="flex-1 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400"
+                      oninput="previewCreatImg()">
+                    <label class="px-2.5 py-2 bg-slate-100 text-slate-600 text-xs font-medium rounded-lg cursor-pointer hover:bg-slate-200 transition-all shrink-0"
+                      title="Subir desde tu equipo">
+                      ⬆
+                      <input type="file" accept="image/*" class="hidden" onchange="uploadCreatFile(this,'imagen')">
+                    </label>
+                  </div>
+                </div>
+                <div id="creat-img-preview" class="mb-2 rounded-lg overflow-hidden bg-slate-50 border border-slate-200 hidden">
+                  <img id="creat-img-preview-img" class="w-full max-h-40 object-contain" src="" alt="preview">
+                </div>
+              </div>
+
+              <!-- ─ Carrusel ─ -->
+              <div id="creat-panel-carrusel" style="display:none">
+                <div class="space-y-2 mb-2" id="creat-carousel-list"></div>
+                <button onclick="addCarouselSlide()" class="w-full py-2 text-xs text-purple-500 hover:text-purple-700 border border-dashed border-purple-300 rounded-lg transition-all">+ Añadir imagen al carrusel</button>
+              </div>
+
+              <!-- ─ Video ─ -->
+              <div id="creat-panel-video" style="display:none">
+                <div class="mb-2">
+                  <label class="text-xs text-slate-500 block mb-1">URL del video (Drive, YouTube, Vimeo...)</label>
+                  <div class="flex gap-2">
+                    <input id="creat-vid-url" type="url" placeholder="https://..."
+                      class="flex-1 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
+                    <label class="px-2.5 py-2 bg-slate-100 text-slate-600 text-xs font-medium rounded-lg cursor-pointer hover:bg-slate-200 transition-all shrink-0"
+                      title="Subir desde tu equipo">
+                      ⬆
+                      <input type="file" accept="video/*" class="hidden" onchange="uploadCreatFile(this,'video')">
+                    </label>
+                  </div>
+                </div>
+                <div id="creat-vid-preview" class="hidden text-xs text-emerald-600 font-medium py-1.5 px-3 bg-emerald-50 rounded-lg">✓ Video adjuntado</div>
+              </div>
+
+              <!-- Common fields -->
+              <div class="mt-3 space-y-2">
+                <input id="creat-copy" type="text" placeholder="Copy / caption del anuncio"
+                  class="w-full text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
+                <div class="flex gap-2">
+                  <input id="creat-headline" type="text" placeholder="Titular"
+                    class="flex-1 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
+                  <input id="creat-cta" type="text" placeholder="CTA (Ej: Más info)"
+                    class="w-28 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
+                </div>
+              </div>
+
+              <!-- Creative list -->
+              <div id="creat-saved-list" class="mt-3 space-y-2"></div>
+
+              <button onclick="addCampCreative()" class="mt-3 w-full py-2 text-xs font-semibold text-purple-600 hover:text-purple-800 bg-purple-50 hover:bg-purple-100 rounded-lg border border-purple-200 transition-all">
+                + Guardar creatividad
+              </button>
+            </div>
+
           </div>
 
           <!-- Right: AI response + chat -->
@@ -2474,8 +2552,12 @@
               <div id="camp-action-btns" class="border-b border-slate-100 px-5 py-3 flex items-center justify-between">
                 <div class="text-xs font-semibold text-slate-600 uppercase tracking-wide">Plan generado por el Agente IA</div>
                 <div class="flex gap-2">
-                  <button onclick="saveCampaignPlan()" class="text-xs text-purple-500 hover:text-purple-700 font-medium">💾 Guardar campaña</button>
+                  <button onclick="saveCampaignPlan()" class="text-xs text-purple-500 hover:text-purple-700 font-medium">💾 Guardar</button>
                   <button onclick="copyCampaignPlan()" class="text-xs text-slate-400 hover:text-slate-600 font-medium">📋 Copiar</button>
+                  <button onclick="openCampActivationModal()" id="btn-camp-activate" style="display:none"
+                    class="text-xs font-semibold px-3 py-1.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-all flex items-center gap-1.5">
+                    🚀 Activar campaña
+                  </button>
                 </div>
               </div>
               <div id="camp-output-wrap"><div id="camp-output" class="p-5 text-sm text-slate-500 min-h-80">
@@ -2789,6 +2871,70 @@
               <button onclick="closeGestTaskModal()" class="px-4 py-2 text-sm text-slate-500 hover:text-slate-700 font-medium border border-slate-200 rounded-lg transition-all">Cancelar</button>
               <button onclick="saveGestTask()" class="px-5 py-2 text-sm font-semibold bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-all">Guardar</button>
             </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ── MODAL ACTIVACIÓN CAMPAÑA ── -->
+      <div id="camp-activation-modal" style="display:none" class="fixed inset-0 z-50 flex items-start justify-center bg-black/50 backdrop-blur-sm overflow-y-auto py-6">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl mx-4 my-auto">
+          <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100">
+            <div>
+              <h3 class="text-base font-bold text-slate-800">🚀 Configurar y Activar Campaña</h3>
+              <p class="text-xs text-slate-400 mt-0.5">Revisa el resumen y activa en cada plataforma</p>
+            </div>
+            <button onclick="closeCampActivationModal()" class="text-slate-400 hover:text-slate-600 transition-all">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
+
+          <div class="px-6 py-5 space-y-5">
+            <!-- Resumen -->
+            <div id="camp-act-summary" class="bg-slate-50 rounded-xl p-4 grid grid-cols-2 gap-3 text-xs"></div>
+
+            <!-- Creatividades preview -->
+            <div>
+              <div class="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-2">Creatividades adjuntas</div>
+              <div id="camp-act-creatives" class="flex gap-3 flex-wrap">
+                <div class="text-xs text-slate-400 italic">Sin creatividades adjuntas</div>
+              </div>
+            </div>
+
+            <!-- Plataformas -->
+            <div>
+              <div class="text-xs font-semibold text-slate-600 uppercase tracking-wide mb-3">Activar en plataformas</div>
+              <div class="space-y-3" id="camp-act-platforms">
+                <!-- rendered by JS -->
+              </div>
+            </div>
+
+            <!-- Nota Meta API -->
+            <div id="camp-meta-api-panel" style="display:none" class="bg-blue-50 border border-blue-200 rounded-xl p-4 space-y-3">
+              <div class="text-xs font-semibold text-blue-800">📘 Crear campaña en Meta vía API</div>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="text-xs text-blue-700 block mb-1">ID de cuenta publicitaria</label>
+                  <input id="meta-ad-account-id" type="text" placeholder="act_XXXXXXXXXX"
+                    class="w-full text-xs border border-blue-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-blue-400 bg-white">
+                  <p class="text-xs text-blue-500 mt-1">En Ads Manager → Configuración de cuenta</p>
+                </div>
+                <div>
+                  <label class="text-xs text-blue-700 block mb-1">Página de Facebook (ID)</label>
+                  <input id="meta-page-id" type="text" placeholder="XXXXXXXXXX"
+                    class="w-full text-xs border border-blue-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-blue-400 bg-white">
+                </div>
+              </div>
+              <div id="meta-api-status" class="text-xs"></div>
+              <button onclick="createMetaCampaign()" class="w-full py-2.5 text-xs font-semibold bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all">
+                Crear estructura en Meta Ads →
+              </button>
+            </div>
+          </div>
+
+          <div class="px-6 py-4 border-t border-slate-100 flex justify-end gap-2">
+            <button onclick="closeCampActivationModal()" class="px-4 py-2 text-sm text-slate-500 border border-slate-200 rounded-lg hover:text-slate-700 transition-all">Cerrar</button>
+            <button onclick="saveCampaignPlan();closeCampActivationModal()" class="px-5 py-2 text-sm font-semibold bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all">💾 Guardar campaña</button>
           </div>
         </div>
       </div>
@@ -5918,6 +6064,372 @@ Por favor genera el plan de campaña completo.`;
   document.addEventListener('DOMContentLoaded', () => {
     if (window.location.hash === '#gestion') initGestion();
   });
+
+
+
+  // ══════════════════════════════════════════════════════════
+  // CAMPAÑAS — CREATIVIDADES Y ACTIVACIÓN
+  // ══════════════════════════════════════════════════════════
+  let campCreativeType  = 'imagen';
+  let campCreatives     = [];       // array of creative objects
+  let carouselSlides    = [];       // temp carousel slides
+  let campCurrentPlan   = '';       // last generated plan text
+
+  // ── Tipo de creatividad ───────────────────────────────────
+  function setCampCreativeType(type) {
+    campCreativeType = type;
+    ['imagen','carrusel','video'].forEach(t => {
+      const btn = document.getElementById('creat-btn-' + t);
+      const panel = document.getElementById('creat-panel-' + t);
+      if (!btn || !panel) return;
+      if (t === type) {
+        btn.className = 'creat-type-btn flex-1 py-1.5 text-xs font-semibold rounded-lg border border-purple-400 bg-purple-50 text-purple-700 transition-all';
+        panel.style.display = '';
+      } else {
+        btn.className = 'creat-type-btn flex-1 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 hover:border-purple-300 transition-all';
+        panel.style.display = 'none';
+      }
+    });
+  }
+
+  // ── Preview imagen ────────────────────────────────────────
+  function previewCreatImg() {
+    const url = document.getElementById('creat-img-url')?.value.trim() || '';
+    const wrap = document.getElementById('creat-img-preview');
+    const img  = document.getElementById('creat-img-preview-img');
+    if (!wrap || !img) return;
+    if (url && (url.startsWith('http') || url.startsWith('data:'))) {
+      img.src = url;
+      wrap.classList.remove('hidden');
+      img.onerror = () => wrap.classList.add('hidden');
+    } else {
+      wrap.classList.add('hidden');
+    }
+  }
+
+  // ── Upload archivo desde disco ────────────────────────────
+  function uploadCreatFile(input, type) {
+    const file = input.files[0];
+    if (!file) return;
+    const sizeMB = file.size / 1024 / 1024;
+    if (sizeMB > 10) {
+      showToast('Archivo muy grande (>10MB). Usa un link de Drive o Dropbox.');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = e => {
+      if (type === 'imagen') {
+        const inp = document.getElementById('creat-img-url');
+        if (inp) inp.value = e.target.result;
+        previewCreatImg();
+      } else if (type === 'video') {
+        const inp = document.getElementById('creat-vid-url');
+        if (inp) inp.value = e.target.result;
+        const prev = document.getElementById('creat-vid-preview');
+        if (prev) { prev.textContent = '✓ Video listo: ' + file.name; prev.classList.remove('hidden'); }
+      } else if (type === 'carousel-slide') {
+        addCarouselSlideWithData(e.target.result, file.name);
+      }
+    };
+    if (type === 'video') reader.readAsDataURL(file);
+    else reader.readAsDataURL(file);
+  }
+
+  // ── Carrusel ──────────────────────────────────────────────
+  function addCarouselSlide(url, name) {
+    if (!url) {
+      // prompt via temp input
+      const u = prompt('URL de la imagen:');
+      if (!u) return;
+      addCarouselSlideWithData(u, u.split('/').pop() || 'Imagen ' + (carouselSlides.length+1));
+    }
+  }
+
+  function addCarouselSlideWithData(url, name) {
+    const id = 'cs' + Date.now();
+    carouselSlides.push({ id, url, name: name || 'Imagen ' + carouselSlides.length });
+    renderCarouselSlides();
+  }
+
+  function removeCarouselSlide(id) {
+    carouselSlides = carouselSlides.filter(s => s.id !== id);
+    renderCarouselSlides();
+  }
+
+  function renderCarouselSlides() {
+    const el = document.getElementById('creat-carousel-list');
+    if (!el) return;
+    if (!carouselSlides.length) { el.innerHTML = ''; return; }
+    el.innerHTML = carouselSlides.map((s, i) => `
+      <div class="flex items-center gap-2 bg-slate-50 rounded-lg p-2 text-xs">
+        <span class="text-slate-400 font-bold w-4 text-center">${i+1}</span>
+        ${s.url.startsWith('data:image') || s.url.match(/\.(jpg|jpeg|png|gif|webp)/i)
+          ? `<img src="${s.url}" class="w-10 h-10 object-cover rounded border border-slate-200">`
+          : `<span class="w-10 h-10 bg-slate-200 rounded flex items-center justify-center text-base">🖼</span>`}
+        <span class="flex-1 truncate text-slate-600">${escHtml(s.name)}</span>
+        <button onclick="removeCarouselSlide('${s.id}')" class="text-slate-300 hover:text-red-500 transition-all">✕</button>
+      </div>`).join('');
+  }
+
+  // ── Añadir creatividad al listado de la campaña ───────────
+  function addCampCreative() {
+    const copy     = document.getElementById('creat-copy')?.value.trim()     || '';
+    const headline = document.getElementById('creat-headline')?.value.trim() || '';
+    const cta      = document.getElementById('creat-cta')?.value.trim()      || '';
+    let creative = { id: 'cr' + Date.now(), type: campCreativeType, copy, headline, cta };
+
+    if (campCreativeType === 'imagen') {
+      const url = document.getElementById('creat-img-url')?.value.trim() || '';
+      if (!url) { showToast('Añade una imagen primero'); return; }
+      creative.url = url;
+    } else if (campCreativeType === 'carrusel') {
+      if (!carouselSlides.length) { showToast('Añade al menos una imagen al carrusel'); return; }
+      creative.slides = [...carouselSlides];
+      carouselSlides = [];
+      renderCarouselSlides();
+    } else if (campCreativeType === 'video') {
+      const url = document.getElementById('creat-vid-url')?.value.trim() || '';
+      if (!url) { showToast('Añade un video primero'); return; }
+      creative.url = url;
+    }
+
+    campCreatives.push(creative);
+    // Clear fields
+    ['creat-img-url','creat-vid-url','creat-copy','creat-headline','creat-cta'].forEach(id => {
+      const el = document.getElementById(id); if (el) el.value = '';
+    });
+    const prev = document.getElementById('creat-img-preview'); if (prev) prev.classList.add('hidden');
+    const vprev = document.getElementById('creat-vid-preview'); if (vprev) vprev.classList.add('hidden');
+
+    renderCampCreatives();
+    showToast('Creatividad guardada');
+  }
+
+  function removeCampCreative(id) {
+    campCreatives = campCreatives.filter(c => c.id !== id);
+    renderCampCreatives();
+  }
+
+  function renderCampCreatives() {
+    const el = document.getElementById('creat-saved-list');
+    if (!el) return;
+    if (!campCreatives.length) { el.innerHTML = ''; return; }
+    const icons = { imagen:'📸', carrusel:'🎠', video:'🎬' };
+    el.innerHTML = campCreatives.map(c => {
+      const hasImg = c.url && (c.url.startsWith('data:image') || c.url.match(/\.(jpg|jpeg|png|gif|webp)/i));
+      const thumb  = hasImg ? `<img src="${c.url}" class="w-10 h-10 object-cover rounded border border-slate-200 shrink-0">` :
+                              `<span class="w-10 h-10 bg-purple-100 rounded flex items-center justify-center text-lg shrink-0">${icons[c.type]||'📄'}</span>`;
+      return `<div class="flex items-center gap-2 bg-purple-50 border border-purple-100 rounded-lg p-2.5 text-xs">
+        ${thumb}
+        <div class="flex-1 min-w-0">
+          <div class="font-semibold text-slate-700">${icons[c.type]} ${c.type.charAt(0).toUpperCase()+c.type.slice(1)} ${c.slides?'('+c.slides.length+' img)':''}</div>
+          ${c.headline?`<div class="text-slate-500 truncate">${escHtml(c.headline)}</div>`:''}
+        </div>
+        <button onclick="removeCampCreative('${c.id}')" class="text-slate-300 hover:text-red-500 transition-all">✕</button>
+      </div>`;
+    }).join('');
+    // Show activate button once there's a creative
+    const btn = document.getElementById('btn-camp-activate');
+    if (btn) btn.style.display = campCreatives.length ? '' : 'none';
+  }
+
+  // ── Mostrar botón activar cuando hay plan ─────────────────
+  const _origFormatCampaign = window.formatCampaignOutput;
+  // hook into saveCampaignPlan to reveal activate button
+  function revealActivateBtn() {
+    const btn = document.getElementById('btn-camp-activate');
+    if (btn) btn.style.display = '';
+    campCurrentPlan = document.getElementById('camp-output')?.innerText || '';
+  }
+
+  // ── Modal de activación ───────────────────────────────────
+  function openCampActivationModal() {
+    campCurrentPlan = document.getElementById('camp-output')?.innerText || '';
+    const modal = document.getElementById('camp-activation-modal');
+    if (!modal) return;
+
+    // Summary
+    const client   = document.getElementById('camp-client')?.value    || '';
+    const obj      = document.getElementById('camp-objective')?.value || '';
+    const budget   = document.getElementById('camp-budget')?.value    || '';
+    const duration = document.getElementById('camp-duration')?.value  || '';
+    const audience = document.getElementById('camp-audience')?.value  || '';
+    const CLIENTS  = { tarquinia:'Galería Tarquinia', eudora:'Eudora', nac:'Galería NAC', zoron:'Zorón', ftarquinia:'Fund. Tarquinia' };
+    const OBJ_LABELS = { awareness:'Reconocimiento de marca', traffic:'Tráfico al sitio', leads:'Generación de leads', conversions:'Conversiones / Ventas', engagement:'Engagement' };
+
+    const summEl = document.getElementById('camp-act-summary');
+    if (summEl) summEl.innerHTML = [
+      ['Cliente', CLIENTS[client]||client],
+      ['Objetivo', OBJ_LABELS[obj]||obj],
+      ['Presupuesto', budget],
+      ['Duración', duration],
+      ['Audiencia', audience],
+    ].filter(r=>r[1]).map(([k,v])=>`
+      <div class="bg-white rounded-lg p-3 border border-slate-200">
+        <div class="text-slate-400 mb-0.5">${k}</div>
+        <div class="font-semibold text-slate-800 text-xs">${escHtml(v)}</div>
+      </div>`).join('');
+
+    // Creatives preview
+    const crEl = document.getElementById('camp-act-creatives');
+    if (crEl) {
+      if (campCreatives.length) {
+        const icons = { imagen:'📸', carrusel:'🎠', video:'🎬' };
+        crEl.innerHTML = campCreatives.map(c => {
+          const hasImg = c.url && (c.url.startsWith('data:image') || c.url.match(/\.(jpg|jpeg|png|gif|webp)/i));
+          return `<div class="text-center">
+            ${hasImg ? `<img src="${c.url}" class="w-20 h-20 object-cover rounded-xl border-2 border-purple-200">` :
+              `<div class="w-20 h-20 rounded-xl bg-purple-100 border-2 border-purple-200 flex items-center justify-center text-2xl">${icons[c.type]||'📄'}</div>`}
+            <div class="text-xs text-slate-500 mt-1">${c.type}${c.slides?'<br>'+c.slides.length+' imgs':''}</div>
+          </div>`;
+        }).join('');
+      } else {
+        crEl.innerHTML = '<div class="text-xs text-slate-400 italic">Sin creatividades — puedes activar sin ellas</div>';
+      }
+    }
+
+    // Platforms
+    const selectedPlats = Array.from(document.querySelectorAll('.camp-platform:checked')).map(cb=>cb.value);
+    const plEl = document.getElementById('camp-act-platforms');
+    const metaPanel = document.getElementById('camp-meta-api-panel');
+
+    const platConfig = {
+      'Meta/Instagram': {
+        icon:'📘', color:'bg-blue-600', label:'Meta Ads Manager',
+        url:'https://adsmanager.facebook.com/adsmanager/manage/campaigns',
+        desc:'Crea la campaña en Meta Ads Manager. Tendrás el plan IA completo como referencia.',
+        api: true
+      },
+      'Google Ads': {
+        icon:'🔍', color:'bg-red-500', label:'Google Ads',
+        url:'https://ads.google.com/aw/campaigns',
+        desc:'Crea la campaña en Google Ads. Usa el plan generado para configurar grupos de anuncios y keywords.'
+      },
+      'LinkedIn Ads': {
+        icon:'💼', color:'bg-blue-800', label:'LinkedIn Campaign Manager',
+        url:'https://www.linkedin.com/campaignmanager/',
+        desc:'Accede a Campaign Manager de LinkedIn para configurar tu campaña.'
+      },
+      'TikTok Ads': {
+        icon:'🎵', color:'bg-black', label:'TikTok Ads Manager',
+        url:'https://ads.tiktok.com/',
+        desc:'Configura tu campaña en TikTok Ads Manager.'
+      }
+    };
+
+    if (plEl) {
+      const toShow = selectedPlats.length ? selectedPlats : Object.keys(platConfig);
+      let hasMetaAPI = false;
+      plEl.innerHTML = toShow.map(p => {
+        const cfg = platConfig[p];
+        if (!cfg) return '';
+        if (cfg.api) hasMetaAPI = true;
+        return `<div class="flex items-start gap-4 p-4 bg-slate-50 rounded-xl border border-slate-200">
+          <div class="text-2xl shrink-0">${cfg.icon}</div>
+          <div class="flex-1 min-w-0">
+            <div class="text-sm font-semibold text-slate-800 mb-0.5">${p}</div>
+            <div class="text-xs text-slate-500 mb-3">${cfg.desc}</div>
+            <div class="flex gap-2 flex-wrap">
+              <a href="${cfg.url}" target="_blank"
+                class="px-3 py-1.5 text-xs font-semibold ${cfg.color} text-white rounded-lg hover:opacity-90 transition-all flex items-center gap-1.5">
+                Abrir ${cfg.label}
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+              <button onclick="copyCampBrief('${p}')" class="px-3 py-1.5 text-xs font-medium text-slate-600 bg-white border border-slate-200 rounded-lg hover:bg-slate-50 transition-all">
+                📋 Copiar brief
+              </button>
+              ${cfg.api ? `<button onclick="document.getElementById('camp-meta-api-panel').style.display=''" class="px-3 py-1.5 text-xs font-medium text-blue-600 bg-blue-50 border border-blue-200 rounded-lg hover:bg-blue-100 transition-all">⚡ Crear vía API</button>` : ''}
+            </div>
+          </div>
+          <div class="w-2 h-2 rounded-full bg-slate-300 shrink-0 mt-1" title="No activada"></div>
+        </div>`;
+      }).join('');
+
+      if (metaPanel) metaPanel.style.display = 'none';
+    }
+
+    modal.style.display = 'flex';
+  }
+
+  function closeCampActivationModal() {
+    const modal = document.getElementById('camp-activation-modal');
+    if (modal) modal.style.display = 'none';
+  }
+
+  function copyCampBrief(platform) {
+    const client   = document.getElementById('camp-client')?.value    || '';
+    const obj      = document.getElementById('camp-objective')?.value || '';
+    const budget   = document.getElementById('camp-budget')?.value    || '';
+    const duration = document.getElementById('camp-duration')?.value  || '';
+    const audience = document.getElementById('camp-audience')?.value  || '';
+    const msg      = document.getElementById('camp-message')?.value   || '';
+
+    const brief = `BRIEF DE CAMPAÑA — ${platform}\n` +
+      `═══════════════════════════════\n` +
+      `Cliente: ${client}\nObjetivo: ${obj}\nPresupuesto: ${budget}\nDuración: ${duration}\n` +
+      `Audiencia: ${audience}\nMensaje clave: ${msg}\n\n` +
+      `PLAN IA:\n${campCurrentPlan}`;
+
+    navigator.clipboard.writeText(brief).then(() => showToast('Brief copiado al portapapeles'));
+  }
+
+  // ── Meta Marketing API — crear estructura básica ──────────
+  async function createMetaCampaign() {
+    const token     = (IG.config && IG.config.accessToken) || '';
+    const adAccount = document.getElementById('meta-ad-account-id')?.value.trim() || '';
+    const statusEl  = document.getElementById('meta-api-status');
+
+    if (!token)     { if(statusEl) statusEl.innerHTML='<span class="text-red-500">⚠ Configura tu access token en Config IG primero.</span>'; return; }
+    if (!adAccount) { if(statusEl) statusEl.innerHTML='<span class="text-red-500">⚠ Ingresa tu ID de cuenta publicitaria (act_XXXXXXXXXX).</span>'; return; }
+
+    const client   = document.getElementById('camp-client')?.value    || 'Campaña Eudora';
+    const obj      = document.getElementById('camp-objective')?.value || 'OUTCOME_AWARENESS';
+    const budget   = document.getElementById('camp-budget')?.value    || '';
+    const duration = document.getElementById('camp-duration')?.value  || '';
+
+    const CAMP_OBJ_MAP = {
+      awareness:'OUTCOME_AWARENESS', traffic:'OUTCOME_TRAFFIC',
+      leads:'OUTCOME_LEADS', conversions:'OUTCOME_SALES', engagement:'OUTCOME_ENGAGEMENT'
+    };
+
+    if (statusEl) statusEl.innerHTML = '<span class="text-blue-600">⏳ Creando campaña en Meta...</span>';
+
+    try {
+      // Step 1: Create campaign
+      const campRes = await fetch(
+        `https://graph.facebook.com/v19.0/${adAccount}/campaigns`,
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: `[Eudora] ${client} — ${new Date().toLocaleDateString('es-CL')}`,
+            objective: CAMP_OBJ_MAP[obj] || 'OUTCOME_AWARENESS',
+            status: 'PAUSED',
+            access_token: token
+          })
+        }
+      );
+      const campData = await campRes.json();
+      if (campData.error) throw new Error(campData.error.message);
+      const campId = campData.id;
+
+      if (statusEl) statusEl.innerHTML = `<span class="text-emerald-600">✓ Campaña creada (ID: ${campId}) — en estado PAUSED. <a href="https://adsmanager.facebook.com" target="_blank" class="underline text-blue-600">Abrir Ads Manager →</a></span>`;
+      showToast('✓ Campaña creada en Meta (pausada)');
+    } catch(err) {
+      if (statusEl) statusEl.innerHTML = `<span class="text-red-500">✗ Error: ${err.message}</span>`;
+    }
+  }
+
+  // Hook into generateCampaignPlan to reveal activate button when plan is ready
+  const _origGenerateCampaignPlan = window.generateCampaignPlan;
+  if (typeof generateCampaignPlan === 'function') {
+    const __orig = generateCampaignPlan;
+    generateCampaignPlan = async function() {
+      await __orig();
+      const btn = document.getElementById('btn-camp-activate');
+      if (btn) btn.style.display = '';
+    };
+  }
 
 </script>
 
