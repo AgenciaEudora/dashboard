@@ -26,14 +26,7 @@
   <style>
     * { font-family: 'DM Sans', system-ui, sans-serif; }
     .section { display: none; }
-    .section.active {
-      display: block;
-      position: absolute;
-      inset: 0;
-      overflow-y: auto;
-      overflow-x: hidden;
-      -webkit-overflow-scrolling: touch;
-    }
+    .section.active { display: block; }
     .nav-item { transition: all 0.15s ease; }
     .nav-item.active { background: rgba(249,115,22,0.12); color: #F97316 !important; }
     .nav-item.active svg { stroke: #F97316; }
@@ -119,7 +112,6 @@
 
     /* ── Layout fixes ── */
     #main-scroll { scroll-behavior: smooth; }
-    .section.active { } /* padding handled by section content */
 
     /* ── Client tabs always visible + wrap ── */
     .strat-tab, .cnt-client-tab, .gest-client-tab {
@@ -291,7 +283,7 @@
   <!-- ═══════════════════════════════════════════
        MAIN CONTENT
   ════════════════════════════════════════════════ -->
-  <main style="margin-left:240px;display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;">
+  <main style="margin-left:240px;display:flex;flex-direction:column;height:100vh;">
 
     <!-- Top Header Bar -->
     <div class="bg-white border-b border-slate-200 px-8 py-3.5 shrink-0 z-10">
@@ -330,7 +322,7 @@
     </div>
 
     <!-- Scrollable content area -->
-    <div id="main-scroll" style="flex:1;overflow:hidden;position:relative;min-height:0;">
+    <div id="main-scroll" style="flex:1;overflow-y:auto;min-height:0;">
 
       <!-- ════════════════════════════════════
            SECCIÓN: ESTRATEGIA
