@@ -26,7 +26,7 @@
   <style>
     * { font-family: 'DM Sans', system-ui, sans-serif; }
     .section { display: none; }
-    .section.active { display: block; height: 100%; overflow-y: auto; box-sizing: border-box; }
+    .section.active { display: block; }
     .nav-item { transition: all 0.15s ease; }
     .nav-item.active { background: rgba(249,115,22,0.12); color: #F97316 !important; }
     .nav-item.active svg { stroke: #F97316; }
@@ -109,6 +109,37 @@
     /* Notification toast */
     #ig-toast { position:fixed; bottom:24px; right:24px; z-index:999; transform:translateY(80px); opacity:0; transition: all .3s ease; }
     #ig-toast.show { transform:translateY(0); opacity:1; }
+
+    /* ── Layout fixes ── */
+    #main-scroll { scroll-behavior: smooth; }
+    .section.active { padding-bottom: 48px; }
+
+    /* ── Client tabs always visible + wrap ── */
+    .strat-tab, .cnt-client-tab, .gest-client-tab {
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Card hover improvements ── */
+    .dash-card { background: #fff; border: 1px solid #E2E8F0; border-radius: 12px; transition: box-shadow .2s; }
+    .dash-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.07); }
+
+    /* ── Kanban column scroll ── */
+    .kanban-col { min-height: 200px; max-height: calc(100vh - 280px); overflow-y: auto; }
+
+    /* ── General view grid responsive ── */
+    #strat-general-view, #gest-general-view > div { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+
+    /* ── Sub-tabs always visible ── */
+    .strat-subtab, .gest-subtab { flex-shrink: 0; white-space: nowrap; }
+
+    /* ── Better focus styles ── */
+    button:focus-visible { outline: 2px solid #F97316; outline-offset: 2px; }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: #F97316 !important; box-shadow: 0 0 0 3px rgba(249,115,22,.12); }
+
+    /* ── Smooth nav transitions ── */
+    .nav-item { border-radius: 6px; }
+    .nav-item:hover { background: rgba(255,255,255,.06); }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800" style="overflow:hidden;height:100vh;">
@@ -295,7 +326,7 @@
     </div>
 
     <!-- Scrollable content area -->
-    <div id="main-scroll" style="flex:1;overflow:hidden;min-height:0;position:relative;">
+    <div id="main-scroll" style="flex:1;overflow-y:auto;min-height:0;">
 
       <!-- ════════════════════════════════════
            SECCIÓN: ESTRATEGIA
@@ -3296,6 +3327,13 @@
     document.getElementById('section-' + name).classList.add('active');
     document.querySelector('[data-section="' + name + '"]').classList.add('active');
     const ms = document.getElementById('main-scroll'); if (ms) ms.scrollTop = 0;
+    // Update subtitle when switching sections (reset to first client)
+    const _sectionDefaultClient = { estrategia: currentStratClient || 'tarquinia', gestion: currentGestClient || 'tarquinia', contenido: currentContentClient || 'tarquinia' };
+    if (_sectionDefaultClient[name]) {
+      const _subEl = document.getElementById('page-subtitle');
+      const _allLabels = { general:'Todos los clientes', tarquinia:'Galería Tarquinia', eudora:'Eudora (Agencia)', nac:'Galería NAC', zoron:'Zorón', ftarquinia:'Fundación Tarquinia' };
+      if (_subEl) _subEl.textContent = (_allLabels[_sectionDefaultClient[name]] || _sectionDefaultClient[name]) + ' · Mayo 2026';
+    }
 
     const titles = {
       estrategia:  'Estrategia del Mes',
