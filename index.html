@@ -2579,6 +2579,12 @@
                   <option value="media">Media</option>
                   <option value="baja">Baja</option>
                 </select>
+                <select id="gest-filter-assignee" onchange="renderGestTasks()" class="text-xs border border-slate-200 rounded px-2 py-1 text-slate-500 focus:outline-none">
+                  <option value="">Todos los responsables</option>
+                  <option value="santiago">Santiago</option>
+                  <option value="javier">Javier</option>
+                  <option value="alberto">Alberto</option>
+                </select>
               </div>
             </div>
             <div id="gest-task-list" class="divide-y divide-slate-100">
@@ -2715,17 +2721,30 @@
               <input id="gest-modal-title-input" type="text" placeholder="Descripción de la tarea"
                 class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-400">
             </div>
-            <div class="grid grid-cols-2 gap-3">
-              <div>
-                <label class="text-xs font-semibold text-slate-600 block mb-1">Responsable</label>
-                <input id="gest-modal-assignee" type="text" placeholder="Nombre"
-                  class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-400">
+            <div>
+              <label class="text-xs font-semibold text-slate-600 block mb-1.5">Responsable(s)</label>
+              <div class="flex gap-2 flex-wrap">
+                <label class="flex items-center gap-2 px-3 py-2 border border-slate-200 rounded-lg cursor-pointer hover:border-emerald-300 transition-all text-xs font-medium text-slate-600 select-none">
+                  <input type="checkbox" id="gest-assignee-santiago" class="gest-assignee-cb accent-emerald-500" value="santiago">
+                  <span class="w-5 h-5 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs shrink-0">S</span>
+                  Santiago
+                </label>
+                <label class="flex items-center gap-2 px-3 py-2 border border-slate-200 rounded-lg cursor-pointer hover:border-emerald-300 transition-all text-xs font-medium text-slate-600 select-none">
+                  <input type="checkbox" id="gest-assignee-javier" class="gest-assignee-cb accent-emerald-500" value="javier">
+                  <span class="w-5 h-5 rounded-full bg-violet-500 text-white flex items-center justify-center font-bold text-xs shrink-0">J</span>
+                  Javier
+                </label>
+                <label class="flex items-center gap-2 px-3 py-2 border border-slate-200 rounded-lg cursor-pointer hover:border-emerald-300 transition-all text-xs font-medium text-slate-600 select-none">
+                  <input type="checkbox" id="gest-assignee-alberto" class="gest-assignee-cb accent-emerald-500" value="alberto">
+                  <span class="w-5 h-5 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-xs shrink-0">A</span>
+                  Alberto
+                </label>
               </div>
-              <div>
-                <label class="text-xs font-semibold text-slate-600 block mb-1">Fecha límite</label>
-                <input id="gest-modal-due" type="date"
-                  class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-400">
-              </div>
+            </div>
+            <div>
+              <label class="text-xs font-semibold text-slate-600 block mb-1">Fecha límite</label>
+              <input id="gest-modal-due" type="date"
+                class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-400">
             </div>
             <div class="grid grid-cols-2 gap-3">
               <div>
@@ -2746,8 +2765,20 @@
               </div>
             </div>
             <div>
+              <label class="text-xs font-semibold text-slate-600 block mb-1.5">Archivos adjuntos</label>
+              <div class="flex gap-2 mb-2">
+                <input id="gest-att-name" type="text" placeholder="Nombre del archivo"
+                  class="w-36 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-emerald-400">
+                <input id="gest-att-url" type="url" placeholder="URL (Drive, Figma, Notion...)"
+                  class="flex-1 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-emerald-400">
+                <button onclick="addModalAttachment()" type="button"
+                  class="px-3 py-1.5 text-xs font-semibold bg-slate-100 text-slate-600 rounded-lg hover:bg-slate-200 transition-all shrink-0">+ Adjuntar</button>
+              </div>
+              <div id="gest-att-list" class="space-y-1.5"></div>
+            </div>
+            <div>
               <label class="text-xs font-semibold text-slate-600 block mb-1">Notas</label>
-              <textarea id="gest-modal-notes" rows="3" placeholder="Notas adicionales, contexto, links..."
+              <textarea id="gest-modal-notes" rows="2" placeholder="Notas adicionales, contexto, links..."
                 class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2.5 focus:outline-none focus:border-emerald-400 resize-none"></textarea>
             </div>
           </div>
@@ -5467,6 +5498,14 @@ Por favor genera el plan de campaña completo.`;
   let gestFiles         = {};   // { fileId: fileObj }
   let gestDriveFolder   = '';
   let draggedKanbanId   = null;
+  let modalAttachments  = [];   // attachments staged in modal
+
+  const GEST_TEAM = [
+    { id:'santiago', name:'Santiago', email:'santiago@eudora.cl', color:'bg-blue-500',   initial:'S' },
+    { id:'javier',   name:'Javier',   email:'javier@eudora.cl',   color:'bg-violet-500', initial:'J' },
+    { id:'alberto',  name:'Alberto',  email:'alberto@eudora.cl',  color:'bg-amber-500',  initial:'A' },
+  ];
+  const GEST_TEAM_MAP = Object.fromEntries(GEST_TEAM.map(u => [u.id, u]));
 
   const GEST_CLIENTS = {
     tarquinia:  'Galería Tarquinia',
@@ -5547,10 +5586,15 @@ Por favor genera el plan de campaña completo.`;
     if (!container) return;
     const filterStatus   = (document.getElementById('gest-filter-status')?.value)   || '';
     const filterPriority = (document.getElementById('gest-filter-priority')?.value) || '';
+    const filterAssignee = (document.getElementById('gest-filter-assignee')?.value) || '';
 
     let tasks = Object.values(gestTasks);
     if (filterStatus)   tasks = tasks.filter(t => t.status === filterStatus);
     if (filterPriority) tasks = tasks.filter(t => t.priority === filterPriority);
+    if (filterAssignee) tasks = tasks.filter(t => {
+      const arr = Array.isArray(t.assignees) ? t.assignees : (t.assignee ? [t.assignee] : []);
+      return arr.includes(filterAssignee);
+    });
     tasks.sort((a,b) => {
       const po = {alta:0,media:1,baja:2};
       return (po[a.priority]||1) - (po[b.priority]||1);
@@ -5595,9 +5639,19 @@ Por favor genera el plan de campaña completo.`;
             <span class="text-xs px-2 py-0.5 rounded-full font-medium ${statColor[t.status]||statColor.pendiente}">${statLabel[t.status]||'Pendiente'}</span>
           </div>
           <div class="flex items-center gap-3 mt-1 text-xs text-slate-400">
-            ${t.assignee?`<span>👤 ${escHtml(t.assignee)}</span>`:''}
+            ${(()=>{
+              const arr = Array.isArray(t.assignees)?t.assignees:(t.assignee?[t.assignee]:[]);
+              if(!arr.length) return '';
+              return arr.map(id=>{
+                const u=GEST_TEAM_MAP[id];
+                if(!u) return `<span>👤 ${escHtml(id)}</span>`;
+                const c={'santiago':'#3b82f6','javier':'#8b5cf6','alberto':'#f59e0b'}[id]||'#64748b';
+                return `<span style="display:inline-flex;align-items:center;gap:4px;"><span style="width:16px;height:16px;border-radius:50%;background:${c};color:white;font-size:9px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;">${u.initial}</span>${u.name}</span>`;
+              }).join(' ');
+            })()}
             ${t.dueDate?`<span class="${overdue?'text-red-500 font-semibold':''}">📅 ${t.dueDate}${overdue?' ⚠ Vencida':''}</span>`:''}
             ${t.notes?`<span class="truncate max-w-xs">📝 ${escHtml(t.notes)}</span>`:''}
+            ${(t.attachments&&t.attachments.length)?`<span>📎 ${t.attachments.length} archivo${t.attachments.length>1?'s':''}</span>`:''}
           </div>
         </div>
         <div class="flex gap-1 opacity-0 group-hover:opacity-100 transition-all shrink-0">
@@ -5641,7 +5695,14 @@ Por favor genera el plan de campaña completo.`;
           <div class="text-sm font-medium text-slate-800 mb-2 leading-snug">${escHtml(t.title)}</div>
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2 text-xs text-slate-400">
-              ${t.assignee?`<span>👤 ${escHtml(t.assignee)}</span>`:''}
+              ${(()=>{
+                const arr=Array.isArray(t.assignees)?t.assignees:(t.assignee?[t.assignee]:[]);
+                const cMap={'santiago':'#3b82f6','javier':'#8b5cf6','alberto':'#f59e0b'};
+                return arr.map(id=>{
+                  const u=GEST_TEAM_MAP[id]||{initial:id[0].toUpperCase(),name:id};
+                  return `<span style="width:18px;height:18px;border-radius:50%;background:${cMap[id]||'#64748b'};color:white;font-size:9px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;" title="${u.name}">${u.initial}</span>`;
+                }).join('');
+              })()}
               ${t.dueDate?`<span>📅 ${t.dueDate}</span>`:''}
             </div>
             <span class="text-xs px-1.5 py-0.5 rounded-full ${prioColor[t.priority]||prioColor.media}">${t.priority||'media'}</span>
@@ -5738,19 +5799,28 @@ Por favor genera el plan de campaña completo.`;
       const t = gestTasks[id];
       document.getElementById('gest-modal-id').value            = id;
       document.getElementById('gest-modal-title-input').value   = t.title   || '';
-      document.getElementById('gest-modal-assignee').value      = t.assignee|| '';
       document.getElementById('gest-modal-due').value           = t.dueDate || '';
       document.getElementById('gest-modal-priority').value      = t.priority|| 'media';
       document.getElementById('gest-modal-status').value        = t.status  || 'pendiente';
       document.getElementById('gest-modal-notes').value         = t.notes   || '';
+      // Assignees checkboxes
+      const assigneesArr = Array.isArray(t.assignees)?t.assignees:(t.assignee?[t.assignee]:[]);
+      document.querySelectorAll('.gest-assignee-cb').forEach(cb => {
+        cb.checked = assigneesArr.includes(cb.value);
+      });
+      // Attachments
+      modalAttachments = t.attachments ? JSON.parse(JSON.stringify(t.attachments)) : [];
+      renderModalAttachments();
     } else {
       document.getElementById('gest-modal-id').value            = '';
       document.getElementById('gest-modal-title-input').value   = '';
-      document.getElementById('gest-modal-assignee').value      = '';
       document.getElementById('gest-modal-due').value           = '';
       document.getElementById('gest-modal-priority').value      = 'media';
       document.getElementById('gest-modal-status').value        = defaultStatus || 'pendiente';
       document.getElementById('gest-modal-notes').value         = '';
+      document.querySelectorAll('.gest-assignee-cb').forEach(cb => cb.checked = false);
+      modalAttachments = [];
+      renderModalAttachments();
     }
     modal.style.display = 'flex';
     document.getElementById('gest-modal-title-input').focus();
@@ -5770,9 +5840,10 @@ Por favor genera el plan de campaña completo.`;
     const task    = {
       id,
       title,
-      assignee: document.getElementById('gest-modal-assignee').value.trim(),
-      dueDate:  document.getElementById('gest-modal-due').value,
-      priority: document.getElementById('gest-modal-priority').value,
+      assignees: Array.from(document.querySelectorAll('.gest-assignee-cb:checked')).map(cb=>cb.value),
+      dueDate:   document.getElementById('gest-modal-due').value,
+      priority:  document.getElementById('gest-modal-priority').value,
+      attachments: modalAttachments.length ? [...modalAttachments] : [],
       status:   document.getElementById('gest-modal-status').value,
       notes:    document.getElementById('gest-modal-notes').value.trim(),
       updatedAt: new Date().toISOString()
@@ -5795,6 +5866,46 @@ Por favor genera el plan de campaña completo.`;
     renderGestTasks();
     renderKanban();
     showToast('Tarea eliminada');
+  }
+
+  // ── Adjuntos del modal ───────────────────────────────────
+  function addModalAttachment() {
+    const nameEl = document.getElementById('gest-att-name');
+    const urlEl  = document.getElementById('gest-att-url');
+    const url    = urlEl?.value.trim() || '';
+    if (!url) { urlEl?.focus(); return; }
+    const name   = nameEl?.value.trim() || url;
+    modalAttachments.push({ name, url });
+    if (nameEl) nameEl.value = '';
+    if (urlEl)  urlEl.value  = '';
+    renderModalAttachments();
+  }
+
+  function removeModalAttachment(idx) {
+    modalAttachments.splice(idx, 1);
+    renderModalAttachments();
+  }
+
+  function renderModalAttachments() {
+    const el = document.getElementById('gest-att-list');
+    if (!el) return;
+    if (!modalAttachments.length) { el.innerHTML = ''; return; }
+    function fIcon(url) {
+      if (url.includes('drive.google')) return '📄';
+      if (url.includes('figma'))  return '🎨';
+      if (url.includes('notion')) return '📝';
+      if (url.includes('canva'))  return '🖼';
+      if (url.includes('.pdf'))   return '📕';
+      return '🔗';
+    }
+    el.innerHTML = modalAttachments.map((f,i) => `
+      <div class="flex items-center gap-2 bg-slate-50 rounded-lg px-3 py-2 text-xs">
+        <span>${fIcon(f.url)}</span>
+        <a href="${escHtml(f.url)}" target="_blank" class="flex-1 text-blue-600 hover:underline truncate font-medium">${escHtml(f.name)}</a>
+        <button onclick="removeModalAttachment(${i})" type="button" class="text-slate-300 hover:text-red-500 transition-all">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>`).join('');
   }
 
   // helper (ya existe en el dashboard, por si no)
