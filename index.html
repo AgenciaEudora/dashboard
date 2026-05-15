@@ -127,9 +127,6 @@
     /* ── Kanban column scroll ── */
     .kanban-col { min-height: 200px; max-height: calc(100vh - 280px); overflow-y: auto; }
 
-    /* ── General view grid responsive ── */
-    #strat-general-view, #gest-general-view > div { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
-
     /* ── Sub-tabs always visible ── */
     .strat-subtab, .gest-subtab { flex-shrink: 0; white-space: nowrap; }
 
@@ -149,7 +146,7 @@
   <!-- ═══════════════════════════════════════════
        SIDEBAR
   ════════════════════════════════════════════════ -->
-  <aside class="w-60 bg-[#0F172A] flex flex-col fixed h-full z-20 shrink-0">
+  <aside class="w-60 bg-[#0F172A] flex flex-col fixed h-full shrink-0" style="z-index:10000;">
 
     <!-- Logo -->
     <div class="px-5 py-5 border-b border-slate-700/40">
@@ -3387,13 +3384,7 @@
     document.getElementById('section-' + name).classList.add('active');
     document.querySelector('[data-section="' + name + '"]').classList.add('active');
     const ms = document.getElementById('main-scroll'); if (ms) ms.scrollTop = 0;
-    // Update subtitle when switching sections (reset to first client)
-    const _sectionDefaultClient = { estrategia: currentStratClient || 'tarquinia', gestion: currentGestClient || 'tarquinia', contenido: currentContentClient || 'tarquinia' };
-    if (_sectionDefaultClient[name]) {
-      const _subEl = document.getElementById('page-subtitle');
-      const _allLabels = { general:'Todos los clientes', tarquinia:'Galería Tarquinia', eudora:'Eudora (Agencia)', nac:'Galería NAC', zoron:'Zorón', ftarquinia:'Fundación Tarquinia' };
-      if (_subEl) _subEl.textContent = (_allLabels[_sectionDefaultClient[name]] || _sectionDefaultClient[name]) + ' · Mayo 2026';
-    }
+
 
     const titles = {
       estrategia:  'Estrategia del Mes',
@@ -6198,6 +6189,7 @@ Por favor genera el plan de campaña completo.`;
   function renderGestGeneralView() {
     const el = document.getElementById('gest-general-view');
     if (!el) return;
+    el.style.display = 'block';
     const clients = { general:'Todos los clientes', tarquinia:'Galería Tarquinia', eudora:'Eudora (Agencia)', nac:'Galería NAC', zoron:'Zorón', ftarquinia:'Fundación Tarquinia' };
     delete clients.general;
     const colors = { tarquinia:'#F97316', eudora:'#3B82F6', nac:'#10B981', zoron:'#8B5CF6', ftarquinia:'#F43F5E' };
@@ -7540,12 +7532,11 @@ ${obContext.slice(0,1000)}`;
     const generalView = document.getElementById('strat-general-view');
     const perClientView = document.getElementById('strat-per-client-view');
     if (key === 'general') {
-      if (generalView) generalView.style.display = '';
       if (perClientView) perClientView.style.display = 'none';
-      renderStratGeneralView();
+      renderStratGeneralView(); // sets generalView display inline
       return;
     }
-    if (generalView) generalView.style.display = 'none';
+    if (generalView) { generalView.style.display = 'none'; generalView.style.removeProperty('grid-template-columns'); }
     if (perClientView) perClientView.style.display = '';
 
     obDocText = ''; strategyChatHist = []; strategyText = ''; implParsed = null;
@@ -7560,6 +7551,9 @@ ${obContext.slice(0,1000)}`;
   function renderStratGeneralView() {
     const el = document.getElementById('strat-general-view');
     if (!el) return;
+    el.style.display = 'grid';
+    el.style.gridTemplateColumns = 'repeat(auto-fill, minmax(260px, 1fr))';
+    el.style.gap = '16px';
     const clients = { tarquinia:'Galería Tarquinia', eudora:'Eudora (Agencia)', nac:'Galería NAC', zoron:'Zorón', ftarquinia:'Fundación Tarquinia' };
     const colors  = { tarquinia:'#F97316', eudora:'#3B82F6', nac:'#10B981', zoron:'#8B5CF6', ftarquinia:'#F43F5E' };
     el.innerHTML = Object.entries(clients).map(([id, name]) => `
