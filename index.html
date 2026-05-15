@@ -329,6 +329,14 @@
               class="strat-tab px-4 py-2 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-orange-300 hover:text-orange-600 transition-all">
               Galería NAC
             </button>
+            <button onclick="switchStratClient('zoron')" id="strat-tab-zoron"
+              class="strat-tab px-4 py-2 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-orange-300 hover:text-orange-600 transition-all">
+              Zorón
+            </button>
+            <button onclick="switchStratClient('ftarquinia')" id="strat-tab-ftarquinia"
+              class="strat-tab px-4 py-2 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-orange-300 hover:text-orange-600 transition-all">
+              Fundación Tarquinia
+            </button>
           </div>
 
           <!-- Zona PDF dinámica -->
@@ -500,6 +508,8 @@
                   <option value="tarquinia">Galería Tarquinia</option>
                   <option value="eudora">Eudora (Agencia)</option>
                   <option value="nac">Galería NAC</option>
+                  <option value="zoron">Zorón</option>
+                  <option value="ftarquinia">Fundación Tarquinia</option>
                 </select>
               </div>
             </div>
@@ -648,6 +658,7 @@
             <button onclick="setContentClient('eudora')" id="cnt-tab-eudora" class="cnt-client-tab px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-blue-300 transition-all">Eudora</button>
             <button onclick="setContentClient('nac')" id="cnt-tab-nac" class="cnt-client-tab px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-emerald-300 transition-all">Galería NAC</button>
             <button onclick="setContentClient('zoron')" id="cnt-tab-zoron" class="cnt-client-tab px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-purple-300 transition-all">Zorón</button>
+            <button onclick="setContentClient('ftarquinia')" id="cnt-tab-ftarquinia" class="cnt-client-tab px-3 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 bg-white hover:border-rose-300 transition-all">Fund. Tarquinia</button>
           </div>
           <div id="content-status" class="text-xs text-slate-400 mb-5">Selecciona un cliente y presiona "Analizar" para obtener datos reales de Instagram.</div>
           <!-- Top posts -->
@@ -1708,6 +1719,8 @@
                   <option value="tarquinia">Galería Tarquinia</option>
                   <option value="eudora">Eudora (Agencia)</option>
                   <option value="nac">Galería NAC</option>
+                  <option value="zoron">Zorón</option>
+                  <option value="ftarquinia">Fundación Tarquinia</option>
                 </select>
               </div>
 
@@ -1931,6 +1944,55 @@
                 <div class="flex items-center gap-3 mt-2">
                   <button onclick="testConnectionClient('nac')" class="text-xs px-3 py-1.5 border border-emerald-300 text-emerald-700 rounded-lg hover:bg-emerald-100 font-medium">Probar conexión</button>
                   <span id="cfg-status-nac" class="text-xs"></span>
+                </div>
+              </div>
+
+
+              <!-- Zorón -->
+              <div class="p-4 bg-violet-50 border border-violet-100 rounded-xl mb-3">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-violet-500 inline-block flex-shrink-0"></span>
+                  <span class="text-sm font-semibold text-violet-700">Zorón</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="text-xs text-slate-500 block mb-1">Instagram Business Account ID</label>
+                    <input type="text" id="cfg-id-zoron" placeholder="17841400123456789"
+                      class="w-full text-xs border border-slate-200 rounded px-2.5 py-2 focus:outline-none focus:border-purple-400 bg-white">
+                  </div>
+                  <div>
+                    <label class="text-xs text-slate-500 block mb-1">Usuario Instagram</label>
+                    <input type="text" id="cfg-user-zoron" placeholder="zoron.studio"
+                      class="w-full text-xs border border-slate-200 rounded px-2.5 py-2 focus:outline-none focus:border-purple-400 bg-white">
+                  </div>
+                </div>
+                <div class="flex items-center gap-3 mt-2">
+                  <button onclick="testConnectionClient('zoron')" class="text-xs px-3 py-1.5 border border-violet-300 text-violet-700 rounded-lg hover:bg-violet-100 font-medium">Probar conexión</button>
+                  <span id="cfg-status-zoron" class="text-xs"></span>
+                </div>
+              </div>
+
+              <!-- Fundación Tarquinia -->
+              <div class="p-4 bg-rose-50 border border-rose-100 rounded-xl mb-3">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block flex-shrink-0"></span>
+                  <span class="text-sm font-semibold text-rose-700">Fundación Tarquinia</span>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <div>
+                    <label class="text-xs text-slate-500 block mb-1">Instagram Business Account ID</label>
+                    <input type="text" id="cfg-id-ftarquinia" placeholder="17841400123456789"
+                      class="w-full text-xs border border-slate-200 rounded px-2.5 py-2 focus:outline-none focus:border-purple-400 bg-white">
+                  </div>
+                  <div>
+                    <label class="text-xs text-slate-500 block mb-1">Usuario Instagram</label>
+                    <input type="text" id="cfg-user-ftarquinia" placeholder="fundacion.tarquinia"
+                      class="w-full text-xs border border-slate-200 rounded px-2.5 py-2 focus:outline-none focus:border-purple-400 bg-white">
+                  </div>
+                </div>
+                <div class="flex items-center gap-3 mt-2">
+                  <button onclick="testConnectionClient('ftarquinia')" class="text-xs px-3 py-1.5 border border-rose-300 text-rose-700 rounded-lg hover:bg-rose-100 font-medium">Probar conexión</button>
+                  <span id="cfg-status-ftarquinia" class="text-xs"></span>
                 </div>
               </div>
 
@@ -2325,6 +2387,7 @@
                     <option value="eudora">Eudora (Agencia)</option>
                     <option value="nac">Galería NAC</option>
                     <option value="zoron">Zorón</option>
+                    <option value="ftarquinia">Fund. Tarquinia</option>
                   </select>
                 </div>
 
@@ -4221,7 +4284,9 @@
   const STRAT_CLIENTS = {
     tarquinia: 'Galería Tarquinia',
     eudora:    'Eudora (Agencia)',
-    nac:       'Galería NAC'
+    nac:       'Galería NAC',
+    zoron:     'Zorón',
+    ftarquinia:'Fundación Tarquinia'
   };
 
   function switchStratClient(key) {
@@ -4436,6 +4501,13 @@
     // Load Anthropic API key if saved
     const ak = document.getElementById('cfg-anthropic-key');
     if (ak && IG.config.anthropicKey) ak.value = IG.config.anthropicKey;
+    const cc2 = IG.config.clientConfigs || {};
+    ['zoron','ftarquinia'].forEach(k => {
+      const el_id = document.getElementById('cfg-id-' + k);
+      const el_us = document.getElementById('cfg-user-' + k);
+      if (el_id && cc2[k]) el_id.value = cc2[k].accountId || '';
+      if (el_us && cc2[k]) el_us.value = cc2[k].username  || '';
+    });
     // Update composer preview with default client
     updateComposerClient();
     // Queue badge
