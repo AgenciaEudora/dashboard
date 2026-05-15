@@ -135,28 +135,6 @@
       </div>
     </div>
 
-    <!-- Client Selector (visible in agency view) -->
-    <div id="agency-panel" class="px-4 py-4 border-b border-slate-700/40">
-      <div class="text-slate-500 text-xs uppercase tracking-wider mb-2 font-medium">Cliente activo</div>
-      <div class="relative">
-        <select id="client-select" onchange="switchClient(this.value)"
-          class="w-full bg-slate-800 text-white text-sm rounded px-3 py-2 pr-8 appearance-none cursor-pointer border border-slate-600/60 focus:outline-none focus:border-orange-500">
-          <option value="0">Galería Tarquinia</option>
-          <option value="1">Galería NAC</option>
-          <option value="2">Eudora (Agencia)</option>
-          <option value="3">Zorón</option>
-          <option value="4">Fundación Tarquinia</option>
-        </select>
-        <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-          <svg width="10" height="10" viewBox="0 0 12 12" fill="#94A3B8"><path d="M6 8L1 3h10L6 8z"/></svg>
-        </div>
-      </div>
-      <div class="mt-2 flex items-center gap-2">
-        <div class="w-2 h-2 bg-emerald-400 rounded-full"></div>
-        <span class="text-slate-400 text-xs">Campaña activa · Mayo 2026</span>
-      </div>
-    </div>
-
     <!-- Navigation -->
     <nav class="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
       <button onclick="showSection('estrategia')" data-section="estrategia"
