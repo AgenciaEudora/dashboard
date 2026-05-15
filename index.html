@@ -26,7 +26,14 @@
   <style>
     * { font-family: 'DM Sans', system-ui, sans-serif; }
     .section { display: none; }
-    .section.active { display: block; }
+    .section.active {
+      display: block;
+      position: absolute;
+      inset: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
     .nav-item { transition: all 0.15s ease; }
     .nav-item.active { background: rgba(249,115,22,0.12); color: #F97316 !important; }
     .nav-item.active svg { stroke: #F97316; }
@@ -112,7 +119,7 @@
 
     /* ── Layout fixes ── */
     #main-scroll { scroll-behavior: smooth; }
-    .section.active { padding-bottom: 48px; }
+    .section.active { } /* padding handled by section content */
 
     /* ── Client tabs always visible + wrap ── */
     .strat-tab, .cnt-client-tab, .gest-client-tab {
@@ -139,9 +146,9 @@
     .nav-item:hover { background: rgba(255,255,255,.06); }
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800" style="overflow:hidden;height:100vh;">
+<body class="bg-slate-50 text-slate-800" style="height:100vh;overflow:hidden;">
 
-<div style="display:flex;height:100vh;overflow:hidden;">
+<div style="display:flex;height:100vh;">
 
   <!-- ═══════════════════════════════════════════
        SIDEBAR
@@ -284,7 +291,7 @@
   <!-- ═══════════════════════════════════════════
        MAIN CONTENT
   ════════════════════════════════════════════════ -->
-  <main style="margin-left:240px;display:flex;flex-direction:column;height:100vh;overflow:hidden;">
+  <main style="margin-left:240px;display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;">
 
     <!-- Top Header Bar -->
     <div class="bg-white border-b border-slate-200 px-8 py-3.5 shrink-0 z-10">
@@ -323,7 +330,7 @@
     </div>
 
     <!-- Scrollable content area -->
-    <div id="main-scroll" style="flex:1;overflow-y:auto;min-height:0;">
+    <div id="main-scroll" style="flex:1;overflow:hidden;position:relative;min-height:0;">
 
       <!-- ════════════════════════════════════
            SECCIÓN: ESTRATEGIA
@@ -735,7 +742,7 @@
       <!-- ════════════════════════════════════
            SECCIÓN: CONTENIDO
       ═════════════════════════════════════════ -->
-      <div id="section-contenido" class="section p-8">
+      <div id="section-contenido" class="section p-8 pb-16">
 
         <!-- Content overview -->
         <div class="grid grid-cols-4 gap-4 mb-8">
@@ -1167,7 +1174,7 @@
       <!-- ════════════════════════════════════
            SECCIÓN: PRESUPUESTO
       ═════════════════════════════════════════ -->
-      <div id="section-presupuesto" class="section p-8">
+      <div id="section-presupuesto" class="section p-8 pb-16">
 
         <!-- Budget overview KPIs -->
         <div class="grid grid-cols-4 gap-4 mb-8">
@@ -1345,7 +1352,7 @@
       <!-- ════════════════════════════════════
            SECCIÓN: RESULTADOS
       ═════════════════════════════════════════ -->
-      <div id="section-resultados" class="section p-8">
+      <div id="section-resultados" class="section p-8 pb-16">
 
         <!-- Platform Tabs -->
         <div class="flex items-center gap-1 mb-6 bg-slate-100 rounded-xl p-1 w-fit">
@@ -1896,7 +1903,7 @@
       <!-- ════════════════════════════════════
            SECCIÓN: PROGRAMAR INSTAGRAM
       ═════════════════════════════════════════ -->
-      <div id="section-instagram" class="section p-8">
+      <div id="section-instagram" class="section p-8 pb-16">
 
         <!-- Sub-tabs -->
         <div class="flex gap-6 border-b border-slate-200 mb-6">
@@ -2587,7 +2594,7 @@
       <!-- ════════════════════════════════════
            SECCIÓN: COMPETENCIA (Ad Library)
       ═════════════════════════════════════════ -->
-      <div id="section-competencia" class="section p-8">
+      <div id="section-competencia" class="section p-8 pb-16">
         <div class="flex items-center justify-between mb-6">
           <div>
             <h1 class="text-xl font-bold text-slate-800">Inteligencia Competitiva</h1>
@@ -2750,7 +2757,7 @@
       <!-- ════════════════════════════════════
            SECCIÓN: CAMPAÑAS IA
       ═════════════════════════════════════════ -->
-      <div id="section-campanas" class="section p-8">
+      <div id="section-campanas" class="section p-8 pb-16">
 
         <div class="flex items-center justify-between mb-6">
           <div>
@@ -2994,7 +3001,7 @@
       </div><!-- end section-campanas -->
 
 
-      <div id="section-gestion" class="section p-8">
+      <div id="section-gestion" class="section p-8 pb-16">
         <!-- Header -->
         <div class="flex items-start justify-between mb-6 shrink-0">
           <div>
