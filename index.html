@@ -818,46 +818,106 @@
         </div>
 
         <!-- Modal agregar/editar evento -->
-        <div id="cal-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,0.45);"
+        <div id="cal-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(15,23,42,0.45);overflow-y:auto;"
           onclick="if(event.target===this)closeCalModal()">
-          <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;border-radius:14px;padding:24px;width:380px;box-shadow:0 25px 60px rgba(0,0,0,.25)">
+          <div style="position:relative;margin:40px auto;background:#fff;border-radius:16px;padding:28px;width:540px;max-width:95vw;box-shadow:0 25px 60px rgba(0,0,0,.25)">
             <div class="flex items-center justify-between mb-5">
               <div id="cal-modal-title" class="text-sm font-semibold text-slate-800">Agregar evento</div>
               <button onclick="closeCalModal()" class="w-7 h-7 rounded-full hover:bg-slate-100 flex items-center justify-center text-slate-400 text-lg">×</button>
             </div>
-            <div class="space-y-3">
+            <div class="space-y-4">
+              <!-- Título -->
               <div>
                 <label class="text-xs font-medium text-slate-600 block mb-1">Título</label>
                 <input id="cal-ev-title" type="text" placeholder="Ej: Post IG — Inauguración"
-                  class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400"
-                  onkeydown="if(event.key==='Enter')saveCalEvent()">
+                  class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400">
               </div>
+              <!-- Tipo + Cliente row -->
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="text-xs font-medium text-slate-600 block mb-1">Tipo de contenido</label>
+                  <select id="cal-ev-type" onchange="calToggleCoverField()" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400">
+                    <option value="ig">📸 Instagram</option>
+                    <option value="reel">🎬 Reel</option>
+                    <option value="meta">📢 Meta Ads</option>
+                    <option value="google">🔍 Google Ads</option>
+                    <option value="linkedin">💼 LinkedIn</option>
+                    <option value="email">✉️ Email</option>
+                    <option value="lp">🔗 Landing Page</option>
+                  </select>
+                </div>
+                <div id="cal-modal-client-row" style="display:none">
+                  <label class="text-xs font-medium text-slate-600 block mb-1">Cliente</label>
+                  <select id="cal-ev-client" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400">
+                    <option value="tarquinia">Galería Tarquinia</option>
+                    <option value="eudora">Eudora (Agencia)</option>
+                    <option value="nac">Galería NAC</option>
+                    <option value="zoron">Zorón</option>
+                    <option value="ftarquinia">Fundación Tarquinia</option>
+                  </select>
+                </div>
+              </div>
+              <!-- Texto / Caption -->
               <div>
-                <label class="text-xs font-medium text-slate-600 block mb-1">Tipo de contenido</label>
-                <select id="cal-ev-type" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400">
-                  <option value="ig">📸 Instagram</option>
-                  <option value="reel">🎬 Reel</option>
-                  <option value="meta">📢 Meta Ads</option>
-                  <option value="google">🔍 Google Ads</option>
-                  <option value="linkedin">💼 LinkedIn</option>
-                  <option value="email">✉️ Email</option>
-                  <option value="lp">🔗 Landing Page</option>
-                </select>
+                <label class="text-xs font-medium text-slate-600 block mb-1">Texto / Caption</label>
+                <textarea id="cal-ev-text" rows="3" placeholder="Escribe el texto del post, descripción o copy de la pieza..."
+                  class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400 resize-none"></textarea>
               </div>
-              <div id="cal-modal-client-row" style="display:none">
-                <label class="text-xs font-medium text-slate-600 block mb-1">Cliente</label>
-                <select id="cal-ev-client" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-orange-400">
-                  <option value="tarquinia">Galería Tarquinia</option>
-                  <option value="eudora">Eudora (Agencia)</option>
-                  <option value="nac">Galería NAC</option>
-                  <option value="zoron">Zorón</option>
-                  <option value="ftarquinia">Fundación Tarquinia</option>
-                </select>
+              <!-- Adjunto principal -->
+              <div>
+                <label class="text-xs font-medium text-slate-600 block mb-1">Adjunto (imagen o video)</label>
+                <div id="cal-file-drop" onclick="document.getElementById('cal-ev-file').click()"
+                  class="border-2 border-dashed border-slate-200 rounded-lg p-4 text-center cursor-pointer hover:border-orange-400 hover:bg-orange-50 transition-all">
+                  <div id="cal-file-preview" class="hidden">
+                    <div class="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2">
+                      <div class="flex items-center gap-2">
+                        <span id="cal-file-icon" class="text-lg">📎</span>
+                        <div>
+                          <div id="cal-file-name" class="text-xs font-medium text-slate-700 truncate max-w-xs"></div>
+                          <div id="cal-file-size" class="text-xs text-slate-400"></div>
+                        </div>
+                      </div>
+                      <button onclick="event.stopPropagation();calClearFile('main')" class="text-slate-300 hover:text-red-400 text-lg leading-none">×</button>
+                    </div>
+                    <div id="cal-img-preview" class="mt-2 hidden">
+                      <img id="cal-img-thumb" class="max-h-32 rounded-lg mx-auto object-cover" src="" alt="preview">
+                    </div>
+                  </div>
+                  <div id="cal-file-empty" class="text-slate-400 text-xs">
+                    <div class="text-2xl mb-1">📁</div>
+                    <div>Haz clic o arrastra imagen / video aquí</div>
+                  </div>
+                </div>
+                <input id="cal-ev-file" type="file" accept="image/*,video/*" class="hidden" onchange="calHandleFile(this,'main')">
+              </div>
+              <!-- Portada (solo para Reel) -->
+              <div id="cal-cover-row" style="display:none">
+                <label class="text-xs font-medium text-slate-600 block mb-1">Portada del Reel</label>
+                <div id="cal-cover-drop" onclick="document.getElementById('cal-ev-cover').click()"
+                  class="border-2 border-dashed border-purple-200 rounded-lg p-3 text-center cursor-pointer hover:border-purple-400 hover:bg-purple-50 transition-all">
+                  <div id="cal-cover-preview" class="hidden">
+                    <div class="flex items-center justify-between bg-slate-50 rounded-lg px-3 py-2">
+                      <div class="flex items-center gap-2">
+                        <span class="text-lg">🖼</span>
+                        <div id="cal-cover-name" class="text-xs font-medium text-slate-700 truncate max-w-xs"></div>
+                      </div>
+                      <button onclick="event.stopPropagation();calClearFile('cover')" class="text-slate-300 hover:text-red-400 text-lg leading-none">×</button>
+                    </div>
+                    <div id="cal-cover-img-wrap" class="mt-2 hidden">
+                      <img id="cal-cover-thumb" class="max-h-24 rounded-lg mx-auto object-cover" src="" alt="portada">
+                    </div>
+                  </div>
+                  <div id="cal-cover-empty" class="text-purple-400 text-xs">
+                    <div class="text-2xl mb-1">🎬</div>
+                    <div>Portada del Reel (imagen)</div>
+                  </div>
+                </div>
+                <input id="cal-ev-cover" type="file" accept="image/*" class="hidden" onchange="calHandleFile(this,'cover')">
               </div>
             </div>
             <div class="flex gap-2 mt-5">
               <button onclick="saveCalEvent()"
-                class="flex-1 py-2 bg-orange-500 text-white text-sm font-semibold rounded-lg hover:bg-orange-600 transition-colors">
+                class="flex-1 py-2.5 bg-orange-500 text-white text-sm font-semibold rounded-lg hover:bg-orange-600 transition-colors">
                 Guardar
               </button>
               <button onclick="closeCalModal()"
@@ -4964,21 +5024,31 @@
     const isAgency = calCurrentClient === 'all';
     document.getElementById('cal-modal-client-row').style.display = isAgency ? '' : 'none';
 
+    // Reset file state
+    calFileData = null; calCoverData = null;
+    calClearFile('main', true); calClearFile('cover', true);
+
     if (eventId) {
       const events = calLoadEvents(calEditClientKey);
       const ev = (events[dateKey]||[]).find(e=>e.id===eventId);
       if (ev) {
-        document.getElementById('cal-ev-title').value = ev.title;
-        document.getElementById('cal-ev-type').value  = ev.type;
+        document.getElementById('cal-ev-title').value = ev.title || '';
+        document.getElementById('cal-ev-type').value  = ev.type  || 'ig';
+        document.getElementById('cal-ev-text').value  = ev.text  || '';
         if (isAgency) document.getElementById('cal-ev-client').value = calEditClientKey;
+        // Restore file preview if saved
+        if (ev.fileData) { calFileData = { data: ev.fileData, name: ev.fileName, type: ev.fileType }; calShowFilePreview('main', ev.fileName, ev.fileData, ev.fileType); }
+        if (ev.coverData) { calCoverData = { data: ev.coverData, name: ev.coverName }; calShowFilePreview('cover', ev.coverName, ev.coverData, 'image'); }
       }
       document.getElementById('cal-modal-delete').style.display = '';
     } else {
       document.getElementById('cal-ev-title').value = '';
       document.getElementById('cal-ev-type').value  = 'ig';
+      document.getElementById('cal-ev-text').value  = '';
       if (isAgency) document.getElementById('cal-ev-client').value = 'tarquinia';
       document.getElementById('cal-modal-delete').style.display = 'none';
     }
+    calToggleCoverField();
 
     document.getElementById('cal-modal').style.display = '';
     setTimeout(()=>document.getElementById('cal-ev-title').focus(), 80);
@@ -4989,20 +5059,96 @@
     calModalDate = calEditEventId = calEditClientKey = null;
   }
 
+  let calFileData = null;
+  let calCoverData = null;
+
+  function calToggleCoverField() {
+    const type = document.getElementById('cal-ev-type').value;
+    document.getElementById('cal-cover-row').style.display = type === 'reel' ? '' : 'none';
+  }
+
+  function calHandleFile(input, kind) {
+    const file = input.files[0];
+    if (!file) return;
+    const maxMB = 50;
+    if (file.size > maxMB * 1024 * 1024) { showToast('⚠ Archivo demasiado grande (máx ' + maxMB + 'MB)'); return; }
+    const reader = new FileReader();
+    reader.onload = e => {
+      const data = e.target.result;
+      if (kind === 'main') { calFileData = { data, name: file.name, type: file.type }; calShowFilePreview('main', file.name, data, file.type); }
+      else { calCoverData = { data, name: file.name }; calShowFilePreview('cover', file.name, data, 'image'); }
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function calShowFilePreview(kind, name, data, type) {
+    const isMain = kind === 'main';
+    const emptyEl   = document.getElementById(isMain ? 'cal-file-empty'   : 'cal-cover-empty');
+    const previewEl = document.getElementById(isMain ? 'cal-file-preview' : 'cal-cover-preview');
+    const nameEl    = document.getElementById(isMain ? 'cal-file-name'    : 'cal-cover-name');
+    if (emptyEl)   emptyEl.classList.add('hidden');
+    if (previewEl) previewEl.classList.remove('hidden');
+    if (nameEl)    nameEl.textContent = name;
+    if (isMain) {
+      const sizeEl = document.getElementById('cal-file-size');
+      if (sizeEl) sizeEl.textContent = '';
+      const iconEl = document.getElementById('cal-file-icon');
+      if (iconEl) iconEl.textContent = (type && type.startsWith('video')) ? '🎬' : '🖼';
+      const imgWrap = document.getElementById('cal-img-preview');
+      const imgEl   = document.getElementById('cal-img-thumb');
+      if (imgWrap && imgEl && type && type.startsWith('image')) {
+        imgEl.src = data; imgWrap.classList.remove('hidden');
+      }
+    } else {
+      const cWrap = document.getElementById('cal-cover-img-wrap');
+      const cImg  = document.getElementById('cal-cover-thumb');
+      if (cWrap && cImg) { cImg.src = data; cWrap.classList.remove('hidden'); }
+    }
+  }
+
+  function calClearFile(kind, silent) {
+    const isMain = kind === 'main';
+    if (isMain) {
+      calFileData = null;
+      const inp = document.getElementById('cal-ev-file'); if (inp) inp.value = '';
+      const emptyEl   = document.getElementById('cal-file-empty');
+      const previewEl = document.getElementById('cal-file-preview');
+      const imgWrap   = document.getElementById('cal-img-preview');
+      if (emptyEl)   emptyEl.classList.remove('hidden');
+      if (previewEl) previewEl.classList.add('hidden');
+      if (imgWrap)   imgWrap.classList.add('hidden');
+    } else {
+      calCoverData = null;
+      const inp = document.getElementById('cal-ev-cover'); if (inp) inp.value = '';
+      const emptyEl   = document.getElementById('cal-cover-empty');
+      const previewEl = document.getElementById('cal-cover-preview');
+      const cWrap     = document.getElementById('cal-cover-img-wrap');
+      if (emptyEl)   emptyEl.classList.remove('hidden');
+      if (previewEl) previewEl.classList.add('hidden');
+      if (cWrap)     cWrap.classList.add('hidden');
+    }
+  }
+
   function saveCalEvent() {
     const title = document.getElementById('cal-ev-title').value.trim();
     if (!title) { showToast('⚠ Ingresa un título.'); return; }
     const type  = document.getElementById('cal-ev-type').value;
+    const text  = document.getElementById('cal-ev-text').value.trim();
     const isAgency = calCurrentClient === 'all';
     const key   = isAgency ? document.getElementById('cal-ev-client').value : calCurrentClient;
     const events = calLoadEvents(key);
     if (!events[calModalDate]) events[calModalDate] = [];
+
+    const evData = { id: calEditEventId || Date.now().toString(), title, type };
+    if (text)                evData.text      = text;
+    if (calFileData)         { evData.fileData = calFileData.data; evData.fileName = calFileData.name; evData.fileType = calFileData.type; }
+    if (calCoverData)        { evData.coverData = calCoverData.data; evData.coverName = calCoverData.name; }
+
     if (calEditEventId && key===calEditClientKey) {
       const idx = events[calModalDate].findIndex(e=>e.id===calEditEventId);
-      if (idx!==-1) events[calModalDate][idx] = { id:calEditEventId, title, type };
-      else events[calModalDate].push({ id:Date.now().toString(), title, type });
+      if (idx!==-1) events[calModalDate][idx] = evData;
+      else events[calModalDate].push(evData);
     } else {
-      // If client changed in agency view, remove from old client first
       if (calEditEventId && calEditClientKey && calEditClientKey!==key) {
         const oldEv = calLoadEvents(calEditClientKey);
         if (oldEv[calModalDate]) {
@@ -5010,7 +5156,7 @@
           calSaveEvents(calEditClientKey, oldEv);
         }
       }
-      events[calModalDate].push({ id:Date.now().toString(), title, type });
+      events[calModalDate].push(evData);
     }
     calSaveEvents(key, events);
     closeCalModal();
