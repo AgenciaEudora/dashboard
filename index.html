@@ -281,11 +281,27 @@
             <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
             Campaña activa
           </div>
+          <div id="token-days-badge" style="display:none;" class="text-xs px-2.5 py-1 rounded-full font-medium border"></div>
           <div class="text-xs text-slate-400">Actualizado hace 4 min</div>
           <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center">
             <span class="text-orange-600 text-xs font-bold">EF</span>
           </div>
         </div>
+      </div>
+    </div>
+
+
+    <!-- Token expiry warning banner -->
+    <div id="token-expiry-banner" style="display:none;" class="bg-amber-50 border-b border-amber-200 px-8 py-2.5 shrink-0">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-amber-500 text-sm">⚠</span>
+          <span id="token-expiry-msg" class="text-xs font-medium text-amber-800"></span>
+        </div>
+        <button onclick="showSection('instagram');setTimeout(()=>igTab('settings'),100)"
+          class="text-xs px-3 py-1 bg-amber-500 text-white rounded-lg font-medium hover:bg-amber-600">
+          Renovar token →
+        </button>
       </div>
     </div>
 
@@ -3209,6 +3225,7 @@
     updateComposerClient();
     const st = document.getElementById('cfg-status');
     st.textContent = '✓ Configuración guardada para los 3 clientes.'; st.className = 'mt-3 text-xs text-emerald-600'; st.classList.remove('hidden');
+    checkTokenExpiry(IG.config.accessToken);
     setTimeout(() => st.classList.add('hidden'), 3000);
   }
 
@@ -5028,6 +5045,90 @@ Por favor genera el plan de campaña completo.`;
     const data = snap.val();
     if (Array.isArray(data)) { SAVED_CAMPAIGNS = data; renderSavedCampaigns(); }
   });
+
+  // ════════════════════════════════════════════════════════════════════════════
+  // TOKEN EXPIRY CHECK
+  // ════════════════════════════════════════════════════════════════════════════
+  async function checkTokenExpiry(token) {
+    if (!token) return;
+    try {
+      const res = await fetch(
+        `https://graph.facebook.com/debug_token?input_token=${token}&access_token=${token}`
+      );
+      const data = await res.json();
+      const exp = data?.data?.expires_at;   // unix timestamp, 0 = never expires
+      const isValid = data?.data?.is_valid;
+
+      if (!isValid) {
+        showTokenExpiryWarning('❌ Tu Access Token de Instagram es inválido. Genera uno nuevo.', 'red', 0);
+        return;
+      }
+      if (!exp || exp === 0) {
+        // Never-expiring token (system user token) — all good
+        hideTokenExpiryWarning();
+        return;
+      }
+
+      const daysLeft = Math.floor((exp * 1000 - Date.now()) / 86400000);
+      // Save to Firebase so all users see it
+      db.ref('eudora/config/tokenExpiry').set({ expiresAt: exp, daysLeft, checkedAt: Date.now() }).catch(()=>{});
+
+      if (daysLeft <= 0) {
+        showTokenExpiryWarning('❌ Tu Access Token de Instagram ha expirado. Renuévalo ahora para seguir publicando.', 'red', daysLeft);
+      } else if (daysLeft <= 7) {
+        showTokenExpiryWarning(`⚠ Tu Access Token vence en ${daysLeft} día${daysLeft===1?'':'s'}. Renuévalo pronto para no interrumpir el servicio.`, 'amber', daysLeft);
+      } else if (daysLeft <= 14) {
+        showTokenExpiryWarning(`Tu Access Token vence en ${daysLeft} días.`, 'yellow', daysLeft);
+      } else {
+        hideTokenExpiryWarning();
+        updateTokenBadge(daysLeft, 'green');
+      }
+    } catch(e) {
+      console.warn('Token expiry check failed:', e);
+    }
+  }
+
+  function showTokenExpiryWarning(msg, level, days) {
+    const banner = document.getElementById('token-expiry-banner');
+    const msgEl  = document.getElementById('token-expiry-msg');
+    if (banner) banner.style.display = '';
+    if (msgEl)  msgEl.textContent = msg;
+    if (level === 'red') {
+      banner.className = 'bg-red-50 border-b border-red-200 px-8 py-2.5 shrink-0';
+      msgEl.className  = 'text-xs font-medium text-red-800';
+    } else {
+      banner.className = 'bg-amber-50 border-b border-amber-200 px-8 py-2.5 shrink-0';
+      msgEl.className  = 'text-xs font-medium text-amber-800';
+    }
+    updateTokenBadge(days, level);
+  }
+
+  function hideTokenExpiryWarning() {
+    const banner = document.getElementById('token-expiry-banner');
+    if (banner) banner.style.display = 'none';
+  }
+
+  function updateTokenBadge(days, level) {
+    const badge = document.getElementById('token-days-badge');
+    if (!badge) return;
+    if (days <= 0) { badge.style.display = 'none'; return; }
+    badge.style.display = '';
+    const colors = {
+      green:  'bg-emerald-50 text-emerald-700 border-emerald-200',
+      yellow: 'bg-yellow-50 text-yellow-700 border-yellow-200',
+      amber:  'bg-amber-50 text-amber-700 border-amber-200',
+      red:    'bg-red-50 text-red-700 border-red-200',
+    };
+    badge.className = `text-xs px-2.5 py-1 rounded-full font-medium border ${colors[level] || colors.green}`;
+    badge.textContent = days > 0 ? `🔑 Token: ${days}d` : '🔑 Token expirado';
+  }
+
+  // Run check on load if token exists, and after saveConfig
+  setTimeout(() => {
+    if (IG.config && IG.config.accessToken) {
+      checkTokenExpiry(IG.config.accessToken);
+    }
+  }, 2000);
 
 </script>
 
