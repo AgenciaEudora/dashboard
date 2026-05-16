@@ -2749,204 +2749,180 @@
       ═════════════════════════════════════════ -->
       <div id="section-campanas" class="section p-8 pb-16">
 
-        <div class="flex items-center justify-between mb-6">
+        <!-- Header con tabs de cliente -->
+        <div class="flex items-start justify-between mb-5 shrink-0">
           <div>
             <h1 class="text-xl font-bold text-slate-800">Campañas IA</h1>
-            <p class="text-sm text-slate-400 mt-1">Crea y planifica campañas con un experto en Meta, Google, LinkedIn y TikTok Ads impulsado por IA</p>
+            <p class="text-sm text-slate-400 mt-1">Crea, planifica y publica campañas con un experto en Meta, Google, LinkedIn y TikTok Ads</p>
           </div>
-          <button onclick="newCampaignBrief()" class="px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-lg hover:bg-purple-700 flex items-center gap-2">
+          <button onclick="newCampaignBrief()" class="px-4 py-2 bg-purple-600 text-white text-sm font-semibold rounded-lg hover:bg-purple-700 flex items-center gap-2 shrink-0">
             ✦ Nueva campaña
           </button>
         </div>
 
+        <!-- Client tabs -->
+        <div class="flex gap-1.5 mb-6 flex-wrap shrink-0">
+          <button onclick="switchCampClient('general')" id="camp-tab-general"
+            class="camp-client-tab px-4 py-2 text-xs font-semibold rounded-lg border border-purple-500 bg-purple-600 text-white transition-all">
+            🌐 General
+          </button>
+          <button onclick="switchCampClient('tarquinia')" id="camp-tab-tarquinia"
+            class="camp-client-tab px-4 py-2 text-xs font-semibold rounded-lg border border-slate-200 text-slate-600 bg-white hover:border-purple-300 transition-all">
+            🖼 Galería Tarquinia
+          </button>
+          <button onclick="switchCampClient('nac')" id="camp-tab-nac"
+            class="camp-client-tab px-4 py-2 text-xs font-semibold rounded-lg border border-slate-200 text-slate-600 bg-white hover:border-purple-300 transition-all">
+            🎨 Galería NAC
+          </button>
+          <button onclick="switchCampClient('zoron')" id="camp-tab-zoron"
+            class="camp-client-tab px-4 py-2 text-xs font-semibold rounded-lg border border-slate-200 text-slate-600 bg-white hover:border-purple-300 transition-all">
+            🏠 Zorón
+          </button>
+          <button onclick="switchCampClient('ftarquinia')" id="camp-tab-ftarquinia"
+            class="camp-client-tab px-4 py-2 text-xs font-semibold rounded-lg border border-slate-200 text-slate-600 bg-white hover:border-purple-300 transition-all">
+            🌿 Fund. Tarquinia
+          </button>
+          <button onclick="switchCampClient('eudora')" id="camp-tab-eudora"
+            class="camp-client-tab px-4 py-2 text-xs font-semibold rounded-lg border border-slate-200 text-slate-600 bg-white hover:border-purple-300 transition-all">
+            ✦ Eudora
+          </button>
+        </div>
+
         <!-- Anthropic API key notice -->
-        <div id="camp-api-notice" class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 flex gap-3 items-start">
+        <div id="camp-api-notice" class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-5 flex gap-3 items-start">
           <span class="text-blue-500 text-lg shrink-0 mt-0.5">🔑</span>
           <div class="flex-1">
             <div class="text-sm font-semibold text-blue-800 mb-1">Configura tu clave de Anthropic para activar el Agente IA</div>
-            <div class="text-xs text-blue-700 mb-2">El agente necesita acceso a Claude AI. Añade tu API Key de Anthropic en Configuración.</div>
+            <div class="text-xs text-blue-700 mb-2">El agente necesita acceso a Claude AI. Añade tu API Key en Configuración.</div>
             <button onclick="showSection('configuracion')" class="text-xs font-medium text-blue-600 underline hover:text-blue-800">Ir a Configuración →</button>
           </div>
         </div>
 
-        <!-- Campaign brief form -->
-        <div class="grid grid-cols-3 gap-6 mb-8">
-          <!-- Left: Brief form -->
-          <div class="col-span-1 space-y-4">
-            <div class="bg-white rounded-xl border border-slate-200 p-5">
-              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Brief de campaña</div>
+        <!-- Stepper de flujo -->
+        <div class="flex items-center gap-0 mb-6 bg-white border border-slate-200 rounded-xl overflow-hidden shrink-0">
+          <button onclick="showCampStep(1)" id="camp-step-btn-1"
+            class="camp-step-btn flex-1 flex items-center gap-2.5 px-4 py-3 text-xs font-semibold border-r border-slate-200 transition-all bg-purple-600 text-white">
+            <span class="w-5 h-5 rounded-full bg-white/30 flex items-center justify-center text-xs font-bold shrink-0">1</span>
+            <span>Brief</span>
+          </button>
+          <button onclick="showCampStep(2)" id="camp-step-btn-2"
+            class="camp-step-btn flex-1 flex items-center gap-2.5 px-4 py-3 text-xs font-semibold border-r border-slate-200 transition-all text-slate-500 hover:bg-slate-50">
+            <span class="w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold shrink-0">2</span>
+            <span>Plan IA</span>
+          </button>
+          <button onclick="showCampStep(3)" id="camp-step-btn-3"
+            class="camp-step-btn flex-1 flex items-center gap-2.5 px-4 py-3 text-xs font-semibold border-r border-slate-200 transition-all text-slate-500 hover:bg-slate-50">
+            <span class="w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold shrink-0">3</span>
+            <span>Creatividades</span>
+          </button>
+          <button onclick="showCampStep(4)" id="camp-step-btn-4"
+            class="camp-step-btn flex-1 flex items-center gap-2.5 px-4 py-3 text-xs font-semibold transition-all text-slate-500 hover:bg-slate-50">
+            <span class="w-5 h-5 rounded-full bg-slate-200 flex items-center justify-center text-xs font-bold shrink-0">4</span>
+            <span>Publicar</span>
+          </button>
+        </div>
 
-              <div class="space-y-3">
+        <!-- ═══ STEP 1: BRIEF ═══ -->
+        <div id="camp-step-1" class="camp-step-panel">
+          <div class="grid grid-cols-2 gap-6">
+            <div class="bg-white rounded-xl border border-slate-200 p-5 space-y-3">
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Datos de la campaña</div>
+
+              <div>
+                <label class="text-xs font-medium text-slate-600 block mb-1">Cliente</label>
+                <select id="camp-client" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400">
+                  <option value="tarquinia">Galería Tarquinia</option>
+                  <option value="nac">Galería NAC</option>
+                  <option value="zoron">Zorón</option>
+                  <option value="ftarquinia">Fund. Tarquinia</option>
+                  <option value="eudora">Eudora (Agencia)</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="text-xs font-medium text-slate-600 block mb-1">Plataformas</label>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <label class="flex items-center gap-2 p-2 border border-slate-200 rounded-lg cursor-pointer hover:border-purple-300">
+                    <input type="checkbox" id="camp-plat-meta" checked class="accent-purple-500 camp-platform" value="Meta/Instagram"> <span>📘 Meta / IG</span>
+                  </label>
+                  <label class="flex items-center gap-2 p-2 border border-slate-200 rounded-lg cursor-pointer hover:border-purple-300">
+                    <input type="checkbox" id="camp-plat-google" class="accent-purple-500 camp-platform" value="Google Ads"> <span>🔍 Google Ads</span>
+                  </label>
+                  <label class="flex items-center gap-2 p-2 border border-slate-200 rounded-lg cursor-pointer hover:border-purple-300">
+                    <input type="checkbox" id="camp-plat-linkedin" class="accent-purple-500 camp-platform" value="LinkedIn Ads"> <span>💼 LinkedIn</span>
+                  </label>
+                  <label class="flex items-center gap-2 p-2 border border-slate-200 rounded-lg cursor-pointer hover:border-purple-300">
+                    <input type="checkbox" id="camp-plat-tiktok" class="accent-purple-500 camp-platform" value="TikTok Ads"> <span>🎵 TikTok</span>
+                  </label>
+                </div>
+              </div>
+
+              <div>
+                <label class="text-xs font-medium text-slate-600 block mb-1">Objetivo de campaña</label>
+                <select id="camp-objective" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400">
+                  <option value="awareness">📡 Reconocimiento de marca</option>
+                  <option value="traffic">👆 Tráfico al sitio web</option>
+                  <option value="leads">🎯 Generación de leads</option>
+                  <option value="sales">💳 Ventas / Conversiones</option>
+                  <option value="engagement">💬 Engagement e interacción</option>
+                  <option value="app">📱 Instalaciones de app</option>
+                </select>
+              </div>
+
+              <div class="grid grid-cols-2 gap-2">
                 <div>
-                  <label class="text-xs font-medium text-slate-600 block mb-1">Cliente</label>
-                  <select id="camp-client" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400">
-                    <option value="tarquinia">Galería Tarquinia</option>
-                    <option value="eudora">Eudora (Agencia)</option>
-                    <option value="nac">Galería NAC</option>
-                    <option value="zoron">Zorón</option>
-                    <option value="ftarquinia">Fund. Tarquinia</option>
-                  </select>
+                  <label class="text-xs font-medium text-slate-600 block mb-1">Presupuesto total</label>
+                  <input type="text" id="camp-budget" placeholder="Ej: $500 USD" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400">
                 </div>
-
                 <div>
-                  <label class="text-xs font-medium text-slate-600 block mb-1">Plataformas</label>
-                  <div class="grid grid-cols-2 gap-2 text-xs">
-                    <label class="flex items-center gap-2 p-2 border border-slate-200 rounded-lg cursor-pointer hover:border-purple-300">
-                      <input type="checkbox" id="camp-plat-meta" checked class="accent-purple-500 camp-platform" value="Meta/Instagram"> <span>📘 Meta / IG</span>
-                    </label>
-                    <label class="flex items-center gap-2 p-2 border border-slate-200 rounded-lg cursor-pointer hover:border-purple-300">
-                      <input type="checkbox" id="camp-plat-google" class="accent-purple-500 camp-platform" value="Google Ads"> <span>🔍 Google</span>
-                    </label>
-                    <label class="flex items-center gap-2 p-2 border border-slate-200 rounded-lg cursor-pointer hover:border-purple-300">
-                      <input type="checkbox" id="camp-plat-linkedin" class="accent-purple-500 camp-platform" value="LinkedIn Ads"> <span>💼 LinkedIn</span>
-                    </label>
-                    <label class="flex items-center gap-2 p-2 border border-slate-200 rounded-lg cursor-pointer hover:border-purple-300">
-                      <input type="checkbox" id="camp-plat-tiktok" class="accent-purple-500 camp-platform" value="TikTok Ads"> <span>🎵 TikTok</span>
-                    </label>
-                  </div>
+                  <label class="text-xs font-medium text-slate-600 block mb-1">Duración</label>
+                  <input type="text" id="camp-duration" placeholder="Ej: 30 días" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400">
                 </div>
-
-                <div>
-                  <label class="text-xs font-medium text-slate-600 block mb-1">Objetivo de campaña</label>
-                  <select id="camp-objective" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400">
-                    <option value="awareness">📡 Reconocimiento de marca</option>
-                    <option value="traffic">👆 Tráfico al sitio web</option>
-                    <option value="leads">🎯 Generación de leads</option>
-                    <option value="sales">💳 Ventas / Conversiones</option>
-                    <option value="engagement">💬 Engagement e interacción</option>
-                    <option value="app">📱 Instalaciones de app</option>
-                  </select>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2">
-                  <div>
-                    <label class="text-xs font-medium text-slate-600 block mb-1">Presupuesto total</label>
-                    <input type="text" id="camp-budget" placeholder="Ej: $500 USD" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400">
-                  </div>
-                  <div>
-                    <label class="text-xs font-medium text-slate-600 block mb-1">Duración</label>
-                    <input type="text" id="camp-duration" placeholder="Ej: 30 días" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400">
-                  </div>
-                </div>
-
-                <div>
-                  <label class="text-xs font-medium text-slate-600 block mb-1">Audiencia objetivo</label>
-                  <textarea id="camp-audience" rows="2" placeholder="Ej: Hombres y mujeres 35–55, interesados en arte contemporáneo, alto poder adquisitivo, Santiago" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400 resize-none"></textarea>
-                </div>
-
-                <div>
-                  <label class="text-xs font-medium text-slate-600 block mb-1">Propuesta de valor / mensaje clave</label>
-                  <textarea id="camp-message" rows="2" placeholder="Ej: Nueva colección de artistas emergentes latinoamericanos. Piezas únicas disponibles hasta fin de año." class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400 resize-none"></textarea>
-                </div>
-
-                <div>
-                  <label class="text-xs font-medium text-slate-600 block mb-1">Concepto creativo (opcional)</label>
-                  <textarea id="camp-creative" rows="2" placeholder="Ej: Fotos de alta calidad de las obras en el espacio. Reels del artista trabajando. Carrusel de detalle de piezas." class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400 resize-none"></textarea>
-                </div>
-
-                <button onclick="generateCampaignPlan()" id="btn-gen-camp"
-                  class="w-full py-2.5 bg-purple-600 text-white text-sm font-semibold rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2">
-                  <span id="ico-gen-camp">✦</span> Generar plan con IA
-                </button>
-                <p id="camp-gen-status" class="text-xs text-slate-400 text-center"></p>
               </div>
             </div>
 
-            <!-- ── CREATIVIDADES ── -->
-            <div class="bg-white rounded-xl border border-slate-200 p-5">
-              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Creatividades</div>
+            <div class="bg-white rounded-xl border border-slate-200 p-5 space-y-3">
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Audiencia y mensaje</div>
 
-              <!-- Type selector -->
-              <div class="flex gap-1.5 mb-4">
-                <button onclick="setCampCreativeType('imagen')" id="creat-btn-imagen"
-                  class="creat-type-btn flex-1 py-1.5 text-xs font-semibold rounded-lg border border-purple-400 bg-purple-50 text-purple-700 transition-all">📸 Imagen</button>
-                <button onclick="setCampCreativeType('carrusel')" id="creat-btn-carrusel"
-                  class="creat-type-btn flex-1 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 hover:border-purple-300 transition-all">🎠 Carrusel</button>
-                <button onclick="setCampCreativeType('video')" id="creat-btn-video"
-                  class="creat-type-btn flex-1 py-1.5 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 hover:border-purple-300 transition-all">🎬 Video</button>
+              <div>
+                <label class="text-xs font-medium text-slate-600 block mb-1">Audiencia objetivo</label>
+                <textarea id="camp-audience" rows="3" placeholder="Ej: Hombres y mujeres 35–55, interesados en arte contemporáneo, alto poder adquisitivo, Santiago" class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400 resize-none"></textarea>
               </div>
 
-              <!-- ─ Imagen única ─ -->
-              <div id="creat-panel-imagen">
-                <div class="mb-2">
-                  <label class="text-xs text-slate-500 block mb-1">URL o link de Drive/Dropbox</label>
-                  <div class="flex gap-2">
-                    <input id="creat-img-url" type="url" placeholder="https://..."
-                      class="flex-1 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400"
-                      oninput="previewCreatImg()">
-                    <label class="px-2.5 py-2 bg-slate-100 text-slate-600 text-xs font-medium rounded-lg cursor-pointer hover:bg-slate-200 transition-all shrink-0"
-                      title="Subir desde tu equipo">
-                      ⬆
-                      <input type="file" accept="image/*" class="hidden" onchange="uploadCreatFile(this,'imagen')">
-                    </label>
-                  </div>
-                </div>
-                <div id="creat-img-preview" class="mb-2 rounded-lg overflow-hidden bg-slate-50 border border-slate-200 hidden">
-                  <img id="creat-img-preview-img" class="w-full max-h-40 object-contain" src="" alt="preview">
-                </div>
+              <div>
+                <label class="text-xs font-medium text-slate-600 block mb-1">Propuesta de valor / mensaje clave</label>
+                <textarea id="camp-message" rows="3" placeholder="Ej: Nueva colección de artistas emergentes latinoamericanos. Piezas únicas disponibles hasta fin de año." class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400 resize-none"></textarea>
               </div>
 
-              <!-- ─ Carrusel ─ -->
-              <div id="creat-panel-carrusel" style="display:none">
-                <div class="space-y-2 mb-2" id="creat-carousel-list"></div>
-                <button onclick="addCarouselSlide()" class="w-full py-2 text-xs text-purple-500 hover:text-purple-700 border border-dashed border-purple-300 rounded-lg transition-all">+ Añadir imagen al carrusel</button>
+              <div>
+                <label class="text-xs font-medium text-slate-600 block mb-1">Concepto creativo (opcional)</label>
+                <textarea id="camp-creative" rows="2" placeholder="Ej: Fotos de alta calidad de las obras en el espacio. Reels del artista trabajando." class="w-full text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400 resize-none"></textarea>
               </div>
 
-              <!-- ─ Video ─ -->
-              <div id="creat-panel-video" style="display:none">
-                <div class="mb-2">
-                  <label class="text-xs text-slate-500 block mb-1">URL del video (Drive, YouTube, Vimeo...)</label>
-                  <div class="flex gap-2">
-                    <input id="creat-vid-url" type="url" placeholder="https://..."
-                      class="flex-1 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
-                    <label class="px-2.5 py-2 bg-slate-100 text-slate-600 text-xs font-medium rounded-lg cursor-pointer hover:bg-slate-200 transition-all shrink-0"
-                      title="Subir desde tu equipo">
-                      ⬆
-                      <input type="file" accept="video/*" class="hidden" onchange="uploadCreatFile(this,'video')">
-                    </label>
-                  </div>
-                </div>
-                <div id="creat-vid-preview" class="hidden text-xs text-emerald-600 font-medium py-1.5 px-3 bg-emerald-50 rounded-lg">✓ Video adjuntado</div>
-              </div>
-
-              <!-- Common fields -->
-              <div class="mt-3 space-y-2">
-                <input id="creat-copy" type="text" placeholder="Copy / caption del anuncio"
-                  class="w-full text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
-                <div class="flex gap-2">
-                  <input id="creat-headline" type="text" placeholder="Titular"
-                    class="flex-1 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
-                  <input id="creat-cta" type="text" placeholder="CTA (Ej: Más info)"
-                    class="w-28 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
-                </div>
-              </div>
-
-              <!-- Creative list -->
-              <div id="creat-saved-list" class="mt-3 space-y-2"></div>
-
-              <button onclick="addCampCreative()" class="mt-3 w-full py-2 text-xs font-semibold text-purple-600 hover:text-purple-800 bg-purple-50 hover:bg-purple-100 rounded-lg border border-purple-200 transition-all">
-                + Guardar creatividad
+              <button onclick="generateCampaignPlan()" id="btn-gen-camp"
+                class="w-full py-2.5 bg-purple-600 text-white text-sm font-semibold rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2">
+                <span id="ico-gen-camp">✦</span> Generar plan con IA
               </button>
+              <p id="camp-gen-status" class="text-xs text-slate-400 text-center"></p>
             </div>
-
           </div>
+        </div>
 
-          <!-- Right: AI response + chat -->
-          <div class="col-span-2 flex flex-col gap-4">
-            <!-- Plan output -->
-            <div class="bg-white rounded-xl border border-slate-200 flex-1 min-h-96">
-              <div id="camp-action-btns" class="border-b border-slate-100 px-5 py-3 flex items-center justify-between">
-                <div class="text-xs font-semibold text-slate-600 uppercase tracking-wide">Plan generado por el Agente IA</div>
-                <div class="flex gap-2">
-                  <button onclick="saveCampaignPlan()" class="text-xs text-purple-500 hover:text-purple-700 font-medium">💾 Guardar</button>
-                  <button onclick="copyCampaignPlan()" class="text-xs text-slate-400 hover:text-slate-600 font-medium">📋 Copiar</button>
-                  <button onclick="openCampActivationModal()" id="btn-camp-activate" style="display:none"
-                    class="text-xs font-semibold px-3 py-1.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-all flex items-center gap-1.5">
-                    🚀 Activar campaña
-                  </button>
-                </div>
+        <!-- ═══ STEP 2: PLAN IA ═══ -->
+        <div id="camp-step-2" class="camp-step-panel" style="display:none">
+          <div class="bg-white rounded-xl border border-slate-200">
+            <div class="border-b border-slate-100 px-5 py-3 flex items-center justify-between">
+              <div class="text-xs font-semibold text-slate-600 uppercase tracking-wide">Plan generado por el Agente IA</div>
+              <div class="flex gap-2">
+                <button onclick="saveCampaignPlan()" class="text-xs text-purple-500 hover:text-purple-700 font-medium">💾 Guardar plan</button>
+                <button onclick="copyCampaignPlan()" class="text-xs text-slate-400 hover:text-slate-600 font-medium">📋 Copiar</button>
+                <button onclick="showCampStep(3)" class="text-xs font-semibold px-3 py-1.5 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all">
+                  Añadir creatividades →
+                </button>
               </div>
-              <div id="camp-output-wrap"><div id="camp-output" class="p-5 text-sm text-slate-500 min-h-80">
+            </div>
+            <div id="camp-output-wrap">
+              <div id="camp-output" class="p-5 text-sm text-slate-500 min-h-96">
                 <div class="flex flex-col items-center justify-center h-64 text-center">
                   <div class="text-4xl mb-3">✦</div>
                   <div class="text-slate-400 text-sm">El agente IA analizará tu brief y generará:</div>
@@ -2958,33 +2934,263 @@
                     <div>📅 Calendario de implementación</div>
                     <div>📊 KPIs y benchmarks del sector</div>
                   </div>
+                  <button onclick="showCampStep(1)" class="mt-6 text-xs text-purple-500 underline">← Completar brief primero</button>
                 </div>
               </div>
-            </div></div><!-- /camp-output-wrap -->
+            </div>
+          </div>
 
-            <!-- Follow-up chat -->
-            <div id="camp-chat-area" class="bg-white rounded-xl border border-slate-200">
-              <div class="border-b border-slate-100 px-5 py-3 text-xs font-semibold text-slate-600 uppercase tracking-wide">Refinar con el agente</div>
-              <div id="camp-chat-history" class="px-5 py-3 space-y-3 max-h-48 overflow-y-auto" style="display:none"></div>
-              <div class="p-3 flex gap-2">
-                <input type="text" id="camp-chat-input" placeholder="Ej: Ajusta el copy para un tono más premium… / ¿Cuánto destinar a retargeting? / Añade ideas para TikTok…"
-                  class="flex-1 text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400"
-                  onkeydown="if(event.key==='Enter')sendCampaignChat()">
-                <button onclick="sendCampaignChat()" class="px-4 py-2 bg-purple-600 text-white text-sm rounded-lg hover:bg-purple-700 flex items-center gap-1.5">
-                  <span>↑</span>
+          <!-- Chat refinamiento -->
+          <div class="bg-white rounded-xl border border-slate-200 mt-4">
+            <div class="border-b border-slate-100 px-5 py-3 text-xs font-semibold text-slate-600 uppercase tracking-wide">Refinar con el agente</div>
+            <div id="camp-chat-history" class="px-5 py-3 space-y-3 max-h-48 overflow-y-auto" style="display:none"></div>
+            <div class="p-3 flex gap-2">
+              <input type="text" id="camp-chat-input" placeholder="Ej: Ajusta el copy para un tono más premium… ¿Cuánto a retargeting?"
+                class="flex-1 text-sm border border-slate-200 rounded-lg px-3 py-2 focus:outline-none focus:border-purple-400"
+                onkeydown="if(event.key==='Enter')sendCampaignChat()">
+              <button onclick="sendCampaignChat()" class="px-4 py-2 bg-purple-600 text-white text-sm rounded-lg hover:bg-purple-700">↑</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ STEP 3: CREATIVIDADES ═══ -->
+        <div id="camp-step-3" class="camp-step-panel" style="display:none">
+          <div class="grid grid-cols-2 gap-6">
+            <!-- Subir creatividad -->
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Añadir creatividad</div>
+
+              <!-- Type selector -->
+              <div class="flex gap-1.5 mb-4">
+                <button onclick="setCampCreativeType('imagen')" id="creat-btn-imagen"
+                  class="creat-type-btn flex-1 py-2 text-xs font-semibold rounded-lg border border-purple-400 bg-purple-50 text-purple-700 transition-all">📸 Imagen</button>
+                <button onclick="setCampCreativeType('carrusel')" id="creat-btn-carrusel"
+                  class="creat-type-btn flex-1 py-2 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 hover:border-purple-300 transition-all">🎠 Carrusel</button>
+                <button onclick="setCampCreativeType('video')" id="creat-btn-video"
+                  class="creat-type-btn flex-1 py-2 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 hover:border-purple-300 transition-all">🎬 Video</button>
+              </div>
+
+              <!-- Imagen única -->
+              <div id="creat-panel-imagen">
+                <label class="text-xs text-slate-500 block mb-1">URL o archivo de imagen</label>
+                <div class="flex gap-2 mb-2">
+                  <input id="creat-img-url" type="url" placeholder="https://..."
+                    class="flex-1 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400"
+                    oninput="previewCreatImg()">
+                  <label class="px-3 py-2 bg-slate-100 text-slate-600 text-xs font-medium rounded-lg cursor-pointer hover:bg-slate-200 transition-all shrink-0" title="Subir desde tu equipo">
+                    ⬆ Subir
+                    <input type="file" accept="image/*" class="hidden" onchange="uploadCreatFile(this,'imagen')">
+                  </label>
+                </div>
+                <div id="creat-img-preview" class="mb-2 rounded-lg overflow-hidden bg-slate-50 border border-slate-200 hidden">
+                  <img id="creat-img-preview-img" class="w-full max-h-48 object-contain" src="" alt="preview">
+                </div>
+              </div>
+
+              <!-- Carrusel -->
+              <div id="creat-panel-carrusel" style="display:none">
+                <div class="space-y-2 mb-2" id="creat-carousel-list"></div>
+                <button onclick="addCarouselSlide()" class="w-full py-2 text-xs text-purple-500 hover:text-purple-700 border border-dashed border-purple-300 rounded-lg transition-all">+ Añadir imagen al carrusel</button>
+              </div>
+
+              <!-- Video -->
+              <div id="creat-panel-video" style="display:none">
+                <label class="text-xs text-slate-500 block mb-1">URL del video (Drive, YouTube, Vimeo…)</label>
+                <div class="flex gap-2 mb-2">
+                  <input id="creat-vid-url" type="url" placeholder="https://..."
+                    class="flex-1 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
+                  <label class="px-3 py-2 bg-slate-100 text-slate-600 text-xs font-medium rounded-lg cursor-pointer hover:bg-slate-200 transition-all shrink-0">
+                    ⬆ Subir
+                    <input type="file" accept="video/*" class="hidden" onchange="uploadCreatFile(this,'video')">
+                  </label>
+                </div>
+                <div id="creat-vid-preview" class="hidden text-xs text-emerald-600 font-medium py-1.5 px-3 bg-emerald-50 rounded-lg">✓ Video adjuntado</div>
+              </div>
+
+              <!-- Copy fields -->
+              <div class="mt-4 space-y-2">
+                <input id="creat-copy" type="text" placeholder="Copy / caption del anuncio"
+                  class="w-full text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
+                <div class="flex gap-2">
+                  <input id="creat-headline" type="text" placeholder="Titular"
+                    class="flex-1 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
+                  <input id="creat-cta" type="text" placeholder="CTA"
+                    class="w-28 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
+                </div>
+              </div>
+
+              <button onclick="addCampCreative()" class="mt-4 w-full py-2 text-xs font-semibold text-purple-600 bg-purple-50 hover:bg-purple-100 rounded-lg border border-purple-200 transition-all">
+                + Guardar creatividad
+              </button>
+            </div>
+
+            <!-- Lista de creatividades guardadas -->
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Creatividades de esta campaña</div>
+              <div id="creat-saved-list" class="space-y-3">
+                <div class="flex flex-col items-center justify-center h-48 text-slate-300 text-center">
+                  <div class="text-4xl mb-2">🖼</div>
+                  <div class="text-xs">Sin creatividades aún.<br>Añade imágenes, carruseles o videos.</div>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-4 border-t border-slate-100">
+                <button onclick="showCampStep(4)"
+                  class="w-full py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-lg hover:bg-emerald-700 transition-colors flex items-center justify-center gap-2">
+                  🚀 Continuar a Publicar →
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Saved campaigns -->
-        <div>
+        <!-- ═══ STEP 4: PUBLICAR ═══ -->
+        <div id="camp-step-4" class="camp-step-panel" style="display:none">
+          <div class="grid grid-cols-3 gap-6">
+
+            <!-- Resumen de campaña -->
+            <div class="bg-white rounded-xl border border-slate-200 p-5">
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Resumen</div>
+              <div id="camp-pub-summary" class="space-y-2 text-xs">
+                <div class="text-slate-400 italic">Genera un plan en el paso 2 para ver el resumen</div>
+              </div>
+
+              <div class="mt-4">
+                <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-3">Creatividades</div>
+                <div id="camp-pub-creatives" class="flex flex-wrap gap-2">
+                  <div class="text-xs text-slate-400 italic">Sin creatividades adjuntas</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Plataformas de publicación -->
+            <div class="col-span-2 space-y-3">
+              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-1">Activar en plataformas</div>
+
+              <!-- Meta / Instagram -->
+              <div class="bg-white rounded-xl border border-slate-200 overflow-hidden">
+                <div class="flex items-center justify-between px-5 py-3 border-b border-slate-100">
+                  <div class="flex items-center gap-3">
+                    <span class="text-xl">📘</span>
+                    <div>
+                      <div class="text-sm font-semibold text-slate-800">Meta Ads Manager</div>
+                      <div class="text-xs text-slate-400">Facebook & Instagram</div>
+                    </div>
+                  </div>
+                  <div class="flex gap-2">
+                    <button onclick="toggleMetaApiPanel()" class="text-xs px-3 py-1.5 border border-blue-300 text-blue-600 rounded-lg hover:bg-blue-50 font-medium transition-all">
+                      🔌 Crear vía API
+                    </button>
+                    <a href="https://adsmanager.facebook.com/adsmanager/manage/campaigns" target="_blank"
+                      class="text-xs px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium transition-all flex items-center gap-1">
+                      Abrir Meta Ads ↗
+                    </a>
+                  </div>
+                </div>
+                <!-- Meta API Panel (colapsable) -->
+                <div id="camp-meta-api-panel" style="display:none" class="px-5 py-4 bg-blue-50 space-y-3">
+                  <div class="grid grid-cols-2 gap-3">
+                    <div>
+                      <label class="text-xs text-blue-700 block mb-1">ID cuenta publicitaria</label>
+                      <input id="meta-ad-account-id" type="text" placeholder="act_XXXXXXXXXX"
+                        class="w-full text-xs border border-blue-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-blue-400 bg-white">
+                      <p class="text-xs text-blue-500 mt-1">Ads Manager → Configuración de cuenta</p>
+                    </div>
+                    <div>
+                      <label class="text-xs text-blue-700 block mb-1">ID Página de Facebook</label>
+                      <input id="meta-page-id" type="text" placeholder="XXXXXXXXXX"
+                        class="w-full text-xs border border-blue-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-blue-400 bg-white">
+                    </div>
+                  </div>
+                  <button onclick="createMetaCampaign()"
+                    class="w-full py-2 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-2">
+                    🚀 Crear campaña en Meta
+                  </button>
+                  <div id="meta-api-status" class="text-xs text-center"></div>
+                </div>
+              </div>
+
+              <!-- Google Ads -->
+              <div class="bg-white rounded-xl border border-slate-200">
+                <div class="flex items-center justify-between px-5 py-3">
+                  <div class="flex items-center gap-3">
+                    <span class="text-xl">🔍</span>
+                    <div>
+                      <div class="text-sm font-semibold text-slate-800">Google Ads</div>
+                      <div class="text-xs text-slate-400">Search, Display & YouTube</div>
+                    </div>
+                  </div>
+                  <div class="flex gap-2">
+                    <button onclick="copyCampBriefForPlatform('google')" class="text-xs px-3 py-1.5 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 font-medium transition-all">
+                      📋 Copiar brief
+                    </button>
+                    <a href="https://ads.google.com/home/" target="_blank"
+                      class="text-xs px-3 py-1.5 bg-slate-800 text-white rounded-lg hover:bg-slate-700 font-medium transition-all flex items-center gap-1">
+                      Abrir Google Ads ↗
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- LinkedIn Ads -->
+              <div class="bg-white rounded-xl border border-slate-200">
+                <div class="flex items-center justify-between px-5 py-3">
+                  <div class="flex items-center gap-3">
+                    <span class="text-xl">💼</span>
+                    <div>
+                      <div class="text-sm font-semibold text-slate-800">LinkedIn Ads</div>
+                      <div class="text-xs text-slate-400">Campaign Manager</div>
+                    </div>
+                  </div>
+                  <div class="flex gap-2">
+                    <button onclick="copyCampBriefForPlatform('linkedin')" class="text-xs px-3 py-1.5 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 font-medium transition-all">
+                      📋 Copiar brief
+                    </button>
+                    <a href="https://www.linkedin.com/campaignmanager/" target="_blank"
+                      class="text-xs px-3 py-1.5 bg-blue-700 text-white rounded-lg hover:bg-blue-800 font-medium transition-all flex items-center gap-1">
+                      Abrir LinkedIn Ads ↗
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <!-- TikTok Ads -->
+              <div class="bg-white rounded-xl border border-slate-200">
+                <div class="flex items-center justify-between px-5 py-3">
+                  <div class="flex items-center gap-3">
+                    <span class="text-xl">🎵</span>
+                    <div>
+                      <div class="text-sm font-semibold text-slate-800">TikTok Ads</div>
+                      <div class="text-xs text-slate-400">TikTok Ads Manager</div>
+                    </div>
+                  </div>
+                  <div class="flex gap-2">
+                    <button onclick="copyCampBriefForPlatform('tiktok')" class="text-xs px-3 py-1.5 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 font-medium transition-all">
+                      📋 Copiar brief
+                    </button>
+                    <a href="https://ads.tiktok.com/" target="_blank"
+                      class="text-xs px-3 py-1.5 bg-black text-white rounded-lg hover:bg-slate-800 font-medium transition-all flex items-center gap-1">
+                      Abrir TikTok Ads ↗
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <button onclick="saveCampaignPlan()" class="w-full py-2.5 bg-purple-600 text-white text-sm font-semibold rounded-lg hover:bg-purple-700 transition-colors flex items-center justify-center gap-2">
+                💾 Guardar campaña completa
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- ═══ CAMPAÑAS GUARDADAS ═══ -->
+        <div class="mt-8">
           <div class="flex items-center justify-between mb-4">
             <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Campañas guardadas</div>
+            <div id="camp-saved-count" class="text-xs text-slate-400"></div>
           </div>
-          <div id="camp-saved-list" class="space-y-3">
-            <p class="text-xs text-slate-400 italic">Sin campañas guardadas todavía.</p>
+          <div id="camp-saved-list" class="grid grid-cols-1 gap-3">
+            <div class="text-xs text-slate-400 italic p-4 bg-white rounded-xl border border-slate-200 text-center">Sin campañas guardadas todavía.</div>
           </div>
         </div>
 
@@ -5912,19 +6118,31 @@ Por favor genera el plan de campaña completo.`;
 
   function saveCampaignPlan() {
     if (!CAMP_CURRENT_PLAN) { showToast('⚠ No hay plan generado todavía'); return; }
-    const client    = document.getElementById('camp-client')?.value || 'Sin cliente';
-    const objective = document.getElementById('camp-objective')?.value || 'Sin objetivo';
-    const platform  = Array.from(document.querySelectorAll('.camp-platform:checked')).map(c=>c.value).join(', ') || '';
+    const clientKey   = document.getElementById('camp-client')?.value || '';
+    const objectiveKey= document.getElementById('camp-objective')?.value || '';
+    const budget      = document.getElementById('camp-budget')?.value || '';
+    const duration    = document.getElementById('camp-duration')?.value || '';
+    const audience    = document.getElementById('camp-audience')?.value || '';
+    const platforms   = Array.from(document.querySelectorAll('.camp-platform:checked')).map(c=>c.value);
+    const CLIENTS     = { tarquinia:'Galería Tarquinia', eudora:'Eudora', nac:'Galería NAC', zoron:'Zorón', ftarquinia:'Fund. Tarquinia' };
+    const OBJ_LABELS  = { awareness:'Reconocimiento de marca', traffic:'Tráfico al sitio', leads:'Generación de leads', sales:'Conversiones / Ventas', engagement:'Engagement', app:'Instalaciones de app' };
     const campaign = {
       id: Date.now(),
       date: new Date().toLocaleDateString('es-CL'),
-      client,
-      objective,
-      platform,
-      plan: CAMP_CURRENT_PLAN
+      clientKey,
+      client:    CLIENTS[clientKey]    || clientKey,
+      objectiveKey,
+      objective: OBJ_LABELS[objectiveKey] || objectiveKey,
+      platforms,
+      platform:  platforms.join(', '),
+      budget,
+      duration,
+      audience,
+      status:    'draft',
+      plan:      CAMP_CURRENT_PLAN,
+      creatives: [...campCreatives]
     };
     SAVED_CAMPAIGNS.unshift(campaign);
-    // Persist to Firebase
     db.ref('eudora/campaigns').set(SAVED_CAMPAIGNS).catch(()=>{});
     renderSavedCampaigns();
     showToast('✓ Campaña guardada');
@@ -5941,64 +6159,118 @@ Por favor genera el plan de campaña completo.`;
       const el = document.getElementById(id);
       if (el) el.value = '';
     });
-    document.querySelectorAll('.camp-platform').forEach(cb => { cb.checked = false; });
-    const outWrap = document.getElementById('camp-output-wrap');
-    if (outWrap) outWrap.style.display = 'none';
-    const btns = document.getElementById('camp-action-btns');
-    if (btns) btns.style.display = 'none';
-    const chatArea = document.getElementById('camp-chat-area');
-    if (chatArea) chatArea.style.display = 'none';
+    document.querySelectorAll('.camp-platform').forEach(cb => { cb.checked = id === 'camp-plat-meta'; });
+    const outEl = document.getElementById('camp-output');
+    if (outEl) outEl.innerHTML = '<div class="flex flex-col items-center justify-center h-64 text-center"><div class="text-4xl mb-3">✦</div><div class="text-slate-400 text-sm">Completa el brief y genera tu plan con IA</div></div>';
     const chatHistory = document.getElementById('camp-chat-history');
     if (chatHistory) { chatHistory.innerHTML = ''; chatHistory.style.display = 'none'; }
+    campCreatives = [];
+    renderCampCreatives();
     CAMP_MESSAGES = [];
     CAMP_CURRENT_PLAN = '';
+    showCampStep(1);
     showToast('✓ Nuevo brief listo');
   }
 
   function renderSavedCampaigns() {
-    const el = document.getElementById('camp-saved-list');
+    const el    = document.getElementById('camp-saved-list');
+    const cntEl = document.getElementById('camp-saved-count');
     if (!el) return;
-    if (!SAVED_CAMPAIGNS.length) {
-      el.innerHTML = '<p class="text-xs text-slate-400 italic">Sin campañas guardadas todavía.</p>';
+
+    // Filter by active client tab
+    const filtered = (typeof currentCampClient !== 'undefined' && currentCampClient !== 'general')
+      ? SAVED_CAMPAIGNS.filter(c => c.clientKey === currentCampClient || c.client?.toLowerCase().includes(currentCampClient))
+      : SAVED_CAMPAIGNS;
+
+    if (cntEl) cntEl.textContent = filtered.length ? filtered.length + ' campaña' + (filtered.length !== 1 ? 's' : '') : '';
+
+    if (!filtered.length) {
+      el.innerHTML = '<div class="text-xs text-slate-400 italic p-4 bg-white rounded-xl border border-slate-200 text-center">Sin campañas guardadas' + (currentCampClient !== 'general' ? ' para este cliente' : '') + '.</div>';
       return;
     }
-    el.innerHTML = SAVED_CAMPAIGNS.map(c => `
-      <div class="bg-white border border-slate-200 rounded-xl p-4 hover:border-purple-300 transition-all">
+
+    const CLIENTS = { tarquinia:'Galería Tarquinia', eudora:'Eudora', nac:'Galería NAC', zoron:'Zorón', ftarquinia:'Fund. Tarquinia' };
+    const OBJ_ICONS = { awareness:'📡', traffic:'👆', leads:'🎯', sales:'💳', engagement:'💬', app:'📱' };
+    const STATUS_STYLES = {
+      draft:   { label:'Borrador',  cls:'bg-slate-100 text-slate-500' },
+      active:  { label:'Activa',    cls:'bg-emerald-100 text-emerald-700' },
+      paused:  { label:'Pausada',   cls:'bg-amber-100 text-amber-700' },
+      ended:   { label:'Finalizada',cls:'bg-slate-200 text-slate-400' },
+    };
+
+    el.innerHTML = filtered.map(c => {
+      const st = STATUS_STYLES[c.status || 'draft'] || STATUS_STYLES.draft;
+      const objIcon = OBJ_ICONS[c.objectiveKey] || '🎯';
+      const platStr = Array.isArray(c.platforms) ? c.platforms.join(' · ') : (c.platform || 'Multi-plataforma');
+      return `
+      <div class="bg-white border border-slate-200 rounded-xl p-4 hover:border-purple-300 hover:shadow-sm transition-all">
         <div class="flex items-start justify-between gap-3">
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 flex-wrap mb-1">
-              <span class="text-xs font-semibold text-slate-800">${c.client}</span>
-              <span class="text-xs text-slate-400">·</span>
-              <span class="text-xs text-purple-600">${c.platform || 'Multi-plataforma'}</span>
-              <span class="text-xs text-slate-400">·</span>
-              <span class="text-xs text-slate-400">${c.date}</span>
+            <div class="flex items-center gap-2 flex-wrap mb-2">
+              <span class="text-xs font-bold text-slate-800">${escHtml(c.client || CLIENTS[c.clientKey] || c.clientKey || '–')}</span>
+              <span class="text-xs px-2 py-0.5 rounded-full font-semibold ${st.cls}">${st.label}</span>
+              <span class="text-xs text-slate-400">${c.date || ''}</span>
             </div>
-            <div class="text-xs text-slate-600 truncate">${c.objective}</div>
+            <div class="flex items-center gap-2 mb-2">
+              <span class="text-sm">${objIcon}</span>
+              <span class="text-xs text-slate-600 font-medium">${escHtml(c.objective || '')}</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5">
+              ${platStr.split(' · ').map(p => `<span class="text-xs px-2 py-0.5 bg-purple-50 text-purple-600 rounded-full">${escHtml(p)}</span>`).join('')}
+              ${c.budget ? `<span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-500 rounded-full">💰 ${escHtml(c.budget)}</span>` : ''}
+              ${c.duration ? `<span class="text-xs px-2 py-0.5 bg-slate-100 text-slate-500 rounded-full">📅 ${escHtml(c.duration)}</span>` : ''}
+            </div>
           </div>
-          <div class="flex gap-2 shrink-0">
-            <button onclick="loadSavedCampaign(${c.id})" class="text-xs px-2.5 py-1 bg-purple-50 text-purple-700 rounded-lg hover:bg-purple-100 font-medium">Ver plan</button>
-            <button onclick="deleteSavedCampaign(${c.id})" class="text-xs px-2.5 py-1 bg-red-50 text-red-500 rounded-lg hover:bg-red-100">✕</button>
+          <div class="flex flex-col gap-1.5 shrink-0">
+            <button onclick="loadSavedCampaign(${c.id})" class="text-xs px-3 py-1.5 bg-purple-50 text-purple-700 rounded-lg hover:bg-purple-100 font-medium transition-all">📄 Ver plan</button>
+            <button onclick="publishSavedCampaign(${c.id})" class="text-xs px-3 py-1.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 font-medium transition-all">🚀 Publicar</button>
+            <button onclick="deleteSavedCampaign(${c.id})" class="text-xs px-3 py-1.5 bg-red-50 text-red-500 rounded-lg hover:bg-red-100 transition-all">✕ Borrar</button>
           </div>
         </div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
+  }
+
+  function publishSavedCampaign(id) {
+    const camp = SAVED_CAMPAIGNS.find(c => c.id === id);
+    if (!camp) return;
+    // Load the campaign data into the form and jump to publish step
+    loadSavedCampaign(id);
+    showCampStep(4);
+    setTimeout(() => _refreshCampPubSummary(), 300);
   }
 
   function loadSavedCampaign(id) {
     const c = SAVED_CAMPAIGNS.find(x => x.id === id);
     if (!c) return;
+    // Restore plan
     CAMP_CURRENT_PLAN = c.plan;
     CAMP_MESSAGES = [{ role:'user', content: 'Plan guardado.' }, { role:'assistant', content: c.plan }];
-    const outWrap = document.getElementById('camp-output-wrap');
-    const outEl   = document.getElementById('camp-output');
-    if (outWrap) outWrap.style.display = '';
+    const outEl = document.getElementById('camp-output');
     if (outEl) outEl.innerHTML = formatCampaignOutput(c.plan);
-    const btns = document.getElementById('camp-action-btns');
-    if (btns) btns.style.display = '';
-    const chatArea = document.getElementById('camp-chat-area');
-    if (chatArea) chatArea.style.display = '';
+    // Restore form fields
+    const setVal = (id, v) => { const el = document.getElementById(id); if (el && v) el.value = v; };
+    setVal('camp-client',    c.clientKey    || c.client);
+    setVal('camp-objective', c.objectiveKey || c.objective);
+    setVal('camp-budget',   c.budget);
+    setVal('camp-duration', c.duration);
+    setVal('camp-audience', c.audience);
+    // Restore platforms
+    if (Array.isArray(c.platforms)) {
+      document.querySelectorAll('.camp-platform').forEach(cb => {
+        cb.checked = c.platforms.includes(cb.value);
+      });
+    }
+    // Restore creatives
+    if (Array.isArray(c.creatives)) {
+      campCreatives = [...c.creatives];
+      renderCampCreatives();
+    }
+    const chatHistory = document.getElementById('camp-chat-history');
+    if (chatHistory) { chatHistory.innerHTML = ''; chatHistory.style.display = 'none'; }
     showToast('✓ Plan cargado');
     showSection('campanas');
-    document.getElementById('camp-output-wrap')?.scrollIntoView({ behavior:'smooth' });
+    showCampStep(2);
   }
 
   function deleteSavedCampaign(id) {
@@ -6601,7 +6873,143 @@ Por favor genera el plan de campaña completo.`;
   // ══════════════════════════════════════════════════════════
   // CAMPAÑAS — CREATIVIDADES Y ACTIVACIÓN
   // ══════════════════════════════════════════════════════════
-  let campCreativeType  = 'imagen';
+  // ─── CAMPAÑAS IA: STEPPER + CLIENT TABS ───────────────────────
+  let currentCampClient = 'general';
+  let currentCampStep   = 1;
+
+  function showCampStep(n) {
+    currentCampStep = n;
+    [1,2,3,4].forEach(i => {
+      const panel = document.getElementById('camp-step-' + i);
+      const btn   = document.getElementById('camp-step-btn-' + i);
+      if (!panel || !btn) return;
+      if (i === n) {
+        panel.style.display = '';
+        btn.classList.add('bg-purple-600','text-white');
+        btn.classList.remove('text-slate-500','hover:bg-slate-50');
+        const dot = btn.querySelector('span');
+        if (dot) { dot.classList.add('bg-white/30'); dot.classList.remove('bg-slate-200'); }
+      } else {
+        panel.style.display = 'none';
+        btn.classList.remove('bg-purple-600','text-white');
+        btn.classList.add('text-slate-500','hover:bg-slate-50');
+        const dot = btn.querySelector('span');
+        if (dot) { dot.classList.remove('bg-white/30'); dot.classList.add('bg-slate-200'); }
+      }
+    });
+    // If navigating to publish step, refresh summary
+    if (n === 4) _refreshCampPubSummary();
+  }
+
+  function switchCampClient(key) {
+    currentCampClient = key;
+    // Update tab styles
+    document.querySelectorAll('.camp-client-tab').forEach(b => {
+      b.classList.remove('bg-purple-600','text-white','border-purple-500');
+      b.classList.add('border-slate-200','text-slate-600','bg-white');
+    });
+    const active = document.getElementById('camp-tab-' + key);
+    if (active) {
+      active.classList.add('bg-purple-600','text-white','border-purple-500');
+      active.classList.remove('border-slate-200','text-slate-600','bg-white');
+    }
+    // Update subtitle
+    const labels = { general:'Todas las campañas', tarquinia:'Galería Tarquinia', nac:'Galería NAC', zoron:'Zorón', ftarquinia:'Fund. Tarquinia', eudora:'Eudora' };
+    _updateSubtitle(key, labels);
+    // Sync camp-client select if switching to a specific client
+    const sel = document.getElementById('camp-client');
+    if (sel && key !== 'general') sel.value = key;
+    // Refresh saved campaigns filtered by client
+    renderSavedCampaigns();
+  }
+
+  function toggleMetaApiPanel() {
+    const p = document.getElementById('camp-meta-api-panel');
+    if (p) p.style.display = p.style.display === 'none' ? '' : 'none';
+  }
+
+  function copyCampBriefForPlatform(platform) {
+    const plan = document.getElementById('camp-output')?.innerText || '';
+    const client   = document.getElementById('camp-client')?.value    || '';
+    const obj      = document.getElementById('camp-objective')?.value || '';
+    const budget   = document.getElementById('camp-budget')?.value    || '';
+    const duration = document.getElementById('camp-duration')?.value  || '';
+    const audience = document.getElementById('camp-audience')?.value  || '';
+    const message  = document.getElementById('camp-message')?.value   || '';
+
+    const CLIENTS = { tarquinia:'Galería Tarquinia', eudora:'Eudora', nac:'Galería NAC', zoron:'Zorón', ftarquinia:'Fund. Tarquinia' };
+    const platLabels = { google:'Google Ads', linkedin:'LinkedIn Ads', tiktok:'TikTok Ads' };
+
+    const text = [
+      '=== BRIEF DE CAMPAÑA EUDORA ===',
+      'Plataforma: ' + (platLabels[platform] || platform),
+      'Cliente: ' + (CLIENTS[client] || client),
+      'Objetivo: ' + obj,
+      'Presupuesto: ' + budget,
+      'Duración: ' + duration,
+      'Audiencia: ' + audience,
+      'Mensaje clave: ' + message,
+      '',
+      '=== PLAN GENERADO POR IA ===',
+      plan || '(Sin plan generado aún — genera uno en el Paso 2)'
+    ].join('\n');
+
+    navigator.clipboard.writeText(text).then(() => {
+      const plat = platLabels[platform] || platform;
+      alert('✓ Brief para ' + plat + ' copiado al portapapeles. Pégalo en el Ads Manager para configurar tu campaña.');
+    }).catch(() => {
+      console.warn('Clipboard copy failed');
+    });
+  }
+
+  function _refreshCampPubSummary() {
+    const client   = document.getElementById('camp-client')?.value    || '';
+    const obj      = document.getElementById('camp-objective')?.value || '';
+    const budget   = document.getElementById('camp-budget')?.value    || '';
+    const duration = document.getElementById('camp-duration')?.value  || '';
+    const audience = document.getElementById('camp-audience')?.value  || '';
+    const CLIENTS  = { tarquinia:'Galería Tarquinia', eudora:'Eudora', nac:'Galería NAC', zoron:'Zorón', ftarquinia:'Fund. Tarquinia' };
+    const OBJ_LABELS = { awareness:'Reconocimiento de marca', traffic:'Tráfico al sitio', leads:'Generación de leads', sales:'Conversiones / Ventas', engagement:'Engagement', app:'Instalaciones de app' };
+    const platforms = Array.from(document.querySelectorAll('.camp-platform:checked')).map(cb=>cb.value);
+
+    const summEl = document.getElementById('camp-pub-summary');
+    if (summEl) {
+      const rows = [
+        ['Cliente', CLIENTS[client]||client],
+        ['Objetivo', OBJ_LABELS[obj]||obj],
+        ['Presupuesto', budget],
+        ['Duración', duration],
+        ['Audiencia', audience],
+        ['Plataformas', platforms.join(', ')],
+      ].filter(r=>r[1]);
+      summEl.innerHTML = rows.map(([k,v]) =>
+        `<div class="flex justify-between py-1.5 border-b border-slate-100 last:border-0">
+          <span class="text-slate-400">${k}</span>
+          <span class="font-semibold text-slate-700 text-right max-w-48">${escHtml(v)}</span>
+        </div>`
+      ).join('');
+    }
+
+    const crEl = document.getElementById('camp-pub-creatives');
+    if (crEl) {
+      if (campCreatives.length) {
+        const icons = { imagen:'📸', carrusel:'🎠', video:'🎬' };
+        crEl.innerHTML = campCreatives.map(c => {
+          const hasImg = c.url && (c.url.startsWith('data:image') || c.url.match(/\.(jpg|jpeg|png|gif|webp)/i));
+          return `<div class="text-center">
+            ${hasImg
+              ? `<img src="${c.url}" class="w-16 h-16 object-cover rounded-xl border-2 border-purple-200">`
+              : `<div class="w-16 h-16 rounded-xl bg-purple-100 border-2 border-purple-200 flex items-center justify-center text-2xl">${icons[c.type]||'📄'}</div>`}
+            <div class="text-xs text-slate-500 mt-1">${c.type}</div>
+          </div>`;
+        }).join('');
+      } else {
+        crEl.innerHTML = '<div class="text-xs text-slate-400 italic">Sin creatividades adjuntas</div>';
+      }
+    }
+  }
+
+let campCreativeType  = 'imagen';
   let campCreatives     = [];       // array of creative objects
   let carouselSlides    = [];       // temp carousel slides
   let campCurrentPlan   = '';       // last generated plan text
@@ -6956,9 +7364,11 @@ Por favor genera el plan de campaña completo.`;
   if (typeof generateCampaignPlan === 'function') {
     const __orig = generateCampaignPlan;
     generateCampaignPlan = async function() {
+      // Auto-switch to plan step before generating
+      showCampStep(2);
       await __orig();
-      const btn = document.getElementById('btn-camp-activate');
-      if (btn) btn.style.display = '';
+      // After plan generated, make sure step 2 is visible
+      showCampStep(2);
     };
   }
 
