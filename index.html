@@ -2956,34 +2956,51 @@
         <!-- ═══ STEP 3: CREATIVIDADES ═══ -->
         <div id="camp-step-3" class="camp-step-panel" style="display:none">
           <div class="grid grid-cols-2 gap-6">
-            <!-- Subir creatividad -->
+
+            <!-- ─ Panel izquierdo: Formulario nueva creatividad ─ -->
             <div class="bg-white rounded-xl border border-slate-200 p-5">
               <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Añadir creatividad</div>
 
-              <!-- Type selector -->
-              <div class="flex gap-1.5 mb-4">
-                <button onclick="setCampCreativeType('imagen')" id="creat-btn-imagen"
-                  class="creat-type-btn flex-1 py-2 text-xs font-semibold rounded-lg border border-purple-400 bg-purple-50 text-purple-700 transition-all">📸 Imagen</button>
-                <button onclick="setCampCreativeType('carrusel')" id="creat-btn-carrusel"
-                  class="creat-type-btn flex-1 py-2 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 hover:border-purple-300 transition-all">🎠 Carrusel</button>
-                <button onclick="setCampCreativeType('video')" id="creat-btn-video"
-                  class="creat-type-btn flex-1 py-2 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 hover:border-purple-300 transition-all">🎬 Video</button>
+              <!-- Grupo de anuncio -->
+              <div class="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                <label class="text-xs font-semibold text-amber-800 block mb-1">📂 Grupo de anuncio</label>
+                <div class="flex gap-2">
+                  <input id="creat-adgroup" type="text" placeholder="Ej: Retargeting · Audiencia fría · Intereses arte"
+                    class="flex-1 text-xs border border-amber-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-amber-400 bg-white font-medium">
+                  <button onclick="creatPickAdGroup()" title="Seleccionar grupo existente"
+                    class="px-2.5 py-2 bg-amber-100 text-amber-700 text-xs rounded-lg hover:bg-amber-200 transition-all shrink-0">▾</button>
+                </div>
+                <div id="creat-adgroup-suggestions" class="mt-1.5 flex flex-wrap gap-1 hidden"></div>
+                <p class="text-xs text-amber-600 mt-1">Cada creatividad se asocia a un grupo de anuncio específico</p>
+              </div>
+
+              <!-- Tipo de formato -->
+              <div class="mb-4">
+                <label class="text-xs font-medium text-slate-600 block mb-1.5">Formato</label>
+                <div class="flex gap-1.5">
+                  <button onclick="setCampCreativeType('imagen')" id="creat-btn-imagen"
+                    class="creat-type-btn flex-1 py-2 text-xs font-semibold rounded-lg border border-purple-400 bg-purple-50 text-purple-700 transition-all">📸 Imagen</button>
+                  <button onclick="setCampCreativeType('carrusel')" id="creat-btn-carrusel"
+                    class="creat-type-btn flex-1 py-2 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 hover:border-purple-300 transition-all">🎠 Carrusel</button>
+                  <button onclick="setCampCreativeType('video')" id="creat-btn-video"
+                    class="creat-type-btn flex-1 py-2 text-xs font-semibold rounded-lg border border-slate-200 text-slate-500 hover:border-purple-300 transition-all">🎬 Video</button>
+                </div>
               </div>
 
               <!-- Imagen única -->
               <div id="creat-panel-imagen">
-                <label class="text-xs text-slate-500 block mb-1">URL o archivo de imagen</label>
+                <label class="text-xs text-slate-500 block mb-1">Imagen del anuncio</label>
                 <div class="flex gap-2 mb-2">
-                  <input id="creat-img-url" type="url" placeholder="https://..."
+                  <input id="creat-img-url" type="url" placeholder="https://drive.google.com/..."
                     class="flex-1 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400"
                     oninput="previewCreatImg()">
-                  <label class="px-3 py-2 bg-slate-100 text-slate-600 text-xs font-medium rounded-lg cursor-pointer hover:bg-slate-200 transition-all shrink-0" title="Subir desde tu equipo">
+                  <label class="px-3 py-2 bg-slate-100 text-slate-600 text-xs font-medium rounded-lg cursor-pointer hover:bg-slate-200 transition-all shrink-0">
                     ⬆ Subir
                     <input type="file" accept="image/*" class="hidden" onchange="uploadCreatFile(this,'imagen')">
                   </label>
                 </div>
                 <div id="creat-img-preview" class="mb-2 rounded-lg overflow-hidden bg-slate-50 border border-slate-200 hidden">
-                  <img id="creat-img-preview-img" class="w-full max-h-48 object-contain" src="" alt="preview">
+                  <img id="creat-img-preview-img" class="w-full max-h-40 object-contain" src="" alt="preview">
                 </div>
               </div>
 
@@ -2995,7 +3012,7 @@
 
               <!-- Video -->
               <div id="creat-panel-video" style="display:none">
-                <label class="text-xs text-slate-500 block mb-1">URL del video (Drive, YouTube, Vimeo…)</label>
+                <label class="text-xs text-slate-500 block mb-1">Video del anuncio</label>
                 <div class="flex gap-2 mb-2">
                   <input id="creat-vid-url" type="url" placeholder="https://..."
                     class="flex-1 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
@@ -3009,37 +3026,50 @@
 
               <!-- Copy fields -->
               <div class="mt-4 space-y-2">
-                <input id="creat-copy" type="text" placeholder="Copy / caption del anuncio"
-                  class="w-full text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
+                <div>
+                  <label class="text-xs font-medium text-slate-600 block mb-1">Copy / Caption del anuncio</label>
+                  <textarea id="creat-copy" rows="2" placeholder="Texto principal del anuncio que verá el usuario…"
+                    class="w-full text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400 resize-none"></textarea>
+                </div>
                 <div class="flex gap-2">
-                  <input id="creat-headline" type="text" placeholder="Titular"
-                    class="flex-1 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
-                  <input id="creat-cta" type="text" placeholder="CTA"
-                    class="w-28 text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
+                  <div class="flex-1">
+                    <label class="text-xs font-medium text-slate-600 block mb-1">Titular</label>
+                    <input id="creat-headline" type="text" placeholder="Titular del anuncio"
+                      class="w-full text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
+                  </div>
+                  <div class="w-28">
+                    <label class="text-xs font-medium text-slate-600 block mb-1">CTA</label>
+                    <input id="creat-cta" type="text" placeholder="Más info"
+                      class="w-full text-xs border border-slate-200 rounded-lg px-2.5 py-2 focus:outline-none focus:border-purple-400">
+                  </div>
                 </div>
               </div>
 
-              <button onclick="addCampCreative()" class="mt-4 w-full py-2 text-xs font-semibold text-purple-600 bg-purple-50 hover:bg-purple-100 rounded-lg border border-purple-200 transition-all">
-                + Guardar creatividad
+              <button onclick="addCampCreative()"
+                class="mt-4 w-full py-2.5 text-xs font-semibold text-white bg-purple-600 hover:bg-purple-700 rounded-lg transition-all flex items-center justify-center gap-2">
+                + Guardar creatividad en este grupo
               </button>
             </div>
 
-            <!-- Lista de creatividades guardadas -->
-            <div class="bg-white rounded-xl border border-slate-200 p-5">
-              <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-4">Creatividades de esta campaña</div>
-              <div id="creat-saved-list" class="space-y-3">
-                <div class="flex flex-col items-center justify-center h-48 text-slate-300 text-center">
-                  <div class="text-4xl mb-2">🖼</div>
-                  <div class="text-xs">Sin creatividades aún.<br>Añade imágenes, carruseles o videos.</div>
+            <!-- ─ Panel derecho: Lista agrupada por grupo de anuncio ─ -->
+            <div class="flex flex-col gap-4">
+              <div class="bg-white rounded-xl border border-slate-200 p-5 flex-1">
+                <div class="flex items-center justify-between mb-4">
+                  <div class="text-xs font-semibold text-slate-500 uppercase tracking-wide">Creatividades por grupo</div>
+                  <div id="creat-count-badge" class="text-xs px-2 py-0.5 bg-purple-100 text-purple-700 rounded-full font-semibold hidden">0</div>
+                </div>
+                <div id="creat-saved-list" class="space-y-4">
+                  <div class="flex flex-col items-center justify-center h-48 text-slate-300 text-center">
+                    <div class="text-4xl mb-2">🗂</div>
+                    <div class="text-xs">Sin creatividades aún.<br>Añade una creatividad asignándola a un grupo de anuncio.</div>
+                  </div>
                 </div>
               </div>
 
-              <div class="mt-4 pt-4 border-t border-slate-100">
-                <button onclick="showCampStep(4)"
-                  class="w-full py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-lg hover:bg-emerald-700 transition-colors flex items-center justify-center gap-2">
-                  🚀 Continuar a Publicar →
-                </button>
-              </div>
+              <button onclick="showCampStep(4)"
+                class="w-full py-2.5 bg-emerald-600 text-white text-sm font-semibold rounded-lg hover:bg-emerald-700 transition-colors flex items-center justify-center gap-2 shrink-0">
+                🚀 Continuar a Publicar →
+              </button>
             </div>
           </div>
         </div>
@@ -7112,10 +7142,11 @@ let campCreativeType  = 'imagen';
 
   // ── Añadir creatividad al listado de la campaña ───────────
   function addCampCreative() {
+    const adgroup  = document.getElementById('creat-adgroup')?.value.trim()  || 'Sin grupo';
     const copy     = document.getElementById('creat-copy')?.value.trim()     || '';
     const headline = document.getElementById('creat-headline')?.value.trim() || '';
     const cta      = document.getElementById('creat-cta')?.value.trim()      || '';
-    let creative = { id: 'cr' + Date.now(), type: campCreativeType, copy, headline, cta };
+    let creative = { id: 'cr' + Date.now(), type: campCreativeType, adgroup, copy, headline, cta };
 
     if (campCreativeType === 'imagen') {
       const url = document.getElementById('creat-img-url')?.value.trim() || '';
@@ -7133,7 +7164,7 @@ let campCreativeType  = 'imagen';
     }
 
     campCreatives.push(creative);
-    // Clear fields
+    // Clear fields (keep adgroup so user can add multiple to same group)
     ['creat-img-url','creat-vid-url','creat-copy','creat-headline','creat-cta'].forEach(id => {
       const el = document.getElementById(id); if (el) el.value = '';
     });
@@ -7141,7 +7172,7 @@ let campCreativeType  = 'imagen';
     const vprev = document.getElementById('creat-vid-preview'); if (vprev) vprev.classList.add('hidden');
 
     renderCampCreatives();
-    showToast('Creatividad guardada');
+    showToast('✓ Creatividad guardada en "' + adgroup + '"');
   }
 
   function removeCampCreative(id) {
@@ -7150,26 +7181,94 @@ let campCreativeType  = 'imagen';
   }
 
   function renderCampCreatives() {
-    const el = document.getElementById('creat-saved-list');
+    const el       = document.getElementById('creat-saved-list');
+    const badge    = document.getElementById('creat-count-badge');
     if (!el) return;
-    if (!campCreatives.length) { el.innerHTML = ''; return; }
-    const icons = { imagen:'📸', carrusel:'🎠', video:'🎬' };
-    el.innerHTML = campCreatives.map(c => {
-      const hasImg = c.url && (c.url.startsWith('data:image') || c.url.match(/\.(jpg|jpeg|png|gif|webp)/i));
-      const thumb  = hasImg ? `<img src="${c.url}" class="w-10 h-10 object-cover rounded border border-slate-200 shrink-0">` :
-                              `<span class="w-10 h-10 bg-purple-100 rounded flex items-center justify-center text-lg shrink-0">${icons[c.type]||'📄'}</span>`;
-      return `<div class="flex items-center gap-2 bg-purple-50 border border-purple-100 rounded-lg p-2.5 text-xs">
-        ${thumb}
-        <div class="flex-1 min-w-0">
-          <div class="font-semibold text-slate-700">${icons[c.type]} ${c.type.charAt(0).toUpperCase()+c.type.slice(1)} ${c.slides?'('+c.slides.length+' img)':''}</div>
-          ${c.headline?`<div class="text-slate-500 truncate">${escHtml(c.headline)}</div>`:''}
+
+    if (!campCreatives.length) {
+      el.innerHTML = '<div class="flex flex-col items-center justify-center h-48 text-slate-300 text-center"><div class="text-4xl mb-2">🗂</div><div class="text-xs">Sin creatividades aún.<br>Añade una creatividad asignándola a un grupo.</div></div>';
+      if (badge) badge.classList.add('hidden');
+      // Update suggestions
+      _updateAdGroupSuggestions();
+      return;
+    }
+
+    if (badge) { badge.textContent = campCreatives.length; badge.classList.remove('hidden'); }
+
+    // Group by adgroup
+    const groups = {};
+    campCreatives.forEach(c => {
+      const g = c.adgroup || 'Sin grupo';
+      if (!groups[g]) groups[g] = [];
+      groups[g].push(c);
+    });
+
+    const icons    = { imagen:'📸', carrusel:'🎠', video:'🎬' };
+    const bgColors = ['bg-blue-50 border-blue-200','bg-purple-50 border-purple-200','bg-emerald-50 border-emerald-200','bg-amber-50 border-amber-200','bg-rose-50 border-rose-200'];
+    const dotColors= ['bg-blue-400','bg-purple-400','bg-emerald-400','bg-amber-400','bg-rose-400'];
+    const groupKeys = Object.keys(groups);
+
+    el.innerHTML = groupKeys.map((groupName, gi) => {
+      const bg  = bgColors[gi % bgColors.length];
+      const dot = dotColors[gi % dotColors.length];
+      const items = groups[groupName];
+      const itemsHtml = items.map(c => {
+        const hasImg = c.url && (c.url.startsWith('data:image') || c.url.match(/\.(jpg|jpeg|png|gif|webp)/i));
+        const thumb  = hasImg
+          ? `<img src="${c.url}" class="w-10 h-10 object-cover rounded-lg border border-white shrink-0">`
+          : `<span class="w-10 h-10 bg-white rounded-lg border border-white flex items-center justify-center text-base shrink-0">${icons[c.type]||'📄'}</span>`;
+        return `<div class="flex items-center gap-2.5 bg-white rounded-lg p-2.5 border border-white/80 shadow-sm">
+          ${thumb}
+          <div class="flex-1 min-w-0">
+            <div class="text-xs font-semibold text-slate-700">${icons[c.type]} ${c.type.charAt(0).toUpperCase()+c.type.slice(1)}${c.slides?' ('+c.slides.length+' img)':''}</div>
+            ${c.headline ? `<div class="text-xs text-slate-500 truncate">${escHtml(c.headline)}</div>` : ''}
+            ${c.copy ? `<div class="text-xs text-slate-400 truncate italic">"${escHtml(c.copy.substring(0,50))}${c.copy.length>50?'…':''}"</div>` : ''}
+          </div>
+          <button onclick="removeCampCreative('${c.id}')" class="text-slate-300 hover:text-red-400 transition-all text-sm shrink-0" title="Eliminar">✕</button>
+        </div>`;
+      }).join('');
+
+      return `<div class="rounded-xl border ${bg} overflow-hidden">
+        <div class="flex items-center justify-between px-3 py-2 border-b border-white/60">
+          <div class="flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full ${dot} shrink-0"></span>
+            <span class="text-xs font-bold text-slate-700">${escHtml(groupName)}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-slate-400">${items.length} creatividad${items.length !== 1 ? 'es' : ''}</span>
+            <button onclick="creatSetGroup('${escHtml(groupName).replace(/'/g,"\'")}')"
+              class="text-xs text-purple-500 hover:text-purple-700 font-medium transition-all" title="Añadir más a este grupo">+ Añadir</button>
+          </div>
         </div>
-        <button onclick="removeCampCreative('${c.id}')" class="text-slate-300 hover:text-red-500 transition-all">✕</button>
+        <div class="p-2 space-y-2">${itemsHtml}</div>
       </div>`;
     }).join('');
-    // Show activate button once there's a creative
-    const btn = document.getElementById('btn-camp-activate');
-    if (btn) btn.style.display = campCreatives.length ? '' : 'none';
+
+    _updateAdGroupSuggestions();
+  }
+
+  // Set the adgroup field to an existing group name (quick-add to same group)
+  function creatSetGroup(name) {
+    const el = document.getElementById('creat-adgroup');
+    if (el) { el.value = name; el.focus(); }
+    window.scrollTo({ top: document.getElementById('creat-adgroup')?.getBoundingClientRect().top + window.scrollY - 100, behavior:'smooth' });
+  }
+
+  // Show/hide existing group suggestions
+  function creatPickAdGroup() {
+    const sug = document.getElementById('creat-adgroup-suggestions');
+    if (!sug) return;
+    const groups = [...new Set(campCreatives.map(c => c.adgroup || 'Sin grupo'))];
+    if (!groups.length) { showToast('Aún no hay grupos creados'); return; }
+    sug.innerHTML = groups.map(g =>
+      `<button onclick="creatSetGroup('${escHtml(g).replace(/'/g,"\'")}')" class="text-xs px-2.5 py-1 bg-amber-100 text-amber-700 rounded-full hover:bg-amber-200 transition-all font-medium">${escHtml(g)}</button>`
+    ).join('');
+    sug.classList.toggle('hidden');
+  }
+
+  function _updateAdGroupSuggestions() {
+    const sug = document.getElementById('creat-adgroup-suggestions');
+    if (sug) sug.classList.add('hidden');
   }
 
   // ── Mostrar botón activar cuando hay plan ─────────────────
